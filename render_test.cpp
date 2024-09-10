@@ -8,6 +8,8 @@
 #include "render2png.h"
 #include "litehtml/html.h"
 
+namespace fs = std::filesystem;
+
 std::vector<std::string> find_htm_files(std::string dir);
 bool test(std::string filename);
 
@@ -88,7 +90,7 @@ int main(int argc, char* argv[])
 
 #include <gtest/gtest.h>
 
-std::string test_dir = "../test/render"; // ctest is run from litehtml/build
+std::string test_dir = fs::path(__FILE__).parent_path() / "render";
 
 using render_test = testing::TestWithParam<std::string>;
 
