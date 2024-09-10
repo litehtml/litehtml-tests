@@ -1,6 +1,17 @@
 #!/bin/bash
 
 # This script builds and runs tests inside docker
+litehtml_path=$1
+threads=$2
+
+if [ -z "$litehtml_path" ]; then
+	echo "Usage: $0 <litehtml_path> [threads]"
+	exit 1
+fi
+
+if [ -z "threads" ]; then
+	threads=4
+fi
 
 if [[ "$IN_DOCKER" = "TRUE" ]]; then
 	# We are inside container
@@ -8,11 +19,11 @@ if [[ "$IN_DOCKER" = "TRUE" ]]; then
 	mkdir -p /tmp/build
 	cd /tmp/build
 	# Run CMake for testing
-	cmake -DLITEHTML_BUILD_TESTING=ON /litehtml
+	cmake -DLITEHTML_PATH=/litehtml /litehtml-tests
 	# Build litehtml
-	make -j14
+	make -j$threads
 	# Run tests
-	ctest -j14
+	ctest -j$threads
 else
 	# We are on the host.
 	# Check if the docker image exists
@@ -25,5 +36,5 @@ else
 		echo "The image litehtml-build:latest already exists"
 	fi
 	# Run this script in the docker container
-	docker run --rm -it -v $(realpath ../):/litehtml:rw -e IN_DOCKER=TRUE -u $(id -u $USER):$(id -g $USER) litehtml-build:latest /litehtml/test/run_render_tests.sh
+	docker run --rm -it -v "$(pwd):/litehtml-tests" -v "$(realpath $litehtml_path):/litehtml" -e IN_DOCKER=TRUE -u "$(id -u $USER):$(id -g $USER)" litehtml-build:latest /litehtml-tests/run_render_tests.sh $*
 fi
