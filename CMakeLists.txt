@@ -47,8 +47,8 @@ if (LITEHTML_BUILD_RENDER2PNG)
 			${LITEHTML_PATH}/containers/cairo/container_cairo_pango.h
 			${LITEHTML_PATH}/containers/cairo/render2png.cpp
 			${LITEHTML_PATH}/containers/cairo/cairo_images_cache.h
-			${LITEHTML_PATH}/test/fonts.h
-			${LITEHTML_PATH}/test/fonts.cpp
+			fonts.h
+			fonts.cpp
 	)
 
 	set_target_properties(${RENDER2PNG_NAME} PROPERTIES
@@ -60,11 +60,13 @@ if (LITEHTML_BUILD_RENDER2PNG)
 	target_include_directories(
 			${RENDER2PNG_NAME}
 			PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/containers/cairo
-			PRIVATE ${RENDER2PNG_LIBS_INCLUDE_DIRS}
+			${LITEHTML_PATH}/include
+			${RENDER2PNG_LIBS_INCLUDE_DIRS}
+			${LITEHTML_PATH}/containers/cairo/
 	)
 
 	target_link_options(${RENDER2PNG_NAME} PRIVATE ${RENDER2PNG_LIBS_LDFLAGS})
-	target_link_libraries(${RENDER2PNG_NAME} PRIVATE ${PROJECT_NAME} ${RENDER2PNG_LIBS_LIBRARIES})
+	target_link_libraries(${RENDER2PNG_NAME} PRIVATE litehtml ${RENDER2PNG_LIBS_LIBRARIES})
 
 endif ()
 
