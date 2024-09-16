@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
 
 project(litehtml-test LANGUAGES C CXX)
+cmake_policy(SET CMP0135 NEW)
 
-add_subdirectory(${LITEHTML_PATH} litehtml)
+if (NOT TARGET litehtml)
+	add_subdirectory(${LITEHTML_PATH} litehtml)
+endif ()
 
 set(TESTS_SRC
 		encodings_test.cpp
@@ -123,3 +126,7 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+if (LITEHTML_BUILD_MANAGE_FAILED)
+	add_subdirectory(manage_failed manage_failed)
+endif()
