@@ -25,6 +25,8 @@ set(TESTS_SRC
 		${LITEHTML_PATH}/containers/cairo/container_cairo_pango.h
 		${LITEHTML_PATH}/containers/cairo/render2png.cpp
 		${LITEHTML_PATH}/containers/cairo/render2png.h
+		${LITEHTML_PATH}/containers/cairo/conic_gradient.h
+		${LITEHTML_PATH}/containers/cairo/conic_gradient.cpp
 )
 
 # additional warnings
@@ -50,6 +52,8 @@ if (LITEHTML_BUILD_RENDER2PNG)
 			${LITEHTML_PATH}/containers/cairo/container_cairo_pango.h
 			${LITEHTML_PATH}/containers/cairo/render2png.cpp
 			${LITEHTML_PATH}/containers/cairo/cairo_images_cache.h
+			${LITEHTML_PATH}/containers/cairo/conic_gradient.h
+			${LITEHTML_PATH}/containers/cairo/conic_gradient.cpp
 			fonts.h
 			fonts.cpp
 	)
