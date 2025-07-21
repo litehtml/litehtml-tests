@@ -118,7 +118,11 @@ MainWindow::MainWindow(const std::string& path) : m_path(path), m_current_test(-
 	m_failed_image.set_alignment(0, 0);
 	m_failed_image.show();
 
-	m_path = fs::path(__FILE__).parent_path().parent_path() / "render";
+	if (m_path.empty())
+	{
+		m_path = fs::path(__FILE__).parent_path().parent_path() / "render";
+	}
+
 	scan_tests();
 }
 
