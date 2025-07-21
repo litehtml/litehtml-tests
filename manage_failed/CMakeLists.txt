@@ -14,6 +14,7 @@ add_executable(manage_failed main.cpp
 
 include_directories(manage_failed ${LB_LIBS_INCLUDE_DIRS})
 target_link_options(manage_failed PRIVATE ${LB_LIBS_LDFLAGS})
+target_link_libraries(manage_failed ${LB_LIBS_LIBRARIES})
 
 set_target_properties(manage_failed PROPERTIES
 		CXX_STANDARD 17
