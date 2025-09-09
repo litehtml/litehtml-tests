@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        .flexbox {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 500px;
+            height: 20px;
+            background-color: blue;
+        }
+        .item1 {
+            flex-grow: 10;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+        }
+        .item2 {
+            flex-grow: 1;
+            width: 10px;
+            min-width: 100px;
+            height: 10px;
+            background-color: green;
+        }
+    </style>
+</head>
+<html>
+    <div class="flexbox">
+        <span class="item1">hello</span>
+        <span class="item2">world</span>
+    </div>
+</html>
