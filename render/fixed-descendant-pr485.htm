@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+	body { margin: 0; font-family: sans-serif; }
+	#early-section p { height: 80px; margin: 4px; background: #eef; }
+	#fixedbar {
+		position: fixed; top: 0; left: 0; right: 0; height: 40px;
+		background: #005500; color: white; z-index: 10;
+	}
+	#later p { height: 80px; margin: 4px; background: #ffe; }
+</style>
+</head>
+<body>
+	<div id="early-section">
+		<div id="fixedbar">FIXED BAR — must stay visible when the page is scrolled</div>
+		<p>early 01</p><p>early 02</p><p>early 03</p><p>early 04</p><p>early 05</p>
+		</div>
+	<div id="later">
+		<p>later 01</p><p>later 02</p><p>later 03</p><p>later 04</p><p>later 05</p>
+		<p>later 06</p><p>later 07</p><p>later 08</p><p>later 09</p><p>later 10</p>
+	</div>
+</body>
+</html>
