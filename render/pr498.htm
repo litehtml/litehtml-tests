@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 8px; background: #fff; }
+table { border-collapse: collapse; }
+.case { height: 100px; }
+td { vertical-align: top; padding: 0; }
+.a { width: 100px; height: 20px; background: #f00; }
+.b { width: 100px; height: 20px; background: #00f; }
+
+/* 1: cells in a row have different bottom borders */
+.t1 td.t { border: 1px solid #000; }
+.t1 td.k { border-bottom: 3px solid #000; }
+
+/* 2: thick borders on the table's outer edges */
+.t2 td.t { border-top: 4px solid #000; border-bottom: 2px solid #000; }
+.t2 td.k { border-bottom: 5px solid #000; }
+
+/* 3: the table's own border plus cell borders */
+.t3 { border: 3px solid #000; }
+.t3 td { padding: 2px; border: 1px solid #000; }
+.t3 td.k { border-bottom: 4px solid #000; }
+</style>
+</head>
+<body>
+<div class="case"><table class="t1">
+<tr><td class="t"><div class="a"></div></td><td class="k"><div class="b"></div></td></tr>
+<tr><td class="t"><div class="a"></div></td><td><div class="b"></div></td></tr>
+<tr><td class="t"><div class="a"></div></td><td class="k"><div class="b"></div></td></tr>
+</table></div>
+<div class="case"><table class="t2">
+<tr><td class="t"><div class="a"></div></td><td><div class="b"></div></td></tr>
+<tr><td class="t"><div class="a"></div></td><td class="k"><div class="b"></div></td></tr>
+</table></div>
+<div class="case"><table class="t3">
+<tr><td><div class="a"></div></td><td class="k"><div class="b"></div></td></tr>
+<tr><td><div class="a"></div></td><td><div class="b"></div></td></tr>
+</table></div>
+</body>
+</html>
