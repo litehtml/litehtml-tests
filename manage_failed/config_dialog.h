@@ -1,9 +1,8 @@
 #ifndef LITEHTML_TESTSUITE_CONFIG_DIALOG_H
 #define LITEHTML_TESTSUITE_CONFIG_DIALOG_H
 
-#include <gtkmm/dialog.h>
-#include <gtkmm/textview.h>
-#include <gtkmm/scrolledwindow.h>
+#include <gtkmm.h>
+#include <string>
 
 class html_config_dialog : public Gtk::Dialog
 {

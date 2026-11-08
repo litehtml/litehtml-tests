@@ -4,119 +4,99 @@
 #include <iostream>
 #include <unistd.h>
 #include <linux/limits.h>
+#include <giomm/appinfo.h>
 #include "config_dialog.h"
 
 namespace fs = std::filesystem;
 
+namespace
+{
+	void set_tool_button(Gtk::Button& button, const std::string& icon_name, const std::string& label)
+	{
+		auto box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::VERTICAL, 0);
+		auto icon = Gtk::make_managed<Gtk::Image>();
+		icon->set_from_icon_name(icon_name);
+		auto text = Gtk::make_managed<Gtk::Label>(label);
+		box->append(*icon);
+		box->append(*text);
+		button.set_child(*box);
+	}
+}
+
 MainWindow::MainWindow(const std::string& path) : m_path(path), m_current_test(-1)
 {
 	set_titlebar(m_header);
-	m_header.show();
 
-	m_header.set_show_close_button(true);
-	m_header.property_spacing().set_value(10);
+	m_header.set_show_title_buttons(true);
 
 	m_header.pack_start(m_btnCfg);
-	m_btnCfg.show();
 	m_btnCfg.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnCfg_clicked) );
-	m_btnCfg.set_image_position(Gtk::POS_TOP);
-	m_btnCfg.set_label("Config");
-	m_btnCfg.set_image_from_icon_name("accessories-text-editor-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnCfg, "accessories-text-editor-symbolic", "Config");
 
 	m_header.pack_start(m_btnBack);
-	m_btnBack.show();
 	m_btnBack.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnBack_clicked) );
-	m_btnBack.set_image_position(Gtk::POS_TOP);
-	m_btnBack.set_label("Back");
-	m_btnBack.set_image_from_icon_name("media-skip-backward-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnBack, "media-skip-backward-symbolic", "Back");
 
 	m_header.pack_start(m_btnNext);
-	m_btnNext.show();
 	m_btnNext.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnNext_clicked) );
-	m_btnNext.set_image_position(Gtk::POS_TOP);
-	m_btnNext.set_label("Next");
-	m_btnNext.set_image_from_icon_name("media-skip-forward-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnNext, "media-skip-forward-symbolic", "Next");
 
 	m_header.pack_start(m_sep);
-	m_sep.show();
 
 	m_header.pack_start(m_btnApprove);
-	m_btnApprove.show();
 	m_btnApprove.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnApprove_clicked) );
-	m_btnApprove.set_image_position(Gtk::POS_TOP);
-	m_btnApprove.set_label("Approve");
-	m_btnApprove.set_image_from_icon_name("emblem-default-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnApprove, "emblem-default-symbolic", "Approve");
 
 	m_header.pack_start(m_btnIgnore);
-	m_btnIgnore.show();
 	m_btnIgnore.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnIgnore_clicked) );
-	m_btnIgnore.set_image_position(Gtk::POS_TOP);
-	m_btnIgnore.set_label("Ignore");
-	m_btnIgnore.set_image_from_icon_name("media-seek-forward-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnIgnore, "media-seek-forward-symbolic", "Ignore");
 
 	m_header.pack_start(m_btnDisable);
-	m_btnDisable.show();
 	m_btnDisable.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnDisable_clicked) );
-	m_btnDisable.set_image_position(Gtk::POS_TOP);
-	m_btnDisable.set_label("Disable");
-	m_btnDisable.set_image_from_icon_name("off-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnDisable, "off-symbolic", "Disable");
 
 	m_header.pack_end(m_btnSave);
-	m_btnSave.show();
 	m_btnSave.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnSave_clicked) );
-	m_btnSave.set_image_position(Gtk::POS_TOP);
-	m_btnSave.set_label("Save");
-	m_btnSave.set_image_from_icon_name("document-save-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnSave, "document-save-symbolic", "Save");
 
 	m_header.pack_end(m_btnBrowser);
-	m_btnBrowser.show();
 	m_btnBrowser.signal_clicked().connect( sigc::mem_fun(*this, &MainWindow::on_btnBrowser_clicked) );
-	m_btnBrowser.set_image_position(Gtk::POS_TOP);
-	m_btnBrowser.set_label("Browser");
-	m_btnBrowser.set_image_from_icon_name("network-workgroup-symbolic", Gtk::ICON_SIZE_BUTTON);
+	set_tool_button(m_btnBrowser, "network-workgroup-symbolic", "Browser");
 
-	m_header.set_custom_title(m_labelTitle);
-	m_labelTitle.show();
-	m_labelTitle.set_hexpand_set(true);
-	m_labelTitle.set_hexpand();
-	m_labelTitle.show();
+	m_header.set_title_widget(m_labelTitle);
+	m_labelTitle.set_hexpand(true);
 
-	add(m_vbox);
-	m_vbox.show();
+	set_child(m_vbox);
 
-	m_vbox.pack_start(m_labelFile, Gtk::PACK_SHRINK, 0);
-	m_labelFile.show();
+	m_vbox.append(m_labelFile);
 
-	m_vbox.pack_start(m_hbox, Gtk::PACK_EXPAND_WIDGET, 10);
-	m_hbox.show();
+	m_vbox.append(m_hbox);
 
-	m_hbox.pack_start(m_frameOK, Gtk::PACK_EXPAND_WIDGET, 10);
-	m_frameOK.set_label_align(0.5);
-	m_frameOK.show();
+	m_hbox.append(m_frameOK);
+	m_frameOK.set_hexpand(true);
+	m_frameOK.set_label_align(0.5f);
 
-	m_frameOK.add(m_vbox_ok);
-	m_vbox_ok.show();
-	m_vbox_ok.pack_start(m_image, Gtk::PACK_EXPAND_WIDGET, 0);
+	m_frameOK.set_child(m_vbox_ok);
+	m_vbox_ok.append(m_image);
 	m_image.set_margin_top(10);
 	m_image.set_margin_bottom(10);
-	m_image.set_margin_left(10);
-	m_image.set_margin_right(10);
-	m_image.set_alignment(1, 0);
-	m_image.show();
+	m_image.set_margin_start(10);
+	m_image.set_margin_end(10);
+	m_image.set_halign(Gtk::Align::END);
+	m_image.set_valign(Gtk::Align::START);
 
-	m_hbox.pack_start(m_frameFAILED, Gtk::PACK_EXPAND_WIDGET, 10);
-	m_frameFAILED.show();
+	m_hbox.append(m_frameFAILED);
+	m_frameFAILED.set_hexpand(true);
 
-	m_frameFAILED.add(m_vbox_failed);
-	m_vbox_failed.show();
-	m_vbox_failed.pack_start(m_failed_image, Gtk::PACK_EXPAND_WIDGET, 0);
-	m_frameFAILED.set_label_align(0.5);
+	m_frameFAILED.set_child(m_vbox_failed);
+	m_vbox_failed.append(m_failed_image);
+	m_frameFAILED.set_label_align(0.5f);
 	m_failed_image.set_margin_top(10);
 	m_failed_image.set_margin_bottom(10);
-	m_failed_image.set_margin_left(10);
-	m_failed_image.set_margin_right(10);
-	m_failed_image.set_alignment(0, 0);
-	m_failed_image.show();
+	m_failed_image.set_margin_start(10);
+	m_failed_image.set_margin_end(10);
+	m_failed_image.set_halign(Gtk::Align::START);
+	m_failed_image.set_valign(Gtk::Align::START);
 
 	if (m_path.empty())
 	{
@@ -149,7 +129,15 @@ void MainWindow::on_btnBrowser_clicked()
 {
 	if(index_is_valid(m_current_test))
 	{
-		gtk_show_uri_on_window(nullptr, ("file://" + m_tests[m_current_test].html).c_str(), 0, nullptr);
+		try
+		{
+			Gio::AppInfo::launch_default_for_uri("file://" + m_tests[m_current_test].html);
+		} catch (const Gio::Error&)
+		{
+			auto dialog = Gtk::AlertDialog::create("Error");
+			dialog->set_detail("Failed to open the file in a browser");
+			dialog->show(*this);
+		}
 	}
 }
 
@@ -188,8 +176,9 @@ void MainWindow::on_btnSave_clicked()
 				fs::rename(path_from, path_to);
 			} catch (std::filesystem::filesystem_error const& ex)
 			{
-				Gtk::MessageDialog dialog(ex.what(), false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-				dialog.run();
+				auto dialog = Gtk::AlertDialog::create("Error");
+				dialog->set_detail(ex.what());
+				dialog->show(*this);
 			}
 		} else if(test.action == test_action_disable)
 		{
@@ -202,8 +191,9 @@ void MainWindow::on_btnSave_clicked()
 				fs::remove(path_failed);
 			} catch (std::filesystem::filesystem_error const& ex)
 			{
-				Gtk::MessageDialog dialog(ex.what(), false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-				dialog.run();
+				auto dialog = Gtk::AlertDialog::create("Error");
+				dialog->set_detail(ex.what());
+				dialog->show(*this);
 			}
 		}
 	}
@@ -223,24 +213,23 @@ void MainWindow::load_render_test(const std::string &path)
 	{
 		auto pixbuf_failed = Gdk::Pixbuf::create_from_file(path + "-FAILED.png");
 		ss_FAILED << "[" << pixbuf_failed->get_width() << "x" << pixbuf_failed->get_height() << "]";
-		m_failed_image.set(pixbuf_failed);
+		m_failed_image.set_pixbuf(pixbuf_failed);
 	} catch (...)
 	{
-		m_failed_image.set_from_icon_name("image-missing-symbolic", Gtk::ICON_SIZE_DIALOG);
+		m_failed_image.set_pixbuf({});
 	}
 	try
 	{
 		auto pixbuf_ok = Gdk::Pixbuf::create_from_file(path + ".png");
 		ss_OK << "[" << pixbuf_ok->get_width() << "x" << pixbuf_ok->get_height() << "]";
-		m_image.set(pixbuf_ok);
+		m_image.set_pixbuf(pixbuf_ok);
 	} catch (...)
 	{
-		m_image.set_from_icon_name("image-missing-symbolic", Gtk::ICON_SIZE_DIALOG);
+		m_image.set_pixbuf({});
 	}
 	m_labelFile.set_label("[ " + m_tests[m_current_test].status() + " ] " + path);
 	m_frameOK.set_label(fs::path(path).filename().string() + ".png " + ss_OK.str());
 	m_frameFAILED.set_label(fs::path(path).filename().string() + "-FAILED.png " + ss_FAILED.str());
-	resize(1, 1);
 }
 
 void MainWindow::scan_tests()
@@ -305,21 +294,37 @@ void MainWindow::on_btnCfg_clicked()
 {
 	if(index_is_valid(m_current_test))
 	{
-		html_config_dialog dlg(*this, m_tests[m_current_test].html);
-		if(dlg.run() == Gtk::RESPONSE_APPLY)
+		std::string html_path = m_tests[m_current_test].html;
+		auto* dlg = new html_config_dialog(*this, html_path);
+		dlg->set_transient_for(*this);
+		dlg->signal_response().connect([this, dlg, html_path](int response)
 		{
-			char self_path[PATH_MAX];
-			ssize_t count = readlink("/proc/self/exe", self_path, PATH_MAX);
-			if(count != -1)
+			if(response == Gtk::ResponseType::APPLY)
 			{
-				fs::path render2png_path = (fs::path(self_path).parent_path().parent_path() / "render2png");
-				if(exists(render2png_path))
-				{
-					std::string cmd = "\"" + render2png_path.string() + "\" \"" + m_tests[m_current_test].html +
-							"\" \"" + m_tests[m_current_test].html + "-FAILED.png\"";
-					system(cmd.c_str());
-					load_render_test(m_tests[m_current_test].html);
-				}
+				run_render2png(html_path);
+			}
+			delete dlg;
+		});
+		dlg->present();
+	}
+}
+
+void MainWindow::run_render2png(const std::string& html_path)
+{
+	char self_path[PATH_MAX];
+	ssize_t count = readlink("/proc/self/exe", self_path, PATH_MAX);
+	if(count != -1)
+	{
+		self_path[count] = '\0';
+		fs::path render2png_path = (fs::path(self_path).parent_path().parent_path() / "render2png");
+		if(exists(render2png_path))
+		{
+			std::string cmd = "\"" + render2png_path.string() + "\" \"" + html_path +
+					"\" \"" + html_path + "-FAILED.png\"";
+			system(cmd.c_str());
+			if(index_is_valid(m_current_test) && m_tests[m_current_test].html == html_path)
+			{
+				load_render_test(html_path);
 			}
 		}
 	}

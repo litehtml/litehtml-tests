@@ -4,7 +4,7 @@ project(manage_failed)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(LB_LIBS REQUIRED gdkmm-3.0 gtkmm-3.0 libcurl cairo pango pangocairo)
+pkg_check_modules(LB_LIBS REQUIRED gtkmm-4.0)
 
 add_executable(manage_failed main.cpp
 		main_window.cpp
@@ -12,7 +12,7 @@ add_executable(manage_failed main.cpp
 		config_dialog.cpp
 		config_dialog.h)
 
-include_directories(manage_failed ${LB_LIBS_INCLUDE_DIRS})
+target_include_directories(manage_failed PRIVATE ${LB_LIBS_INCLUDE_DIRS})
 target_link_options(manage_failed PRIVATE ${LB_LIBS_LDFLAGS})
 target_link_libraries(manage_failed ${LB_LIBS_LIBRARIES})
 

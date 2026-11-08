@@ -1,10 +1,10 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include <gtkmm/window.h>
+#include <gtkmm.h>
 #include <string>
 #include <utility>
-#include <gtkmm.h>
+#include <vector>
 
 enum test_action
 {
@@ -43,14 +43,14 @@ class MainWindow : public Gtk::Window
 	Gtk::Button		m_btnSave;
 	Gtk::Button		m_btnNext;
 	Gtk::Button		m_btnCfg;
-	Gtk::Separator	m_sep;
-	Gtk::HBox		m_hbox;
-	Gtk::VBox		m_vbox;
-	Gtk::Image		m_image;
-	Gtk::Image		m_failed_image;
+	Gtk::Separator	m_sep{Gtk::Orientation::VERTICAL};
+	Gtk::Box		m_hbox{Gtk::Orientation::HORIZONTAL, 10};
+	Gtk::Box		m_vbox{Gtk::Orientation::VERTICAL, 10};
+	Gtk::Picture	m_image;
+	Gtk::Picture	m_failed_image;
 	Gtk::Label		m_labelFile;
-	Gtk::VBox		m_vbox_ok;
-	Gtk::VBox		m_vbox_failed;
+	Gtk::Box		m_vbox_ok{Gtk::Orientation::VERTICAL};
+	Gtk::Box		m_vbox_failed{Gtk::Orientation::VERTICAL};
 	Gtk::Frame		m_frameOK;
 	Gtk::Frame		m_frameFAILED;
 	Gtk::Label		m_labelTitle;
@@ -74,6 +74,7 @@ private:
 	bool index_is_valid(int index) const { return index >= 0 && index < (int) m_tests.size(); }
 	void update_status();
 	void on_btnCfg_clicked();
+	void run_render2png(const std::string& html_path);
 };
 
 #endif //MAIN_WINDOW_H

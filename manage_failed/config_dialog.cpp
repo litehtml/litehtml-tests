@@ -1,34 +1,31 @@
 #include <filesystem>
 #include <fstream>
-#include <gtkmm/messagedialog.h>
+#include <sstream>
 #include "config_dialog.h"
 
 namespace fs = std::filesystem;
 
 html_config_dialog::html_config_dialog(Gtk::Window &parent, const std::string &html_path) :
-		Gtk::Dialog("HTML File Config", parent, Gtk::DIALOG_USE_HEADER_BAR | Gtk::DIALOG_MODAL),
+		Gtk::Dialog("HTML File Config", parent, true, true),
 		m_cfg_file(html_path + ".cfg")
 {
 	auto cfg_text = load_config();
 
-	add_button("Close", Gtk::RESPONSE_CLOSE);
+	add_button("Close", Gtk::ResponseType::CLOSE);
 
 	get_header_bar()->pack_start(m_btnSave);
 	m_btnSave.set_label("Save");
 	m_btnSave.signal_clicked().connect( sigc::mem_fun(*this, &html_config_dialog::on_btnSave_clicked) );
-	m_btnSave.show();
 
-	get_vbox()->pack_start(m_scrolled_wnd);
-	m_scrolled_wnd.add(m_text_view);
-	m_scrolled_wnd.show();
+	m_scrolled_wnd.set_hexpand(true);
+	m_scrolled_wnd.set_vexpand(true);
+	get_content_area()->append(m_scrolled_wnd);
+	m_scrolled_wnd.set_child(m_text_view);
 	m_text_view.set_editable(true);
 	m_text_view.set_monospace(true);
 	m_text_view.get_buffer()->set_text(cfg_text);
-	m_text_view.show();
 
 	set_default_size(400, 300);
-
-
 }
 
 std::string html_config_dialog::load_config()
@@ -62,8 +59,8 @@ bool html_config_dialog::save_config()
 	} catch(...) {}
 	if(!saved)
 	{
-		Gtk::MessageDialog dlg(*this, "ERROR: Impossible to save file", false, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, true);
-		dlg.run();
+		auto dlg = Gtk::AlertDialog::create("ERROR: Impossible to save file");
+		dlg->show(*this);
 	}
 	return saved;
 }
@@ -72,6 +69,6 @@ void html_config_dialog::on_btnSave_clicked()
 {
 	if(save_config())
 	{
-		response(Gtk::RESPONSE_APPLY);
+		response(Gtk::ResponseType::APPLY);
 	}
 }
