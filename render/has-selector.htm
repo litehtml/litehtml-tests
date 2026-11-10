@@ -1,0 +1,70 @@
+<!doctype html>
+<style>
+    body {
+        margin: 0;
+        font: 16px/24px sans-serif
+    }
+
+    .test {
+        display: block;
+        min-height: 24px;
+        margin: 0;
+        padding: 2px;
+        color: white;
+        background: #b00020
+    }
+
+    i.target-child {
+        display: none
+    }
+
+    .descendant:has(.target-child),
+    .child:has(> .target-child),
+    .adjacent:has(+ .target-child),
+    .general:has(~ .target-child),
+    .chain:has(> .first > .target-child) {
+        background: #087f23
+    }
+
+    #specificity,
+    #specificity-not {
+        background: #b00020
+    }
+
+    .specificity:has(> :is(#specificity-target, .missing)),
+    .specificity-not:has(> :not(#absent)) {
+        background: #087f23
+    }
+
+    .invalid-has:has(:unsupported, > .target-child) {
+        background: #087f23
+    }
+
+    .nested:has(.wrapper:has(.target-child)) {
+        background: #087f23
+    }
+
+    .pseudo:has(> ::before) {
+        background: #087f23
+    }
+
+    .boundary:has(.target) {
+        background: #087f23
+    }
+</style>
+
+<div class="test descendant">descendant
+    <span><i class="target-child"></i></span>
+</div>
+<div class="test child">child <i class="target-child"></i></div>
+<div class="test adjacent">adjacent sibling</div><i class="target-child"></i>
+<div class="test general">general sibling</div><i></i><i class="target-child"></i>
+<div class="test chain">chained child relation <span class="first"><i class="target-child"></i></span></div>
+<div class="test invalid-has">invalid argument invalidates :has() <i class="target-child"></i></div>
+<div class="test specificity" id="specificity"><i id="specificity-target"></i>:is() argument specificity wins</div>
+<div class="test specificity-not" id="specificity-not"><i></i>:not() argument specificity wins</div>
+<div class="test nested"><span class="wrapper"><i class="target-child"></i></span>nested :has() is rejected</div>
+<div class="test pseudo">pseudo-elements are rejected</div>
+<div class="target">
+    <div class="test boundary">match stays inside anchor</div>
+</div>
