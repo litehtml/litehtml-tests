@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid intrinsic and relative track sizes</title>
+    <style>
+        body {
+            margin: 0;
+            width: 300px;
+        }
+
+        .page {
+            height: 190px;
+        }
+
+        .grid {
+            display: grid;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .words {
+            height: 20px;
+            grid-template-columns: min-content max-content 1fr;
+            grid-template-rows: 20px;
+        }
+
+        .words div {
+            font: 10px/10px Ahem;
+            color: transparent;
+        }
+
+        .automatic {
+            height: 20px;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: 20px;
+        }
+
+        .automatic .a {
+            width: 72px;
+        }
+
+        .relative {
+            height: 20px;
+            font-size: 10px;
+            grid-template-columns: 2em 3em 1fr;
+            grid-template-rows: 20px;
+        }
+
+        .vertical {
+            grid-template-columns: 300px;
+            grid-template-rows: minmax(10px, 100px);
+            margin-bottom: 0;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid words">
+            <div class="a">XXXX XXXX</div>
+            <div class="b">XXXX XXXX</div>
+            <div class="c"></div>
+        </div>
+        <div class="grid automatic">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="grid relative">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+        </div>
+        <div class="grid vertical">
+            <div class="a"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid and grid-template shorthands</title>
+    <style>
+        body {
+            margin: 0;
+            width: 240px;
+        }
+
+        .page {
+            height: 250px;
+        }
+
+        .grid {
+            display: grid;
+            margin-bottom: 20px;
+        }
+
+        .grid:last-child {
+            margin-bottom: 0;
+        }
+
+        .tracks {
+            width: 200px;
+            grid: 20px 20px / 100px 100px;
+        }
+
+        .rowdense {
+            width: 240px;
+            grid: auto-flow dense 15px / repeat(3, 80px);
+        }
+
+        .rowdense .a {
+            grid-column: 3;
+            grid-row: 1;
+        }
+
+        .colflow {
+            width: 120px;
+            grid: 20px 20px / auto-flow 60px;
+            justify-content: start;
+        }
+
+        .area-template {
+            width: 160px;
+            grid-template: "a a" 20px "b c" 20px / 80px 80px;
+        }
+
+        .area-template .a {
+            grid-area: a;
+        }
+
+        .area-template .b {
+            grid-area: b;
+        }
+
+        .area-template .c {
+            grid-area: c;
+        }
+
+        .area-grid {
+            width: 160px;
+            grid: "x y" 20px / 80px 80px;
+        }
+
+        .area-grid .x {
+            grid-area: x;
+        }
+
+        .area-grid .y {
+            grid-area: y;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        .d {
+            background: #da3;
+        }
+
+        .x {
+            background: #d33;
+        }
+
+        .y {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid tracks">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+        </div>
+        <div class="grid rowdense">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+        </div>
+        <div class="grid colflow">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+        </div>
+        <div class="grid area-template">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+        </div>
+        <div class="grid area-grid">
+            <div class="x"></div>
+            <div class="y"></div>
+        </div>
+    </div>
+</body>
+
+</html>

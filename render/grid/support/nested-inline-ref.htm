@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reference for nested grid and inline-grid</title>
+    <style>
+        body {
+            margin: 0;
+            width: 220px;
+        }
+
+        .page {
+            position: relative;
+            width: 220px;
+            height: 120px;
+        }
+
+        .box {
+            position: absolute;
+        }
+
+        .span {
+            background: #d33;
+        }
+
+        .a {
+            background: #3a6;
+        }
+
+        .b {
+            background: #36c;
+        }
+
+        .c {
+            background: #da3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="box span" style="left:0;top:0;width:220px;height:30px"></div>
+        <div class="box a" style="left:0;top:50px;width:25px;height:30px"></div>
+        <div class="box b" style="left:25px;top:50px;width:75px;height:30px"></div>
+        <div class="box c" style="left:120px;top:50px;width:100px;height:30px"></div>
+        <div class="box a" style="left:0;top:100px;width:40px;height:20px"></div>
+        <div class="box b" style="left:50px;top:100px;width:140px;height:20px"></div>
+    </div>
+</body>
+
+</html>

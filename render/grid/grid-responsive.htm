@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid fractional sizing at different widths</title>
+    <style>
+        body {
+            margin: 0;
+            width: 620px;
+        }
+
+        .page {
+            height: 70px;
+        }
+
+        .grid {
+            display: grid;
+            height: 20px;
+            margin-bottom: 10px;
+            grid-template-columns: 1fr 2fr;
+            column-gap: 20px;
+        }
+
+        .narrow {
+            width: 320px;
+        }
+
+        .wide {
+            width: 620px;
+        }
+
+        .empty {
+            display: grid;
+            width: 620px;
+            height: 10px;
+            grid-template-columns: none;
+            grid-template-rows: none;
+            gap: normal;
+            background: #a4a;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid narrow">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="grid wide">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="empty"></div>
+    </div>
+</body>
+
+</html>

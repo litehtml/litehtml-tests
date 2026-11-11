@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid cascade, variables and feature queries</title>
+    <style>
+        body {
+            margin: 0;
+            width: 210px;
+        }
+
+        .grid {
+            display: grid;
+            width: 210px;
+            height: 50px;
+            grid-template-columns: 80px 120px;
+            grid-template-columns: repeat(auto-fit, 1fr);
+            grid-auto-rows: 20px;
+            grid-gap: 10px;
+            gap: -1px;
+            --place: 1 / span 1;
+        }
+
+        .a {
+            grid-column-start: 2 !important;
+            grid-column: var(--place);
+            grid-row: 1;
+            background: #d33;
+        }
+
+        .b {
+            grid-column: 1;
+            grid-row: 1;
+            background: #d33;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        @supports (grid-template-columns: 1fr) {
+            .b {
+                background: #3a6;
+            }
+        }
+
+        @supports (grid-auto-flow: row dense) {
+            .b {
+                background: #a4a;
+            }
+        }
+
+        @supports (grid-template-columns: [named] 1fr) {
+            .b {
+                background: #a4a;
+            }
+        }
+
+        @supports (grid-template: 1fr / 1fr) {
+            .b {
+                background: #a4a;
+            }
+        }
+
+        @supports (grid-template-columns: minmax(1fr, 2fr)) {
+            .b {
+                background: #a4a;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="a"></div>
+        <div class="b"></div>
+        <div class="c"></div>
+    </div>
+</body>
+
+</html>

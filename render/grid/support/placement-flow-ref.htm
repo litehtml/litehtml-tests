@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reference for Grid placement and flow</title>
+    <style>
+        body {
+            margin: 0;
+            width: 300px;
+        }
+
+        .page {
+            position: relative;
+            width: 300px;
+            height: 120px;
+        }
+
+        .box {
+            position: absolute;
+            height: 20px;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        .d {
+            background: #da3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="box a" style="left:100px;top:0;width:100px"></div>
+        <div class="box b" style="left:0;top:20px;width:200px"></div>
+        <div class="box c" style="left:200px;top:20px;width:100px"></div>
+        <div class="box d" style="left:0;top:40px;width:100px"></div>
+        <div class="box a" style="left:0;top:100px;width:60px"></div>
+        <div class="box b" style="left:0;top:80px;width:60px"></div>
+        <div class="box c" style="left:60px;top:80px;width:60px"></div>
+        <div class="box d" style="left:60px;top:100px;width:60px"></div>
+    </div>
+</body>
+
+</html>

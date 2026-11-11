@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Nested grid and inline-grid</title>
+    <style>
+        body {
+            margin: 0;
+            width: 220px;
+        }
+
+        .page {
+            height: 120px;
+        }
+
+        .outer {
+            display: grid;
+            width: 220px;
+            height: 80px;
+            margin-bottom: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 30px;
+            gap: 20px;
+        }
+
+        .span {
+            grid-column: span 2;
+            background: #d33;
+        }
+
+        .inner {
+            display: grid;
+            grid-template-columns: 25px 1fr;
+        }
+
+        .inline {
+            display: inline-grid;
+            vertical-align: top;
+            grid-template-columns: 40px 140px;
+            grid-template-rows: 20px;
+            column-gap: 10px;
+        }
+
+        .a {
+            background: #3a6;
+        }
+
+        .b {
+            background: #36c;
+        }
+
+        .c {
+            background: #da3;
+        }
+
+        .line {
+            height: 20px;
+            font-size: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="outer">
+            <div class="span"></div>
+            <div class="inner">
+                <div class="a"></div>
+                <div class="b"></div>
+            </div>
+            <div class="c"></div>
+        </div>
+        <div class="line"><span class="inline"><span class="a"></span><span class="b"></span></span></div>
+    </div>
+</body>
+
+</html>

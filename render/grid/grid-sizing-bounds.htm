@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid fractional and spanning size bounds</title>
+    <style>
+        body {
+            margin: 0;
+            width: 300px;
+        }
+
+        .page {
+            height: 100px;
+        }
+
+        .grid {
+            display: grid;
+            margin-bottom: 10px;
+            grid-auto-rows: 20px;
+        }
+
+        .fractions {
+            width: 300px;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        }
+
+        .zero {
+            width: 300px;
+            grid-template-columns: 0fr 1fr;
+        }
+
+        .zero .a {
+            width: 40px;
+        }
+
+        .bounded {
+            width: 120px;
+            grid-template-columns: minmax(auto, 50px) minmax(auto, 200px);
+            margin-bottom: 0;
+        }
+
+        .span {
+            grid-column: span 2;
+            width: 200px;
+            background: #d33;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid fractions">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="grid zero">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="grid bounded">
+            <div class="span"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+        </div>
+    </div>
+</body>
+
+</html>

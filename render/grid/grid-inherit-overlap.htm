@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Inherited Grid tracks and explicit overlap</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .page {
+            height: 80px;
+        }
+
+        .parent {
+            display: grid;
+            width: 200px;
+            height: 20px;
+            margin-bottom: 20px;
+            grid-template-columns: 90px 110px;
+            grid-template-rows: 20px;
+        }
+
+        .inner {
+            display: grid;
+            grid-column: span 2;
+            grid-template-columns: inherit;
+            grid-template-rows: 20px;
+        }
+
+        .overlap {
+            display: grid;
+            width: 200px;
+            height: 40px;
+            grid-template-columns: 100px 100px;
+            grid-template-rows: 40px;
+        }
+
+        .first {
+            grid-column: 1;
+            grid-row: 1;
+            background: #d33;
+        }
+
+        .second {
+            grid-column: 1;
+            grid-row: 1;
+            width: 50px;
+            height: 20px;
+            justify-self: center;
+            align-self: center;
+            background: #3a6;
+        }
+
+        .third {
+            grid-column: 2;
+            grid-row: 1;
+            background: #36c;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="parent">
+            <div class="inner">
+                <div class="a"></div>
+                <div class="b"></div>
+            </div>
+        </div>
+        <div class="overlap">
+            <div class="first"></div>
+            <div class="second"></div>
+            <div class="third"></div>
+        </div>
+    </div>
+</body>
+
+</html>
