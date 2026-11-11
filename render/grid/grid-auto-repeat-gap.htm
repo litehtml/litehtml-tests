@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid auto-repeat with gaps and percentages</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .page {
+            height: 50px;
+        }
+
+        .grid {
+            display: grid;
+            width: 200px;
+            height: 20px;
+            margin-bottom: 10px;
+            background: #eee;
+        }
+
+        .gaps {
+            grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+            column-gap: 10px;
+        }
+
+        .percent {
+            grid-template-columns: repeat(auto-fill, 25%);
+        }
+
+        .grid:last-child {
+            margin-bottom: 0;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        .d {
+            background: #da3;
+        }
+
+        .e {
+            background: #a4a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid gaps">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+            <div class="e"></div>
+        </div>
+        <div class="grid percent">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+        </div>
+    </div>
+</body>
+
+</html>

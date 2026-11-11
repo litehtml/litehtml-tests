@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reference for Grid row sizing</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100px;
+        }
+
+        .page {
+            position: relative;
+            width: 100px;
+            height: 260px;
+        }
+
+        .box {
+            position: absolute;
+            width: 100px;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="box a" style="top:0;height:20px"></div>
+        <div class="box b" style="top:30px;height:40px"></div>
+        <div class="box c" style="top:80px;height:80px"></div>
+        <div class="box a" style="top:180px;height:20px"></div>
+        <div class="box b" style="top:200px;height:60px"></div>
+    </div>
+</body>
+
+</html>

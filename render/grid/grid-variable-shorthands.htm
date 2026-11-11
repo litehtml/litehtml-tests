@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid custom properties and shorthand cascade</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .grid {
+            display: grid;
+            width: 200px;
+            height: 40px;
+            --tracks: 80px 110px;
+            --gaps: 5px 10px;
+            grid-template-columns: var(--tracks);
+            grid-auto-rows: 15px;
+            gap: var(--gaps);
+            row-gap: 10px;
+        }
+
+        .a {
+            --place: 2 / auto;
+            grid-column: var(--place) !important;
+            grid-column-start: 1;
+            grid-row: 1;
+            background: #d33;
+        }
+
+        .b {
+            grid-column: 1;
+            grid-row: 1;
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="a"></div>
+        <div class="b"></div>
+        <div class="c"></div>
+    </div>
+</body>
+
+</html>

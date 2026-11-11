@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Subgrid rows, names and gaps</title>
+    <style>
+        body {
+            margin: 0;
+            width: 230px;
+        }
+
+        .page {
+            height: 90px;
+        }
+
+        .rows {
+            display: grid;
+            width: 100px;
+            grid-template-columns: 100px;
+            grid-template-rows: auto auto;
+            row-gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .row-subgrid {
+            display: grid;
+            grid-row: 1 / 3;
+            grid-template-rows: subgrid;
+        }
+
+        .short {
+            height: 20px;
+            background: #d33;
+        }
+
+        .tall {
+            height: 30px;
+            background: #3a6;
+        }
+
+        .columns {
+            display: grid;
+            width: 230px;
+            grid-template-columns: [a] 40px [b] 70px [c] 100px [d];
+            grid-template-rows: 20px;
+            column-gap: 10px;
+        }
+
+        .column-subgrid {
+            display: grid;
+            grid-column: 2 / 4;
+            grid-template-columns: subgrid [local-start] [local-middle] [local-end];
+            column-gap: 0;
+        }
+
+        .first {
+            grid-column: b / c;
+            background: #36c;
+        }
+
+        .second {
+            grid-column: local-middle / local-end;
+            background: #da3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="rows">
+            <div class="row-subgrid">
+                <div class="short"></div>
+                <div class="tall"></div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column-subgrid">
+                <div class="first"></div>
+                <div class="second"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

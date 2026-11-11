@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid fractional and percentage rows</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100px;
+        }
+
+        .page {
+            height: 260px;
+        }
+
+        .first {
+            display: grid;
+            width: 100px;
+            height: 160px;
+            margin-bottom: 20px;
+            grid-template-columns: 100px;
+            grid-template-rows: 20px 1fr 2fr;
+            row-gap: 10px;
+        }
+
+        .second {
+            display: grid;
+            width: 100px;
+            height: 80px;
+            grid-template-columns: 100px;
+            grid-template-rows: 25% 75%;
+            gap: normal;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="first">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+        </div>
+        <div class="second">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+    </div>
+</body>
+
+</html>

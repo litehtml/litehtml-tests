@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Anonymous Grid text and whitespace</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100px;
+        }
+
+        .page {
+            height: 50px;
+        }
+
+        .grid {
+            display: grid;
+            width: 100px;
+            height: 20px;
+            grid-template-columns: 40px 60px;
+            grid-template-rows: 20px;
+            font: 10px/10px Ahem;
+            color: #d33;
+        }
+
+        .first {
+            margin-bottom: 10px;
+        }
+
+        .fill {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid first">X<span class="fill"></span></div>
+        <div class="grid"> <span class="fill"></span></div>
+    </div>
+</body>
+
+</html>

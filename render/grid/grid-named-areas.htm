@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid named areas</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .page {
+            height: 270px;
+        }
+
+        .grid {
+            display: grid;
+            margin-bottom: 20px;
+        }
+
+        .grid:last-child {
+            margin-bottom: 0;
+        }
+
+        .areas {
+            width: 200px;
+            grid-template-areas: "header header" "side main" "footer footer";
+            grid-template-columns: 60px 140px;
+            grid-template-rows: 20px 40px 20px;
+        }
+
+        .areas .header {
+            grid-area: header;
+        }
+
+        .areas .side {
+            grid-area: side;
+        }
+
+        .areas .main {
+            grid-area: main;
+        }
+
+        .areas .footer {
+            grid-area: footer;
+        }
+
+        .empty {
+            width: 120px;
+            background: #eee;
+            grid-template-areas: "a ." "b c";
+            grid-template-columns: 60px 60px;
+            grid-template-rows: 20px 20px;
+        }
+
+        .empty .a {
+            grid-area: a;
+        }
+
+        .empty .b {
+            grid-area: b;
+        }
+
+        .empty .c {
+            grid-area: c;
+        }
+
+        .more-areas {
+            width: 120px;
+            grid-template-areas: "x" "y" "z";
+            grid-template-columns: 120px;
+            grid-template-rows: 20px;
+            grid-auto-rows: 15px;
+        }
+
+        .more-areas .x {
+            grid-area: x;
+        }
+
+        .more-areas .y {
+            grid-area: y;
+        }
+
+        .more-areas .z {
+            grid-area: z;
+        }
+
+        .numeric {
+            width: 120px;
+            grid-template-columns: 40px 40px 40px;
+            grid-template-rows: 20px 20px;
+        }
+
+        .numeric .a {
+            grid-area: 1 / 1 / 2 / 3;
+        }
+
+        .header {
+            background: #d33;
+        }
+
+        .side {
+            background: #3a6;
+        }
+
+        .main {
+            background: #36c;
+        }
+
+        .footer {
+            background: #da3;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        .x {
+            background: #d33;
+        }
+
+        .y {
+            background: #3a6;
+        }
+
+        .z {
+            background: #36c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid areas">
+            <div class="header"></div>
+            <div class="side"></div>
+            <div class="main"></div>
+            <div class="footer"></div>
+        </div>
+        <div class="grid empty">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+        </div>
+        <div class="grid more-areas">
+            <div class="x"></div>
+            <div class="y"></div>
+            <div class="z"></div>
+        </div>
+        <div class="grid numeric">
+            <div class="a"></div>
+        </div>
+    </div>
+</body>
+
+</html>

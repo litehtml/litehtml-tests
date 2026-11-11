@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reference for Grid alignment</title>
+    <style>
+        body {
+            margin: 0;
+            width: 320px;
+        }
+
+        .page {
+            position: relative;
+            width: 320px;
+            height: 180px;
+        }
+
+        .box {
+            position: absolute;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="box a" style="left:80px;top:50px;width:20px;height:20px"></div>
+        <div class="box b" style="left:270px;top:60px;width:30px;height:10px"></div>
+        <div class="box a" style="left:80px;top:160px;width:40px;height:20px"></div>
+        <div class="box b" style="left:200px;top:160px;width:40px;height:20px"></div>
+    </div>
+</body>
+
+</html>

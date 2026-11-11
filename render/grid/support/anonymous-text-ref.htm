@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reference for anonymous Grid text</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100px;
+        }
+
+        .page {
+            position: relative;
+            width: 100px;
+            height: 50px;
+        }
+
+        .text {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 20px;
+            font: 10px/10px Ahem;
+            color: #d33;
+        }
+
+        .fill {
+            position: absolute;
+            background: #3a6;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="text">X</div>
+        <div class="fill" style="left:40px;top:0;width:60px"></div>
+        <div class="fill" style="left:0;top:30px;width:40px"></div>
+    </div>
+</body>
+
+</html>

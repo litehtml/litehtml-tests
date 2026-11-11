@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid named line placement</title>
+    <style>
+        body {
+            margin: 0;
+            width: 250px;
+        }
+
+        .page {
+            height: 130px;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .named {
+            width: 150px;
+            margin-bottom: 20px;
+            grid-template-columns: [start] 50px [mid] 50px [end] 50px;
+            grid-template-rows: repeat(2, 20px);
+        }
+
+        .named .a {
+            grid-column: start / mid;
+            grid-row: 1;
+        }
+
+        .named .b {
+            grid-column: mid / end;
+            grid-row: 1;
+        }
+
+        .named .c {
+            grid-column: start / span 2;
+            grid-row: 2;
+        }
+
+        .named .d {
+            grid-column: end / span 1;
+            grid-row: 2;
+        }
+
+        .repeat-name {
+            width: 90px;
+            margin-bottom: 20px;
+            grid-template-columns: [foo] 30px [foo] 30px [foo] 30px;
+            grid-template-rows: 20px;
+        }
+
+        .repeat-name .a {
+            grid-column: foo 2;
+        }
+
+        .repeat-name .b {
+            grid-column: foo 3;
+        }
+
+        .implicit {
+            width: 130px;
+            grid-template-columns: [start] 50px [end];
+            grid-template-rows: 20px;
+            grid-auto-columns: 40px;
+            justify-content: start;
+        }
+
+        .implicit .a {
+            grid-column: end / span 2;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        .d {
+            background: #da3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid named">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+        </div>
+        <div class="grid repeat-name">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="grid implicit">
+            <div class="a"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid excessive track placement falls back to vertical flow</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .grid {
+            display: grid;
+            width: 200px;
+            grid-template-columns: 50px 150px;
+            grid-template-columns: repeat(1025, 1fr);
+        }
+
+        .item {
+            height: 20px;
+        }
+
+        .a {
+            grid-column: 2000000000;
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="item a"></div>
+        <div class="item b"></div>
+    </div>
+</body>
+
+</html>

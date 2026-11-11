@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid line longhands and spans</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .grid {
+            display: grid;
+            width: 200px;
+            height: 60px;
+            grid-template-columns: repeat(4, 50px);
+            grid-template-rows: repeat(3, 20px);
+        }
+
+        .a {
+            grid-column-start: span 2;
+            grid-column-end: 4;
+            grid-row-start: 2;
+            grid-row-end: 4;
+            background: #d33;
+        }
+
+        .b {
+            grid-column-start: -2;
+            grid-column-end: -1;
+            grid-row-start: -4;
+            grid-row-end: -3;
+            background: #3a6;
+        }
+
+        .c {
+            grid-column: 1 / 3;
+            grid-row: 1 / 2;
+            background: #36c;
+        }
+
+        .d {
+            background: #da3;
+        }
+
+        .e {
+            grid-column: 1;
+            grid-row: 3;
+            background: #a4a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="a"></div>
+        <div class="b"></div>
+        <div class="c"></div>
+        <div class="d"></div>
+        <div class="e"></div>
+    </div>
+</body>
+
+</html>

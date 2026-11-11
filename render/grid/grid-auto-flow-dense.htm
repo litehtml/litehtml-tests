@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Grid dense auto-placement</title>
+    <style>
+        body {
+            margin: 0;
+            width: 300px;
+        }
+
+        .page {
+            height: 100px;
+        }
+
+        .grid {
+            display: grid;
+            width: 300px;
+        }
+
+        .rows {
+            height: 40px;
+            margin-bottom: 20px;
+            grid-template-columns: repeat(3, 100px);
+            grid-auto-rows: 20px;
+            grid-auto-flow: row dense;
+        }
+
+        .rows .a {
+            grid-column: 3;
+            grid-row: 1;
+        }
+
+        .columns {
+            height: 40px;
+            grid-template-rows: repeat(2, 20px);
+            grid-auto-columns: 100px;
+            grid-auto-flow: column dense;
+            justify-content: start;
+        }
+
+        .columns .a {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .a {
+            background: #d33;
+        }
+
+        .b {
+            background: #3a6;
+        }
+
+        .c {
+            background: #36c;
+        }
+
+        .d {
+            background: #da3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid rows">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+        </div>
+        <div class="grid columns">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+        </div>
+    </div>
+</body>
+
+</html>

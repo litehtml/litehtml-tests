@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Inline-grid as a flex item</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .flex {
+            display: flex;
+            width: 200px;
+            height: 40px;
+        }
+
+        .grid {
+            display: inline-grid;
+            width: 100px;
+            height: 40px;
+            grid-template-columns: 40px 60px;
+            grid-template-rows: 40px;
+        }
+
+        .last {
+            width: 100px;
+            height: 40px;
+            background: #36c;
+        }
+
+        .a {
+            background: #d33;
+            float: right;
+        }
+
+        .b {
+            background: #3a6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex">
+        <div class="grid">
+            <div class="a"></div>
+            <div class="b"></div>
+        </div>
+        <div class="last"></div>
+    </div>
+</body>
+
+</html>
