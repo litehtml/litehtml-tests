@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>var() inside math functions</title>
+    <style>
+        body { margin: 0; }
+        .box { width: 300px; background: #ddd; --gap: 10px; --half: 50%; --sum: 10px + 20px; --factor: 3; }
+        .box div { height: 10px; margin-bottom: 5px; }
+        .a { width: calc(var(--half) - var(--gap)); background: #3a6; }
+        .b { width: calc(var(--gap) + var(--gap) + var(--sum)); background: #36c; }
+        .c { width: calc(var(--gap) * var(--factor) * 2); background: #da3; }
+        /* var() substitutes tokens, so this is calc(20px + 10px * 2). */
+        .d { width: calc(var(--missing, 20px + 10px) * 2); background: #a4a; }
+        .e { width: clamp(var(--gap), calc(var(--half) + var(--gap)), 200px); background: #3a6; }
+        .f { --inner: calc(var(--gap) * 4); width: max(var(--inner), 20px); background: #36c; }
+        .g { --loop: var(--loop); width: 80px; width: calc(var(--loop, 1px) + 10px); background: #da3; }
+        .h { margin: 0 calc(var(--gap) * 2) 5px; height: 10px; background: #a4a; }
+    </style>
+</head>
+<body>
+    <div class="box"><div class="a"></div><div class="b"></div><div class="c"></div><div class="d"></div><div class="e"></div><div class="f"></div><div class="g"></div><div class="h"></div></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reference for min(), max() and clamp()</title>
+    <style>
+        body { margin: 0; }
+        .w200 { width: 200px; } .w400 { width: 400px; }
+        .w200, .w400 { background: #ddd; margin-bottom: 5px; }
+        .w200 div, .w400 div { height: 10px; }
+        .min { background: #3a6; } .max { background: #36c; } .clamp { background: #da3; }
+        .inverted { background: #a4a; } .lower { background: #3a6; } .upper { background: #36c; }
+        .nested { background: #da3; } .case { background: #a4a; } .neg { background: #3a6; }
+    </style>
+</head>
+<body>
+    <div class="w200"><div class="min" style="width:100px"></div><div class="max" style="width:150px"></div><div class="clamp" style="width:120px"></div><div class="inverted" style="width:150px"></div><div class="lower" style="width:120px"></div><div class="upper" style="width:90px"></div><div class="nested" style="width:60px"></div><div class="case" style="width:20px"></div></div>
+    <div class="w400"><div class="min" style="width:150px"></div><div class="max" style="width:200px"></div><div class="clamp" style="width:160px"></div><div class="inverted" style="width:150px"></div><div class="lower" style="width:120px"></div><div class="upper" style="width:100px"></div><div class="nested" style="width:80px"></div><div class="neg" style="width:100px;margin-left:-40px"></div></div>
+</body>
+</html>

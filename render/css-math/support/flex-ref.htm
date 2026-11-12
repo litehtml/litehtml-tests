@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reference for calc() in flex layout</title>
+    <style>
+        body { margin: 0; }
+        .row { display: flex; width: 400px; height: 30px; margin-bottom: 10px; background: #ddd; }
+        .row div { height: 20px; }
+        .basis div:first-child { flex: 0 0 190px; background: #3a6; }
+        .basis div:last-child { flex: 0 0 110px; margin-left: 20px; background: #36c; }
+        .grow div { flex: 0 0 auto; background: #da3; }
+        .grow div:first-child { width: 100px; background: #a4a; }
+        .grow div:nth-child(2) { width: 140px; }
+        .grow div:last-child { width: 160px; background: #36c; }
+        .col { display: flex; flex-direction: column; width: 100px; height: 100px; background: #ddd; }
+        .col div { flex: 0 0 30px; background: #3a6; }
+        .col div + div { flex-basis: 40px; background: #36c; }
+    </style>
+</head>
+<body>
+    <div class="row basis"><div></div><div></div></div>
+    <div class="row grow"><div></div><div></div><div></div></div>
+    <div class="col"><div></div><div></div></div>
+</body>
+</html>

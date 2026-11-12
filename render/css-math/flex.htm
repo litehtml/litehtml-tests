@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>calc() in flex layout</title>
+    <style>
+        body { margin: 0; }
+        .row { display: flex; width: 400px; height: 30px; margin-bottom: 10px; background: #ddd; }
+        .row div { height: 20px; }
+        .basis div:first-child { flex: 0 0 calc(50% - 10px); background: #3a6; }
+        .basis div:last-child { flex: 0 0 calc(25% + 10px); margin-left: calc(10px * 2); background: #36c; }
+        .grow div { flex: 1 1 0; background: #da3; }
+        .grow div:first-child { max-width: calc(20% + 20px); background: #a4a; }
+        .grow div:last-child { min-width: max(160px, calc(25% + 10px)); background: #36c; }
+        .col { display: flex; flex-direction: column; width: 100px; height: 100px; background: #ddd; }
+        .col div { flex: 0 0 calc(50% - 20px); background: #3a6; }
+        .col div + div { flex-basis: clamp(10px, 50%, 40px); background: #36c; }
+    </style>
+</head>
+<body>
+    <div class="row basis"><div></div><div></div></div>
+    <div class="row grow"><div></div><div></div><div></div></div>
+    <div class="col"><div></div><div></div></div>
+</body>
+</html>

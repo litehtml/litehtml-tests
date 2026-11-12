@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>calc() in grid layout</title>
+    <style>
+        body { margin: 0; }
+        .grid { display: grid; width: 300px; margin-bottom: 10px; background: #ddd; }
+        .grid div { height: 20px; background: #3a6; }
+        .grid div:nth-child(2n) { background: #36c; }
+        .tracks { grid-template-columns: calc(50% - 10px) 1fr; column-gap: calc(5% + 5px); }
+        .repeat { grid-template-columns: repeat(auto-fill, calc(25% - 15px)); gap: calc(10px + 0%); }
+        .minmax { grid-template-columns: minmax(calc(10% + 10px), calc(20% + 20px)) 1fr; grid-template-rows: calc(10px * 3) max(10px, 15px); row-gap: min(10px, 1em); }
+        .minmax div { height: auto; }
+    </style>
+</head>
+<body>
+    <div class="grid tracks"><div></div><div></div></div>
+    <div class="grid repeat"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div class="grid minmax"><div></div><div></div><div></div><div></div></div>
+</body>
+</html>
