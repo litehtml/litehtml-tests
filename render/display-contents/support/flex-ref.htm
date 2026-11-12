@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reference for display: contents in flex layout</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../../fonts/ahem.ttf); }
+        body { margin: 0; width: 210px; }
+        .page { position: relative; width: 210px; height: 50px; }
+        .box { position: absolute; height: 20px; }
+        .text { position: absolute; top: 30px; left: 0; font: 20px/20px Ahem; color: #d33; }
+        .green { color: #3a6; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="box" style="left:0;top:0;width:40px;background:#36c"></div>
+        <div class="box" style="left:40px;top:0;width:20px;background:#da3"></div>
+        <div class="box" style="left:60px;top:0;width:50px;background:#d33"></div>
+        <div class="box" style="left:110px;top:0;width:100px;background:#3a6"></div>
+        <div class="text">X<span class="green">Y</span></div>
+        <div class="box" style="left:40px;top:30px;width:170px;background:#36c"></div>
+    </div>
+</body>
+</html>

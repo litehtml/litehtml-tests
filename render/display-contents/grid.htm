@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>display: contents in grid layout</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../fonts/ahem.ttf); }
+        body { margin: 0; width: 215px; }
+        .page { height: 75px; }
+        .grid {
+            display: grid;
+            width: 215px;
+            height: 45px;
+            grid-template-columns: repeat(4, 50px);
+            grid-template-rows: 20px 20px;
+            gap: 5px;
+        }
+        .contents {
+            display: contents;
+            background: red;
+            border: 10px solid red;
+            padding: 10px;
+            margin: 10px;
+            width: 1px;
+            overflow: hidden;
+            position: relative;
+        }
+        .outer::before {
+            content: "";
+            display: block;
+            grid-column: 1;
+            grid-row: 2;
+            background: #a4a;
+        }
+        .outer::after {
+            content: "";
+            display: block;
+            grid-column: 3;
+            grid-row: 2;
+            background: #da3;
+        }
+        .outer > .red { grid-column: 2; grid-row: 1; background: #d33; }
+        .outer > .nested > .green {
+            grid-column: 1;
+            grid-row: 1;
+            float: right;
+            background: #3a6;
+        }
+        .blue { grid-column: 3 / 5; grid-row: 1; background: #36c; }
+        .via { grid-column: 2; grid-row: 2; background: red; }
+        @supports (display: contents) {
+            .outer > .via { background: #0af; }
+        }
+        .hidden { display: none; }
+        .text-grid {
+            display: grid;
+            width: 215px;
+            height: 20px;
+            margin-top: 10px;
+            grid-template-columns: 80px 135px;
+            font: 20px/20px Ahem;
+            color: #d33;
+        }
+        .text-contents { display: contents; color: #3a6; }
+        .fill { background: #36c; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="grid">
+            <div class="contents outer"><span class="red"></span><div class="contents nested"><span class="green"></span></div><span class="blue"></span><div class="hidden"><span>FAIL</span></div><div class="via"></div></div>
+        </div>
+        <div class="text-grid">X<span class="text-contents">Y</span>Z<span class="fill"></span></div>
+    </div>
+</body>
+</html>

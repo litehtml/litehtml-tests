@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>display: contents in flex layout</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../fonts/ahem.ttf); }
+        body { margin: 0; width: 210px; }
+        .page { height: 50px; }
+        .flex { display: flex; width: 210px; height: 20px; }
+        .contents {
+            display: contents;
+            background: red;
+            border: 10px solid red;
+            padding: 10px;
+            margin: 10px;
+            width: 1px;
+        }
+        .outer::before { content: ""; display: block; flex: 0 0 20px; background: #da3; }
+        .outer > .red { flex: 1 1 0; background: #d33; }
+        .outer > .nested > .green { flex: 2 1 0; background: #3a6; }
+        .blue { width: 40px; order: -1; background: #36c; }
+        .text-flex { margin-top: 10px; font: 20px/20px Ahem; color: #d33; }
+        .text-contents { display: contents; color: #3a6; }
+        .fill { flex: 1; background: #36c; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="flex">
+            <div class="contents outer"><span class="red"></span><div class="contents nested"><span class="green"></span><span class="blue"></span></div></div>
+        </div>
+        <div class="flex text-flex">X<span class="text-contents">Y</span><span class="fill"></span></div>
+    </div>
+</body>
+</html>

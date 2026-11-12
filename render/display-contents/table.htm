@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>display: contents in table layout</title>
+    <style>
+        body { margin: 0; width: 140px; border-spacing: 0; }
+        .table { display: table; width: 140px; border-spacing: 0; }
+        .row { display: table-row; }
+        .cell { display: table-cell; }
+        td { padding: 0; }
+        .sizer { height: 20px; }
+        .first { width: 60px; }
+        .last { width: 80px; }
+        .contents {
+            display: contents;
+            background: red;
+            border: 10px solid red;
+            padding: 10px;
+            margin: 10px;
+        }
+        .red { background: #d33; }
+        .green { background: #3a6; }
+        .blue { background: #36c; }
+        .yellow { background: #da3; }
+    </style>
+</head>
+<body>
+    <div class="table">
+        <div class="contents">
+            <div class="row"><div class="contents"><div class="cell first red"><div class="sizer"></div></div><div class="cell last green"><div class="sizer"></div></div></div></div>
+            <div class="contents"><div class="row"><div class="cell first blue"><div class="sizer"></div></div><div class="contents"><div class="cell last yellow"><div class="sizer"></div></div></div></div></div>
+        </div>
+    </div>
+    <div style="height:10px"></div>
+    <div class="table contents">
+        <div class="row"><div class="cell first green"><div class="sizer"></div></div><div class="cell last blue"><div class="sizer"></div></div></div>
+    </div>
+    <div style="height:10px"></div>
+    <table class="table">
+        <tbody class="contents"><tr><td class="first yellow"><div class="sizer"></div></td><td class="last red"><div class="sizer"></div></td></tr></tbody>
+    </table>
+</body>
+</html>
