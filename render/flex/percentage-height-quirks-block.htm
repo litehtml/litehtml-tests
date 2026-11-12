@@ -1,0 +1,14 @@
+<style>
+html, body { margin: 0; padding: 0; }
+.child { width: 20px; height: 100%; background: #0b0; }
+.content { width: 20px; height: 20px; background: #000; }
+.padded-parent { position: absolute; left: 40px; top: 0; height: 100px; }
+.padding { padding: 10px; }
+.padding .child { height: 50%; background: #3ff; }
+.stretched-parent { position: absolute; left: 40px; top: 90px; display: flex; height: 80px; }
+.stretched-parent > div { width: 20px; }
+.stretched-child { height: 100%; background: #00f; }
+</style>
+<div><div id="ordinary" class="child"><div class="content"></div></div></div>
+<div class="padded-parent"><div class="padding"><div id="skip-padding" class="child"></div></div></div>
+<div class="stretched-parent"><div><div id="stretched-block" class="stretched-child"></div></div></div>
