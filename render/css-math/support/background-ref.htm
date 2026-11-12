@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reference for calc() in backgrounds and gradients</title>
+    <style>
+        body { margin: 0; }
+        div { width: 200px; height: 40px; margin-bottom: 10px; background-color: #ddd; background-repeat: no-repeat; }
+        .size { background-image: linear-gradient(#3a6, #3a6); background-size: 80px 20px; }
+        .pos { background-image: linear-gradient(#36c, #36c); background-size: 40px 20px; background-position: 90px 15px; }
+        .clamp { background-image: linear-gradient(#da3, #da3); background-size: 30px 15px; background-position: 150px 5px; }
+        .stops { background-image: linear-gradient(to right, #a4a 80px, #36c 80px, #36c 120px, #3a6 120px); }
+    </style>
+</head>
+<body>
+    <div class="size"></div>
+    <div class="pos"></div>
+    <div class="clamp"></div>
+    <div class="stops"></div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>calc() in font-size and line-height</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../fonts/ahem.ttf); }
+        html { font-size: 10px; }
+        body { margin: 0; font-family: Ahem; font-size: 10px; line-height: 1; }
+        div { color: #3a6; }
+        .a { font-size: calc(100% + 10px); line-height: calc(1em + 10px); }
+        .b { font-size: calc(2rem - 10px); line-height: calc(10px * 3); color: #36c; }
+        .c { font-size: 20px; line-height: calc(1.5 + 0.5); color: #da3; }
+        .c div { font-size: 10px; color: #36c; }
+        .d { font-size: 20px; line-height: calc(50% + 20px); color: #a4a; }
+        .d div { font-size: 10px; color: #3a6; }
+        .e { font-size: max(5px, calc(1rem + 10px)); line-height: min(40px, calc(2em)); color: #36c; }
+    </style>
+</head>
+<body>
+    <div class="a">XX X</div>
+    <div class="b">XX X</div>
+    <div class="c">X<div>XX</div></div>
+    <div class="d">X<div>XX</div></div>
+    <div class="e">XXX</div>
+</body>
+</html>

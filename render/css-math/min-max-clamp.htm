@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>min(), max() and clamp()</title>
+    <style>
+        body { margin: 0; }
+        .w200 { width: 200px; } .w400 { width: 400px; }
+        .w200, .w400 { background: #ddd; margin-bottom: 5px; }
+        .w200 div, .w400 div { height: 10px; }
+        .min { width: min(50%, 150px); background: #3a6; }
+        .max { width: max(50%, 150px); background: #36c; }
+        .clamp { width: clamp(120px, 50%, 160px); background: #da3; }
+        .inverted { width: clamp(150px, 10%, 50px); background: #a4a; }
+        .lower { width: clamp(none, 75%, 120px); background: #3a6; }
+        .upper { width: clamp(90px, 25%, none); background: #36c; }
+        .nested { width: max(min(10%, 30px), calc(min(25%, 60px) + max(10px, 5%))); background: #da3; }
+        .case { width: MIN(20PX, 30px); background: #a4a; }
+        .neg { width: 100px; margin-left: max(-50px, -10%); background: #3a6; }
+    </style>
+</head>
+<body>
+    <div class="w200"><div class="min"></div><div class="max"></div><div class="clamp"></div><div class="inverted"></div><div class="lower"></div><div class="upper"></div><div class="nested"></div><div class="case"></div></div>
+    <div class="w400"><div class="min"></div><div class="max"></div><div class="clamp"></div><div class="inverted"></div><div class="lower"></div><div class="upper"></div><div class="nested"></div><div class="neg"></div></div>
+</body>
+</html>

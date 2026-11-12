@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>calc() in backgrounds and gradients</title>
+    <style>
+        body { margin: 0; }
+        div { width: 200px; height: 40px; margin-bottom: 10px; background-color: #ddd; background-repeat: no-repeat; }
+        .size { background-image: linear-gradient(#3a6, #3a6); background-size: calc(50% - 20px) max(10px, 50%); }
+        .pos { background-image: linear-gradient(#36c, #36c); background-size: 40px 20px; background-position: calc(50% + 10px) calc(100% - 5px); }
+        .clamp { background-image: linear-gradient(#da3, #da3); background-size: clamp(10px, 25%, 30px) min(100%, 15px); background-position: calc(100% - 20px) calc(5px + 0%); }
+        .stops { background-image: linear-gradient(to right, #a4a calc(50% - 20px), #36c calc(50% - 20px), #36c calc(50% + 20px), #3a6 calc(50% + 20px)); }
+    </style>
+</head>
+<body>
+    <div class="size"></div>
+    <div class="pos"></div>
+    <div class="clamp"></div>
+    <div class="stops"></div>
+</body>
+</html>

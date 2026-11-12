@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Invalid math functions are ignored</title>
+    <style>
+        body { margin: 0; }
+        .box { width: 300px; background: #ddd; }
+        .box div { width: 100px; height: 10px; margin-bottom: 5px; background: #3a6; }
+        .a { width: calc(1px+2px); }
+        .b { width: calc(1px + 1); }
+        .c { width: calc(2px * 3px); }
+        .d { width: calc(1px / 2px); }
+        .e { width: min(); }
+        .f { width: clamp(1px, 2px); }
+        .g { width: calc(1px + 1fr); }
+        .h { width: calc(); }
+        .i { width: calc(1px, 2px); }
+        .j { width: sin(1px); }
+        .k { width: calc(auto); }
+        .l { width: calc(1px +2px); }
+        .neg { width: 200px; padding-left: calc(10px - 30px); border-left: calc(-5px) solid #a4a; }
+        .neg-height { height: calc(10px - 50px) !important; min-height: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="a"></div><div class="b"></div><div class="c"></div><div class="d"></div>
+        <div class="e"></div><div class="f"></div><div class="g"></div><div class="h"></div>
+        <div class="i"></div><div class="j"></div><div class="k"></div><div class="l"></div>
+        <div class="neg"></div><div class="neg-height"></div>
+    </div>
+</body>
+</html>
