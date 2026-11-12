@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang=en>
+<meta charset="utf-8">
+<title>CSS Grid Layout Test: auto repeat tracks in indefinite containers with minimum size</title>
+<link rel="author" title="Sergio Villar Senin" href="mailto:svillar@igalia.com">
+<link rel="help" href="https://drafts.csswg.org/css-grid-1/#repeat-syntax">
+<meta name="assert" content="This test checks that we properly compute the number of required auto repeat tracks in indefinite sized containers with minimum sizes.">
+<link rel="stylesheet" href="../support/grid.css">
+<style>
+.grid {
+    display: inline-grid;
+    grid: 20px / 20px;
+    min-width: 20px;
+    min-height: 20px;
+    justify-content: start;
+    align-content: start;
+}
+</style>
+<div id="log"></div>
+
+<div id="autoFillColumns" class="grid"></div>
+<div id="autoFitColumns" class="grid"></div>
+
+<div id="autoFillRows" class="grid"></div>
+<div id="autoFitRows" class="grid"></div>
+

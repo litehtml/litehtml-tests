@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Grid Test: a grid container's cached baseline must not go stale across a resize reflow</title>
+<link rel="help" href="https://drafts.csswg.org/css-align-3/#baseline-export">
+<link rel="help" href="https://drafts.csswg.org/css-grid-2/#grid-baselines">
+<link rel="help" href="https://bugzilla.mozilla.org/show_bug.cgi?id=2084787">
+<link rel="author" title="Daniel Holbert" href="mailto:dholbert@mozilla.com">
+<link rel="author" title="Mozilla" href="https://mozilla.org">
+<meta name="assert" content="An inline-block whose content is a baseline-less display:grid must keep a reasonable position after a resize reflow invalidates the grid's intrinsic sizes.">
+
+<iframe id="frame" style="border:0; width:400px; height:100px;"></iframe>
+

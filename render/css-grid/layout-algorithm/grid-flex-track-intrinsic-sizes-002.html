@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Grid Layout Test: Intrinsic contributions of 2 items with flex tracks</title>
+<link rel="author" title="Oriol Brufau" href="mailto:obrufau@igalia.com">
+<link rel="help" href="https://drafts.csswg.org/css-grid/#algo-spanning-items" title="11.5.3 Increase sizes to accommodate spanning items crossing content-sized tracks">
+<link rel="help" href="https://drafts.csswg.org/css-grid/#algo-spanning-flex-items" title="11.5.4 Increase sizes to accommodate spanning items crossing flexible tracks">
+<meta name="assert" content="This test checks that the intrinsic contributions of 2 items are distributed in the right order when flexible tracks are involved.">
+<style>
+#grid {
+  display: grid;
+  grid-template-areas: ". . . ."
+                       ". a . ."
+                       ". . . ."
+                       ". . . b";
+  width: 50px;
+  height: 50px;
+  border: solid;
+}
+#item1 {
+  grid-column: 1 / a;
+  grid-row: 1 / a;
+  width: 60px;
+  height: 60px;
+  background: blue;
+}
+#item2 {
+  grid-column: a / b;
+  grid-row: a / b;
+  width: 150px;
+  height: 150px;
+  background: yellow;
+}
+</style>
+
+<div id="log"></div>
+
+<div id="grid">
+  <div id="item1"></div>
+  <div id="item2"></div>
+</div>
+

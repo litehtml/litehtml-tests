@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="help" href="https://drafts.csswg.org/css-grid-1/#grid-item-sizing">
+<link rel="help" href="https://drafts.csswg.org/css-align-3/#propdef-justify-items">
+<link rel="help" href="https://drafts.csswg.org/css-align-3/#valdef-justify-self-stretch">
+<meta name="assert" content="Changing the grid's justify-items value from 'end' to 'stretch' updates both the width and the position of non-replaced grid items.">
+<style>
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-rows: 100px 100px;
+  grid-template-columns: 150px;
+  width: 150px;
+  justify-items: end;
+}
+</style>
+<body>
+<div class="grid" id="grid">
+  <div id="item1" style="height: 50px; grid-area: 1 / 1;">
+    <div style="width: 50px;"></div>
+  </div>
+  <div id="item2" style="height: 50px; grid-area: 2 / 1;">
+    <div style="width: 100px;"></div>
+  </div>
+</div>
+</body>

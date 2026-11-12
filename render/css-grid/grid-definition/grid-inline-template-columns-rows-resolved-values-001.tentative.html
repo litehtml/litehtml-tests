@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Grid Layout Test: 'grid-template-columns' and 'grid-template-rows' properties resolved values for implicit tracks in an inline grid</title>
+<link rel="author" title="Manuel Rego Casasnovas" href="mailto:rego@igalia.com">
+<link rel="help" href="http://www.w3.org/TR/css-grid-1/#resolved-track-list" title="5.1.5. Resolved Values">
+<link rel="help" href="https://github.com/w3c/csswg-drafts/issues/4475">
+<meta name="flags" content="ahem dom">
+<meta name="assert" content="This test checks that resolved values for 'grid-template-columns' and 'grid-template-rows' don't include implicitly created tracks in an inline grid.">
+<link rel="stylesheet" type="text/css" href="/fonts/ahem.css" />
+<style>
+  .inline-grid {
+    display: inline-grid;
+    width: 800px;
+    height: 600px;
+    font: 10px/1 Ahem;
+    justify-content: start;
+    align-content: start;
+    position: relative;
+  }
+
+  .fifthColumn {
+    grid-column: 5;
+  }
+
+  .fourthRow {
+    grid-row: 4;
+  }
+
+  .gridAutoFlowColumn {
+    grid-auto-flow: column;
+  }
+</style>
+<div id="log"></div>
+
+<div id="grid" class="inline-grid">
+  <div>FIRST ITEM</div>
+  <div>SECOND ITEM</div>
+  <div>THIRD<br />ITEM</div>
+</div>
+
+<div id="gridItemsPositions" class="inline-grid">
+  <div class="fifthColumn">FIRST ITEM</div>
+  <div class="fourthRow">SECOND ITEM</div>
+  <div>THIRD<br />ITEM</div>
+</div>
+
+<div id="gridAutoFlowColumn" class="inline-grid gridAutoFlowColumn">
+  <div>FIRST ITEM</div>
+  <div>SECOND ITEM</div>
+  <div>THIRD<br />ITEM</div>
+</div>
+
+<div id="gridAutoFlowColumnItemsPositions" class="inline-grid gridAutoFlowColumn">
+  <div class="fifthColumn">FIRST ITEM</div>
+  <div class="fourthRow">SECOND ITEM</div>
+  <div>THIRD<br />ITEM</div>
+</div>
+
