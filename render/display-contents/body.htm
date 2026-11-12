@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>display: contents on the body</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../fonts/ahem.ttf); }
+        body {
+            display: contents;
+            margin: 30px;
+            padding: 20px;
+            border: 10px solid red;
+            background: red;
+            color: #3a6;
+            font: 20px/20px Ahem;
+        }
+        .page { width: 140px; height: 40px; }
+    </style>
+</head>
+<body>
+    <div class="page">X<span>Y</span></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reference for display: contents in normal flow</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../../fonts/ahem.ttf); }
+        body { margin: 0; width: 200px; font: 20px/20px Ahem; }
+        .row { height: 20px; }
+        .yellow { color: #da3; }
+        .green { color: #3a6; }
+        .blue { color: #36c; }
+        .purple { color: #a4a; }
+        .concealed { visibility: hidden; }
+        .pre { white-space: pre; color: #36c; }
+        .position-context { position: relative; width: 200px; height: 20px; }
+        .absolute { position: absolute; left: 40px; top: 0; width: 20px; height: 20px; background: #3a6; }
+        .normal { width: 20px; height: 20px; background: #36c; }
+        .decor { font: 16px/20px Ahem; }
+        .underline { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="row">A<span class="yellow">P</span><span class="green">B</span><span class="blue">C</span><span class="purple">Q</span>D</div>
+    <div class="row"><span class="concealed">X</span><span class="green">Y</span><span class="concealed">Z</span>T</div>
+    <div class="row"><span class="pre"> A  B</span>C</div>
+    <div class="row">QRST</div>
+    <div class="position-context"><div class="absolute"></div><div class="normal"></div></div>
+    <div class="row decor">UV</div>
+    <div class="row decor"><span class="underline">WX</span></div>
+    <div class="row"><span class="yellow">P</span>Q</div>
+    <div class="row">A</div>
+    <div class="normal"></div>
+    <div class="row">B</div>
+</body>
+</html>

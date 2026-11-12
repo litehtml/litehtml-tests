@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>display: contents in normal flow</title>
+    <style>
+        @font-face { font-family: Ahem; src: url(../../fonts/ahem.ttf); }
+        html { display: contents; }
+        body { margin: 0; width: 200px; font: 20px/20px Ahem; }
+        .row { height: 20px; }
+        .contents {
+            display: contents;
+            background: red;
+            border: 10px solid red;
+            padding: 10px;
+            margin: 10px;
+            width: 1px;
+        }
+        .words { color: #3a6; }
+        .words::before { content: "P"; color: #da3; }
+        .words::after { content: "Q"; color: #a4a; }
+        .nested { color: #36c; }
+        .concealed { visibility: hidden; }
+        .shown { visibility: visible; color: #3a6; }
+        .pre { white-space: pre; color: #36c; }
+        .none { display: none; }
+        button { font: inherit; }
+        .positioned { position: relative; left: 70px; overflow: hidden; }
+        .position-context { position: relative; width: 200px; height: 20px; }
+        .absolute { position: absolute; left: 40px; top: 0; width: 20px; height: 20px; background: #3a6; }
+        .normal { width: 20px; height: 20px; background: #36c; }
+        .decor { font: 16px/20px Ahem; }
+        .underline { text-decoration: underline; }
+        .strike { text-decoration: line-through; }
+        .pseudo::before { content: "P"; display: contents; color: #da3; }
+    </style>
+</head>
+<body>
+    <div class="row">A<span class="contents words">B<span class="contents nested">C</span></span>D</div>
+    <div class="row"><span class="contents concealed">X<span class="shown">Y</span>Z</span>T</div>
+    <div class="row"><span class="contents pre"> A  B</span>C</div>
+    <div class="row">Q<img class="contents" src="../blue16.png"><br class="contents"><wbr class="contents"><input class="contents"><canvas class="contents">FAIL</canvas><meter class="contents">FAIL</meter><progress class="contents">FAIL</progress><object class="contents">FAIL</object><svg class="contents"><text>FAIL</text></svg><select class="contents"><option>FAIL</option></select><span class="none"><span class="contents">FAIL</span></span>R<button class="contents"><span>S</span></button><fieldset class="contents"><span>T</span></fieldset></div>
+    <div class="position-context"><div class="contents positioned"><div class="absolute"></div></div><div class="normal"></div></div>
+    <div class="row decor"><span class="contents underline">UV</span></div>
+    <div class="row decor"><span class="underline"><span class="contents strike">WX</span></span></div>
+    <div class="row"><span class="pseudo">Q</span></div>
+    <div><span><span class="contents">A<div class="normal"></div>B</span></span></div>
+</body>
+</html>
