@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<title>CSS Grid: auto-repeat tracks and intrinsic sizes.</title>
+<link rel="author" title="Sergio Villar" href="mailto:svillar@igalia.com"/>
+<link rel="help" href="https://drafts.csswg.org/css-grid-1/#repeat-notation"/>
+<meta name="assert" content="Test ensure that grids properly recompute the number of auto repeat tracks when the min|max-content contributions of grid items changed."/>
+<link rel="issue" href="https://crbug.com/621517"/>
+<link rel="issue" href="https://crbug.com/633474"/>
+<link href="../support/grid.css" rel="stylesheet"/>
+<link href="../support/width-keyword-classes.css" rel="stylesheet"/>
+<style>
+.grid {
+    border: 2px solid black;
+    position: relative;
+    min-width: 30px;
+
+    grid-auto-columns: 20px;
+
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.abs { height: 5px; position: absolute; width: 100%; }
+
+</style>
+
+<div>This test checks that changing the min|max-content contributions of grid items properly recomputes both track sizes and grid positions in grids with auto repeat tracks.</div>
+<div id="log"></div>
+
+<div id="grid1" class="grid max-content">
+    <div id="item" style="grid-column: 1 / -1; background: cyan;"></div>
+    <div id="a1" class="abs" style="grid-column: 1 / 2; background: purple;"></div>
+    <div id="a2" class="abs" style="grid-column: 2 / 3; background: orange;"></div>
+    <div id="a3" class="abs" style="grid-column: 3 / 4; background: yellow;"></div>
+    <div id="a4" class="abs" style="grid-column: 4 / 5; background: magenta;"></div>
+</div>

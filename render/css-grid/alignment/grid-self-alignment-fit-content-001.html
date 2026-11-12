@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-1/#grid-item-sizing">
+<link rel="help" href="https://www.w3.org/TR/css-sizing-3/#fit-content-size">
+<link rel="author" title="Sammy Gill" href="mailto:sammy.gill@apple.com">
+<meta name="assert" content="A grid item with an automatic size whose self-alignment is not stretch (and does not behave as stretch) is sized to its fit-content size in that axis, rather than filling its grid area.">
+<link rel="stylesheet" href="/fonts/ahem.css">
+<style>
+  /* Ahem at 20px with a line-height of 1 makes every glyph a 20px by 20px box,
+     so "XXXXX" is 100px wide and one line tall. */
+  .grid { display: grid; font: 20px/1 Ahem; }
+  .wide-area   { grid-template: 100px / 200px; }
+  .narrow-area { grid-template: 100px / 60px; }
+
+  .item { background: green; }
+
+  /* Isolate the axis under test by giving the item a fixed size in the other axis. */
+  .automatic-width { width: auto; height: 40px; }
+  .automatic-height { width: 100px; height: auto; }
+</style>
+<body>
+<div id="log"></div>
+
+<!-- Inline axis. The grid area is 200px wide and the item's max-content size is
+     100px, so a stretched item is 200px wide and a fit-content sized item is
+     100px wide. -->
+<div class="grid wide-area"><div class="item automatic-width" id="stretch-inline" style="justify-self: stretch">XXXXX</div></div>
+<div class="grid wide-area"><div class="item automatic-width" id="start-inline"   style="justify-self: start">XXXXX</div></div>
+<div class="grid wide-area"><div class="item automatic-width" id="center-inline"  style="justify-self: center">XXXXX</div></div>
+<div class="grid wide-area"><div class="item automatic-width" id="end-inline"     style="justify-self: end">XXXXX</div></div>
+
+<!-- The fit-content size is clamped by the stretch-fit size, so an item in a
+     60px area whose min-content size is 40px and whose max-content size is
+     100px is 60px wide. -->
+<div class="grid narrow-area"><div class="item automatic-width" id="center-inline-clamped" style="justify-self: center">XX XX</div></div>
+
+<!-- Block axis. The grid area is 100px tall and the item's content is one 20px
+     line tall, so a stretched item is 100px tall and a fit-content sized item
+     is 20px tall. -->
+<div class="grid wide-area"><div class="item automatic-height" id="stretch-block" style="align-self: stretch">XXXXX</div></div>
+<div class="grid wide-area"><div class="item automatic-height" id="start-block"   style="align-self: start">XXXXX</div></div>
+<div class="grid wide-area"><div class="item automatic-height" id="center-block"  style="align-self: center">XXXXX</div></div>
+<div class="grid wide-area"><div class="item automatic-height" id="end-block"     style="align-self: end">XXXXX</div></div>
+
+</body>

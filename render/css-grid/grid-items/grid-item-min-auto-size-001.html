@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<title>CSS Grid Test: computed style for auto minimum size</title>
+<link rel="author" title="Rune Lillesveen" href="mailto:futhark@chromium.org" />
+<link rel="help" href="https://drafts.csswg.org/css-grid/#min-size-auto" />
+<style>
+  .grid { display: grid }
+  .none { display: none }
+  .min-wh {
+    min-width: auto;
+    min-height: auto;
+  }
+  .contents { display: contents }
+</style>
+<div class="grid">
+  <div class="min-wh"></div>
+</div>
+<div class="none">
+  <div class="grid">
+    <div class="min-wh"></div>
+  </div>
+</div>
+<div class="grid">
+  <div class="contents">
+    <div class="min-wh"></div>
+  </div>
+</div>
+<div class="grid">
+  <div class="min-wh none"></div>
+</div>
