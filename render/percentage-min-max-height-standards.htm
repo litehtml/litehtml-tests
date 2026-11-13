@@ -1,0 +1,49 @@
+<!doctype html>
+<title>Percentage min/max-height requires a definite containing block height</title>
+<meta name="assert" content="Auto-height parents do not resolve percentage min/max-height, including nested, min-height-only, and flex cases. Definite heights, including zero, still resolve.">
+<style>
+html, body { margin: 0; padding: 0; }
+.case { position: absolute; top: 0; width: 60px; height: 120px; }
+.wrapper { height: auto; }
+.main { min-height: 100%; background: #ddd; }
+.content { height: 20px; }
+.after { height: 10px; background: #f80; }
+.minimum-only { min-height: 80px; }
+.maximum { min-height: 0; height: 40px; max-height: 25%; }
+.definite { height: 100px; }
+.zero { height: 0; }
+.definite .maximum { max-height: 10%; }
+.zero .maximum { max-height: 100%; }
+.border-box { box-sizing: border-box; padding: 5px; }
+.column { display: flex; flex-direction: column; }
+</style>
+<div class="case" style="left: 0">
+  <div class="wrapper"><div id="auto-min" class="main"><div class="content"></div></div><div id="after" class="after"></div></div>
+</div>
+<div class="case" style="left: 70px">
+  <div class="wrapper"><div class="wrapper"><div id="nested-min" class="main"><div class="content"></div></div><div class="after"></div></div></div>
+</div>
+<div class="case" style="left: 140px">
+  <div class="wrapper minimum-only"><div id="minimum-only" class="main"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 210px">
+  <div class="wrapper"><div id="auto-max" class="main maximum"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 280px">
+  <div class="wrapper definite"><div id="definite-min" class="main"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 350px">
+  <div class="wrapper zero"><div id="zero-min" class="main"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 420px">
+  <div class="wrapper definite"><div id="definite-max" class="main maximum"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 490px">
+  <div class="wrapper zero"><div id="zero-max" class="main maximum"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 560px">
+  <div class="wrapper"><div id="border-min" class="main border-box"><div class="content"></div></div><div class="after"></div></div>
+</div>
+<div class="case" style="left: 630px">
+  <div class="wrapper"><div id="flex-min" class="main column"><div class="content"></div></div><div class="after"></div></div>
+</div>
