@@ -1,0 +1,33 @@
+<!doctype html>
+<title>Intrinsic flex and grid container heights with percentage children</title>
+<link rel="match" href="support/intrinsic-sizing-container-heights-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 50px; height: 80px; margin-bottom: 5px; background: #ccc; }
+    .box { width: 50px; background: #080; }
+    .child { width: 50px; height: 50%; background: #c00; }
+    .content { height: 30px; }
+    .row { display: flex; }
+    .column { display: flex; flex-direction: column; }
+    .grid { display: grid; }
+    .intrinsic { height: max-content; }
+    .minimum { height: 20px; min-height: max-content; }
+    .maximum { height: 80px; max-height: max-content; }
+    .maximum-small { height: 20px; max-height: max-content; }
+    .no-min .child { min-height: 0; }
+    .hidden .child { overflow: hidden; }
+    .fixed-child .child { height: 10px; }
+</style>
+<div class="host"><div class="box row intrinsic"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box row minimum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box row maximum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box column intrinsic"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box column minimum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box column maximum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid intrinsic"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid minimum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid maximum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid minimum no-min"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid minimum hidden"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid minimum fixed-child"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box grid maximum-small"><div class="child"><div class="content"></div></div></div></div>

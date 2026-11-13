@@ -1,0 +1,30 @@
+<!doctype html>
+<title>Intrinsic sizing of replaced images</title>
+<link rel="match" href="support/intrinsic-sizing-images-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 80px; height: 45px; margin-bottom: 5px; background: #ccc; }
+    img { display: block; }
+    .a { width: min-content; height: auto; }
+    .b { width: max-content; height: 8px; }
+    .c { width: 8px; height: min-content; }
+    .d { width: 40px; height: auto; max-width: min-content; }
+    .e { width: auto; height: 8px; min-width: max-content; }
+    .f { width: 40px; height: 40px; max-width: min-content; max-height: max-content; }
+    .g { width: 40px; height: auto; min-width: min-content; }
+    .h { width: auto; height: 40px; max-height: max-content; }
+    .i { width: 8px; height: 40px; max-height: min-content; }
+    .j { width: min-content; height: auto; box-sizing: border-box; padding: 4px; border: 2px solid black; }
+    .k { width: fit-content(8px); height: auto; }
+</style>
+<div class="host"><img class="a" src="green16.png"></div>
+<div class="host"><img class="b" src="green16.png"></div>
+<div class="host"><img class="c" src="green16.png"></div>
+<div class="host"><img class="d" src="green16.png"></div>
+<div class="host"><img class="e" src="green16.png"></div>
+<div class="host"><img class="f" src="green16.png"></div>
+<div class="host"><img class="g" src="green16.png"></div>
+<div class="host"><img class="h" src="green16.png"></div>
+<div class="host"><img class="i" src="green16.png"></div>
+<div class="host"><img class="j" src="green16.png"></div>
+<div class="host"><img class="k" src="green16.png"></div>

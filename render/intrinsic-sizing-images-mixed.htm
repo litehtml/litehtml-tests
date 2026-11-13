@@ -1,0 +1,24 @@
+<!doctype html>
+<title>Intrinsic image sizing with mixed axis constraints</title>
+<link rel="match" href="support/intrinsic-sizing-images-mixed-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 120px; height: 80px; margin-bottom: 5px; background: #ccc; }
+    img { display: block; }
+</style>
+<div class="host"><img src="green16.png" style="width:min-content; height:40px; min-height:min-content"></div>
+<div class="host"><img src="green16.png" style="width:min-content; height:40px; max-height:min-content"></div>
+<div class="host"><img src="green16.png" style="width:min-content; height:auto; min-width:max-content; max-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:40px; height:max-content; max-width:max-content"></div>
+<div class="host"><img src="green16.png" style="width:40px; height:min-content; max-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:40px; height:80px; max-width:max-content; min-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:40px; height:80px; min-width:max-content; max-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:8px; height:40px; max-width:min-content; max-height:min-content"></div>
+<div class="host"><img src="green16.png" style="width:40px; height:8px; max-width:min-content; max-height:min-content"></div>
+<div class="host"><img src="green16.png" style="width:auto; height:auto; min-width:30px; max-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:auto; height:auto; max-width:8px; min-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:auto; height:auto; min-height:30px; max-width:max-content"></div>
+<div class="host"><img src="green16.png" style="width:auto; height:auto; max-height:8px; min-width:max-content"></div>
+<div class="host"><img src="green16.png" style="width:max-content; height:50%; min-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:max-content; height:50%; max-height:max-content"></div>
+<div class="host"><img src="green16.png" style="width:fit-content; height:30px; max-height:max-content"></div>

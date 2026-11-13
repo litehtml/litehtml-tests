@@ -1,0 +1,22 @@
+<!doctype html>
+<title>Intrinsic positioned sizing reference</title>
+<style>
+    body { margin: 0; }
+    .host { position: relative; width: 60px; height: 40px; margin: 0 0 5px 40px; background: #ccc; }
+    .bar { position: absolute; background: #080; }
+    .wide { width: 90px; height: 10px; }
+    .narrow { width: 50px; height: 20px; }
+    .fit { left: 10px; }
+    .right { right: 0; }
+</style>
+<div class="host"><div class="bar wide"></div></div>
+<div class="host"><div class="bar narrow fit"></div></div>
+<div class="host"><div class="bar wide right"></div></div>
+<div class="host"><div class="bar wide"></div></div>
+<div class="host"><div class="bar narrow"></div></div>
+<div class="host"><div class="bar wide"></div></div>
+<div class="host"><div class="bar narrow"></div></div>
+<div class="host"><div class="bar narrow"></div></div>
+<div class="host"><div class="bar narrow"></div></div>
+<div class="host"><div class="bar narrow"></div></div>
+<div class="host"><div class="bar narrow"></div></div>

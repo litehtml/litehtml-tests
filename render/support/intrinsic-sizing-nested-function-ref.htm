@@ -1,0 +1,15 @@
+<!doctype html>
+<title>fit-content() cyclic percentage reference</title>
+<style>
+    body { margin: 0; }
+    .host { width: 140px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .outer { width: 90px; height: 20px; background: #aaa; }
+    .outer.minimum { width: 50px; }
+    .bar { width: 50px; height: 20px; background: #080; }
+    .bar.math { width: 55px; }
+</style>
+<div class="host"><div class="outer"><div class="bar"></div></div></div>
+<div class="host"><div class="outer"><div class="bar math"></div></div></div>
+<div class="host"><div class="outer minimum"><div class="bar"></div></div></div>
+<div class="host"><div class="outer"><div class="bar"></div></div></div>
+<div class="host"><div class="outer"><div class="bar"></div></div></div>

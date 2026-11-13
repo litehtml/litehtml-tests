@@ -1,0 +1,21 @@
+<!doctype html>
+<title>fit-content() with cyclic percentage contributions</title>
+<link rel="match" href="support/intrinsic-sizing-nested-function-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 140px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .outer { width: max-content; font-size: 0; line-height: 0; background: #aaa; }
+    .outer.minimum { width: min-content; }
+    .outer.flex { display: flex; }
+    .outer.grid { display: grid; grid-template-columns: max-content; }
+    .inner { width: fit-content(50%); background: #080; }
+    .inner.math { width: fit-content(calc(10px + 50%)); }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+</style>
+<div class="host"><div class="outer"><div class="inner"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer"><div class="inner math"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer minimum"><div class="inner"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex"><div class="inner"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer grid"><div class="inner"><span class="part a"></span> <span class="part b"></span></div></div></div>

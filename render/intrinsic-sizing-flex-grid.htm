@@ -1,0 +1,38 @@
+<!doctype html>
+<title>Intrinsic sizing in flex and grid layouts</title>
+<link rel="match" href="support/intrinsic-sizing-flex-grid-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 120px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .row { display: flex; }
+    .column { display: flex; flex-direction: column; }
+    .grid { display: grid; grid-template-columns: 100px; grid-template-rows: 40px; }
+    .box { font-size: 0; line-height: 0; background: #080; }
+    .row .box, .column .box { flex: 0 0 auto; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .width-min { width: min-content; }
+    .width-max { width: max-content; }
+    .min-max { width: 1px; min-width: max-content; }
+    .max-min { width: 120px; max-width: min-content; }
+    .row .basis { width: max-content; min-width: 0; flex-basis: 10px; }
+    .height-max { width: 50px; height: max-content; }
+    .column .basis { width: 50px; height: max-content; min-height: 0; flex-basis: 8px; }
+    .column .min-height { width: 50px; height: 1px; min-height: max-content; }
+    .column .max-height { width: 50px; height: 40px; max-height: max-content; }
+    .grid-min { width: min-content; height: max-content; }
+    .grid-max { width: max-content; height: min-content; }
+</style>
+<div class="host row"><div class="box width-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host row"><div class="box min-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host row"><div class="box max-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host row"><div class="box basis"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host row"><div class="box height-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host column"><div class="box width-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host column"><div class="box width-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host column"><div class="box basis"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host column"><div class="box min-height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host column"><div class="box max-height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host grid"><div class="box grid-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host grid"><div class="box grid-max"><span class="part a"></span> <span class="part b"></span></div></div>

@@ -1,0 +1,39 @@
+<!doctype html>
+<title>Intrinsic sizing of tables and cells</title>
+<link rel="match" href="support/intrinsic-sizing-tables-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 60px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .table { display: table; border-spacing: 0; font-size: 0; line-height: 0; background: #080; }
+    .cell { display: table-cell; padding: 0; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .width-min { width: min-content; }
+    .width-max { width: max-content; }
+    .width-fit { width: fit-content; }
+    .min-max { width: 1px; min-width: max-content; }
+    .max-min { width: 150px; max-width: min-content; }
+    .small-cell { width: 30px; max-width: min-content; }
+    .middle-cell { width: 70px; max-width: min-content; }
+    .height-min { width: 50px; height: min-content; }
+    .min-height { width: 50px; height: 1px; min-height: max-content; }
+    .max-height { width: 50px; height: 40px; max-height: min-content; }
+    .cell-height { height: max-content; }
+</style>
+<div class="host"><div class="table width-min"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table width-max"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table width-fit"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table min-max"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table max-min"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell width-min"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell width-max"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell width-fit"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell min-max"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell max-min"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table height-min"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table min-height"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table max-height"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table height-min"><div class="cell cell-height"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell small-cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="table"><div class="cell middle-cell"><span class="part a"></span> <span class="part b"></span></div></div></div>

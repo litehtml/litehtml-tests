@@ -1,0 +1,31 @@
+<!doctype html>
+<title>Intrinsic table sizing with multiple columns and a spanning cell</title>
+<link rel="match" href="support/intrinsic-sizing-table-spans-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 100px; height: 60px; margin-bottom: 5px; background: #ccc; }
+    table { border-spacing: 0; font-size: 0; line-height: 0; background: #080; }
+    td { padding: 0; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .c { width: 20px; }
+    .d { width: 60px; }
+    .e { width: 80px; }
+    .minimum { width: min-content; }
+    .maximum { width: max-content; }
+    .fit { width: fit-content; }
+    .min-max { width: 1px; min-width: max-content; }
+    .max-min { width: 200px; max-width: min-content; }
+    .function { width: fit-content(110px); }
+    .min-function { width: 1px; min-width: fit-content(120px); }
+    .max-function { width: 200px; max-width: fit-content(90px); }
+</style>
+<div class="host"><table class="minimum"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="maximum"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="fit"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="min-max"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="max-min"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="function"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="min-function"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>
+<div class="host"><table class="max-function"><tr><td><span class="part a"></span> <span class="part b"></span></td><td><span class="part c"></span></td></tr><tr><td colspan="2"><span class="part d"></span> <span class="part e"></span></td></tr></table></div>

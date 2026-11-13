@@ -1,0 +1,33 @@
+<!doctype html>
+<title>Intrinsic sizing of positioned boxes</title>
+<link rel="match" href="support/intrinsic-sizing-positioned-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { position: relative; width: 60px; height: 40px; margin: 0 0 5px 40px; background: #ccc; }
+    .box { position: absolute; font-size: 0; line-height: 0; background: #080; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .wide { left: 0; right: 0; width: max-content; }
+    .fit { left: 10px; right: 10px; width: fit-content; }
+    .right { right: 0; width: max-content; }
+    .minimum { left: 0; right: 0; width: 1px; min-width: max-content; }
+    .maximum { left: 0; right: 0; width: 150px; max-width: min-content; }
+    .auto-minimum { left: 0; right: 0; width: auto; min-width: max-content; }
+    .auto-maximum { left: 0; right: 0; width: auto; max-width: min-content; }
+    .height { top: 0; bottom: 0; width: 50px; height: max-content; }
+    .min-height { top: 0; bottom: 0; width: 50px; height: 1px; min-height: max-content; }
+    .max-height { top: 0; bottom: 0; width: 50px; height: 40px; max-height: max-content; }
+    .auto-max-height { top: 0; bottom: 0; width: 50px; height: auto; max-height: max-content; }
+</style>
+<div class="host"><div class="box wide"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box fit"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box right"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box minimum"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box maximum"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box auto-minimum"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box auto-maximum"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min-height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box auto-max-height"><span class="part a"></span> <span class="part b"></span></div></div>

@@ -1,0 +1,32 @@
+<!doctype html>
+<title>Intrinsic height constraints during column flex sizing</title>
+<link rel="match" href="support/intrinsic-sizing-flex-heights-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { display: flex; flex-direction: column; width: 50px; height: 100px; margin-bottom: 5px; background: #ccc; }
+    .item { width: 50px; flex: 1 1 0; background: #080; }
+    .other { width: 50px; flex: 1 1 0; min-height: 0; background: blue; }
+    .content { height: 20px; }
+    .max { height: 40px; max-height: max-content; }
+    .min { height: 1px; min-height: max-content; }
+    .min .content { height: 70px; }
+    .conflict { height: 1px; min-height: max-content; max-height: 10px; }
+    .conflict .content { height: 70px; }
+    .function { height: 40px; max-height: fit-content(15px); }
+    .pad { box-sizing: border-box; padding: 5px 0; border-top: 2px solid #080; border-bottom: 2px solid #080; }
+    .preferred { height: max-content; flex: 0 0 auto; }
+    .numeric-min { height: 40px; min-height: 30px; max-height: max-content; }
+    .image { height: 80px; max-height: max-content; }
+    .table { display: table; border-spacing: 0; }
+    .cell { display: table-cell; }
+</style>
+<div class="host"><div class="item max"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item min"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item conflict"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item function"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item max pad"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item min pad"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item preferred pad"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><div class="item numeric-min"><div class="content"></div></div><div class="other"></div></div>
+<div class="host"><img class="item image" src="green16.png"><div class="other"></div></div>
+<div class="host"><div class="item table max"><div class="cell"><div class="content"></div></div></div><div class="other"></div></div>

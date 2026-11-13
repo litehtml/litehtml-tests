@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<!-- Requires vertical writing-mode support. -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -16,7 +17,6 @@
 .grid {
   display: grid;
   width: min-content;
-  height: 100px;
   background: green;
   color: transparent;
   font: 25px/1 Ahem;
@@ -31,9 +31,11 @@
 <p>Test passes if there is a filled green square and <strong>no red</strong>.</p>
 <div class="wrapper">
   <div class="grid">
-    <div class="subgrid" style="grid-template-rows: 100px;">
-      <div class="subgrid" style="grid-template-rows: repeat(4, 1fr);">
-        <div style="writing-mode: vertical-lr;">X X X X</div>
+    <div class="subgrid" style="height: 100px; grid-template-rows: repeat(4, 1fr);">
+      <div class="subgrid" style="grid-template-rows: subgrid;">
+        <div class="subgrid" style="grid-template-rows: subgrid;">
+          <div style="writing-mode: vertical-lr;">X X X X</div>
+        </div>
       </div>
     </div>
   </div>

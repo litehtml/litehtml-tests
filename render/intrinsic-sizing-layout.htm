@@ -1,0 +1,44 @@
+<!doctype html>
+<title>Intrinsic sizing in supported layout modes</title>
+<link rel="match" href="support/intrinsic-sizing-layout-ref.htm">
+<meta name="assert" content="Intrinsic sizing applies to inline blocks, floats, positioned boxes, flex and grid items, tables and images.">
+<style>
+    body { margin: 0; }
+    .host { width: 60px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .host.wide { width: 120px; }
+    .box { font-size: 0; line-height: 0; background: #080; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .inline { display: inline-block; width: min-content; }
+    .float { float: left; width: max-content; }
+    .positioned { position: relative; }
+    .absolute { position: absolute; width: fit-content; }
+    .flex { display: flex; width: 120px; align-items: flex-start; }
+    .flex .box { flex: 0 0 auto; }
+    .flex-min { width: min-content; }
+    .flex-max { width: max-content; }
+    .grid { display: grid; width: 120px; grid-template-columns: 100px; grid-template-rows: 40px; }
+    .grid-item { width: min-content; height: max-content; }
+    .table { display: table; width: min-content; border-spacing: 0; }
+    .cell { display: table-cell; padding: 0; }
+    .border { width: min-content; box-sizing: border-box; padding: 0 10px; border-left: 4px solid black; border-right: 4px solid black; margin-left: 5px; }
+    .image { width: min-content; height: max-content; }
+    .column { display: flex; flex-direction: column; align-items: flex-start; }
+    .column .box { flex: 0 0 auto; width: 50px; height: max-content; }
+    .grid-box { display: grid; width: max-content; grid-template-columns: max-content; }
+    .ordinary { display: inline; width: min-content; height: 0; max-width: min-content; max-height: min-content; }
+    .ordinary .part { background: #080; }
+</style>
+<div class="host"><div class="box inline"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box float"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host positioned"><div class="box absolute"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host flex"><div class="box flex-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host flex"><div class="box flex-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host grid"><div class="box grid-item"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box table"><div class="cell"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="box border"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><img class="image" src="green16.png"></div>
+<div class="host column"><div class="box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box grid-box"><div><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host wide"><span class="box ordinary"><span class="part a"></span> <span class="part b"></span></span></div>

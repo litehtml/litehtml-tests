@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grid float isolation reference</title>
+<link rel="stylesheet" href="grid.css">
+<style>
+.grid {
+  width: 100px;
+  grid-auto-columns: minmax(50px, max-content);
+  grid-auto-rows: minmax(50px, max-content);
+}
+.floatChild {
+  float: left;
+  clear: both;
+}
+</style>
+</head>
+<body>
+<div>This test checks that grid item sets a new formatting context for its content, preventing any 'float' protruding content on the adjoining grid item ('Float' text shouldn't overflow the first row).</div>
+<div class="grid">
+  <div class="firstRowFirstColumn">
+    <div class="floatChild">Float</div>
+    <div class="floatChild">Float</div>
+    <div class="floatChild">Float</div>
+    <div class="floatChild">Float</div>
+  </div>
+  <div class="firstRowSecondColumn"></div>
+  <div class="secondRowFirstColumn"></div>
+  <div class="secondRowSecondColumn"></div>
+</div>
+</body>
+</html>

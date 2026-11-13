@@ -1,0 +1,21 @@
+<!doctype html>
+<title>Percentage children in intrinsically sized heights</title>
+<link rel="match" href="support/intrinsic-sizing-percentage-heights-ref.htm">
+<meta name="assert" content="Intrinsic height remains an indefinite percentage base, while intrinsic min/max heights measure against a definite preferred height.">
+<style>
+    body { margin: 0; }
+    .host { width: 50px; height: 80px; margin-bottom: 5px; background: #ccc; }
+    .box { width: 50px; background: #080; }
+    .child { height: 50%; background: #c00; }
+    .content { height: 40px; }
+    .min { height: min-content; }
+    .max { height: max-content; }
+    .fit { height: fit-content; }
+    .minimum { height: 20px; min-height: max-content; }
+    .maximum { height: 80px; max-height: max-content; }
+</style>
+<div class="host"><div class="box min"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box max"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box fit"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box minimum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box maximum"><div class="child"><div class="content"></div></div></div></div>

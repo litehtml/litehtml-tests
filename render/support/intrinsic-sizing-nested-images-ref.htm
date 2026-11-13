@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Nested intrinsic image contribution reference</title>
+<style>
+    body { margin: 0; }
+    .host { width: 120px; height: 60px; margin-bottom: 5px; background: #ccc; }
+    .box { width: 16px; height: 16px; background: #0f0; }
+    .marker { width: 16px; height: 5px; background: #c00; }
+    .s8 { width: 8px; height: 8px; }
+    .w8 { width: 8px; }
+    .s40 { width: 40px; height: 40px; }
+    .w40 { width: 40px; }
+    .padded { width: 28px; height: 28px; padding: 6px; background: #080; }
+    .padded .box { width: 28px; height: 28px; }
+</style>
+<div class="host"><div class="box s40"></div><div class="marker w40"></div></div>
+<div class="host"><div class="box"></div><div class="marker"></div></div>
+<div class="host"><div class="box s40"></div><div class="marker w40"></div></div>
+<div class="host"><div class="box"></div><div class="marker"></div></div>
+<div class="host"><div class="box s8"></div><div class="marker w8"></div></div>
+<div class="host"><div class="padded"><div class="box"></div></div><div class="marker w40"></div></div>

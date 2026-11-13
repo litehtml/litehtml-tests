@@ -1,0 +1,36 @@
+<!doctype html>
+<title>Intrinsic sizes with margins, padding, borders and box sizing</title>
+<link rel="match" href="support/intrinsic-sizing-boxes-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 100px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .box { height: 10px; margin-left: 5px; padding: 0 10px; border-left: 4px solid black; border-right: 4px solid black; font-size: 0; line-height: 0; background: #080; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .min { width: min-content; }
+    .max { width: max-content; }
+    .fit { width: fit-content; }
+    .border-box { box-sizing: border-box; }
+    .min-width { width: 1px; min-width: max-content; }
+    .max-width { width: 150px; max-width: min-content; }
+    .percent-padding { padding-left: 10%; padding-right: 10%; }
+    .function-small { width: fit-content(70px); }
+    .function-middle { width: fit-content(100px); }
+    .vertical { width: 50px; height: max-content; padding: 5px 0; border: 0; border-top: 2px solid black; border-bottom: 2px solid black; }
+</style>
+<div class="host"><div class="box min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box fit"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box fit border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min"></div></div>
+<div class="host"><div class="box min-width"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-width border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min percent-padding"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box function-small border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box function-middle border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box vertical"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box vertical border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div style="height: 30px"></div>

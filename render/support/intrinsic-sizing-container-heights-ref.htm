@@ -1,0 +1,29 @@
+<!doctype html>
+<title>Intrinsic container percentage-height reference</title>
+<style>
+    body { margin: 0; }
+    .host { width: 50px; height: 80px; margin-bottom: 5px; background: #ccc; }
+    .box { width: 50px; background: #080; }
+    .child { background: #c00; }
+    .h20 { height: 20px; }
+    .h30 { height: 30px; }
+    .h40 { height: 40px; }
+    .h80 { height: 80px; }
+    .c10 { height: 10px; }
+    .c15 { height: 15px; }
+    .c30 { height: 30px; }
+    .c40 { height: 40px; }
+</style>
+<div class="host"><div class="box h30"><div class="child c30"></div></div></div>
+<div class="host"><div class="box h20"><div class="child c10"></div></div></div>
+<div class="host"><div class="box h40"><div class="child c40"></div></div></div>
+<div class="host"><div class="box h30"><div class="child c30"></div></div></div>
+<div class="host"><div class="box h20"><div class="child c10"></div></div></div>
+<div class="host"><div class="box h40"><div class="child c40"></div></div></div>
+<div class="host"><div class="box h30"><div class="child c15"></div></div></div>
+<div class="host"><div class="box h30"><div class="child c15"></div></div></div>
+<div class="host"><div class="box h80"><div class="child c40"></div></div></div>
+<div class="host"><div class="box h20"><div class="child c10"></div></div></div>
+<div class="host"><div class="box h20"><div class="child c10"></div></div></div>
+<div class="host"><div class="box h20"><div class="child c10"></div></div></div>
+<div class="host"><div class="box h20"><div class="child c15"></div></div></div>

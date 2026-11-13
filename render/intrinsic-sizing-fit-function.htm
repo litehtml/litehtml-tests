@@ -1,0 +1,53 @@
+<!doctype html>
+<title>fit-content() on physical sizing properties</title>
+<link rel="match" href="support/intrinsic-sizing-fit-function-ref.htm">
+<meta name="assert" content="fit-content() clamps its argument between the 50px minimum and 90px maximum content widths.">
+<style>
+    html { font-size: 10px; }
+    body { margin: 0; }
+    .host { width: 140px; height: 10px; margin-bottom: 5px; background: #ccc; }
+    .host.tall { width: 50px; height: 40px; }
+    .box { height: 10px; font-size: 0; line-height: 0; background: #080; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .zero { width: fit-content(0px); }
+    .middle { width: fit-content(70px); }
+    .large { width: fit-content(200px); }
+    .percent { width: fit-content(50%); }
+    .math { width: fit-content(calc(20px + 40%)); }
+    .variable { --limit: 70px; width: fit-content(var(--limit)); }
+    .min-middle { width: 1px; min-width: fit-content(70px); }
+    .max-middle { width: 150px; max-width: fit-content(70px); }
+    .min-zero { width: 1px; min-width: fit-content(0px); }
+    .max-large { width: 150px; max-width: fit-content(200px); }
+    .relative { width: fit-content(7rem); }
+    .zero-percent { width: fit-content(0%); }
+    .negative-calc { width: fit-content(calc(-10px)); }
+    .negative { width: 17px; width: fit-content(-1px); }
+    .comma { width: 17px; width: fit-content(70px, 30px); }
+    .identifier { width: 17px; width: fit-content(auto); }
+    .tall .box { width: 50px; }
+    .height { height: 1px; height: fit-content(70px); }
+    .min-height { height: 1px; min-height: fit-content(70px); }
+    .max-height { height: 40px; max-height: fit-content(70px); }
+</style>
+<div class="host"><div class="box zero"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box middle"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box large"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box percent"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box math"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box variable"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min-middle"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-middle"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min-zero"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-large"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box relative"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box zero-percent"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box negative-calc"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box negative"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box comma"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box identifier"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host tall"><div class="box height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host tall"><div class="box min-height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host tall"><div class="box max-height"><span class="part a"></span> <span class="part b"></span></div></div>

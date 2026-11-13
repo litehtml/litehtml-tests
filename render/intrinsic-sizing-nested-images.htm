@@ -1,0 +1,16 @@
+<!doctype html>
+<title>Intrinsic width contributions of images with an aspect ratio</title>
+<link rel="match" href="support/intrinsic-sizing-nested-images-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 120px; height: 60px; margin-bottom: 5px; background: #ccc; }
+    .wrap { display: inline-block; width: max-content; background: #080; }
+    img { display: block; }
+    .marker { width: 100%; height: 5px; background: #c00; }
+</style>
+<div class="host"><div class="wrap"><img src="green16.png" style="width:max-content; height:40px"><div class="marker"></div></div></div>
+<div class="host"><div class="wrap"><img src="green16.png" style="width:min-content; height:40px; max-height:max-content"><div class="marker"></div></div></div>
+<div class="host"><div class="wrap"><img src="green16.png" style="width:auto; height:40px; min-width:max-content"><div class="marker"></div></div></div>
+<div class="host"><div class="wrap"><img src="green16.png" style="width:40px; height:max-content; max-width:max-content"><div class="marker"></div></div></div>
+<div class="host"><div class="wrap"><img src="green16.png" style="width:8px; height:40px; max-height:min-content"><div class="marker"></div></div></div>
+<div class="host"><div class="wrap"><img src="green16.png" style="width:max-content; height:40px; box-sizing:border-box; padding:4px; border:2px solid #080"><div class="marker"></div></div></div>

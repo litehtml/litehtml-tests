@@ -1,0 +1,35 @@
+<!doctype html>
+<title>Intrinsic width, min-width and max-width keywords</title>
+<link rel="match" href="support/intrinsic-sizing-width-ref.htm">
+<meta name="assert" content="The min-content, max-content and fit-content widths are 50px, 90px and 60px.">
+<style>
+    body { margin: 0; }
+    .host { width: 60px; height: 10px; margin-bottom: 5px; background: #ccc; }
+    .box { height: 10px; font-size: 0; line-height: 0; background: #080; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .width-min { width: min-content; }
+    .width-max { width: max-content; }
+    .width-fit { width: fit-content; }
+    .min-min { width: 1px; min-width: min-content; }
+    .min-max { width: 1px; min-width: max-content; }
+    .min-fit { width: 1px; min-width: fit-content; }
+    .max-min { width: 150px; max-width: min-content; }
+    .max-max { width: 150px; max-width: max-content; }
+    .max-fit { width: 150px; max-width: fit-content; }
+    .conflict-intrinsic-min { width: 1px; min-width: max-content; max-width: 30px; }
+    .conflict-intrinsic-max { width: 150px; min-width: 70px; max-width: min-content; }
+</style>
+<div class="host"><div class="box width-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box width-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box width-fit"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box min-fit"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box max-fit"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box conflict-intrinsic-min"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box conflict-intrinsic-max"><span class="part a"></span> <span class="part b"></span></div></div>
+<div style="height: 20px"></div>

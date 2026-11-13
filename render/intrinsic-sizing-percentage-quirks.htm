@@ -1,0 +1,17 @@
+<title>Intrinsic heights stop quirks-mode percentage lookup</title>
+<link rel="match" href="support/intrinsic-sizing-percentage-quirks-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 50px; height: 100px; margin-bottom: 5px; background: #ccc; }
+    .box { width: 50px; background: #080; }
+    .child { height: 50%; background: #c00; }
+    .content { height: 30px; }
+    .intrinsic { height: max-content; }
+    .automatic { height: auto; }
+    .minimum { height: 20px; min-height: max-content; }
+    .maximum { height: 80px; max-height: max-content; }
+</style>
+<div class="host"><div class="box intrinsic"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box automatic"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box minimum"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box maximum"><div class="child"><div class="content"></div></div></div></div>

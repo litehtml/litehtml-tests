@@ -1,0 +1,31 @@
+<!doctype html>
+<title>Intrinsic sizing with positioned insets and percentage heights</title>
+<link rel="match" href="support/intrinsic-sizing-positioned-edges-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { position: relative; width: 100px; height: 100px; margin: 0 0 5px 40px; background: #ccc; }
+    .box { position: absolute; font-size: 0; line-height: 0; background: #080; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+    .percent { left: 20%; right: 30%; width: fit-content; }
+    .padded { left: 10px; right: 10px; width: fit-content; margin-left: 10px; margin-right: 5px; padding: 2px; border: 2px solid #080; }
+    .border-box { box-sizing: border-box; }
+    .minimum { left: 20%; right: 30%; width: 1px; min-width: fit-content; }
+    .right { right: 10%; width: max-content; margin-right: 5px; }
+    .height { top: 10%; bottom: 20%; width: 50px; height: max-content; }
+    .auto-height { top: 10%; bottom: 10%; width: 50px; height: auto; max-height: max-content; }
+    .percent-height { top: 10%; width: 50px; height: 80%; max-height: max-content; }
+    .child { height: 50%; background: #c00; }
+    .content { height: 30px; }
+    .function { left: 20%; right: 30%; width: fit-content(75%); }
+</style>
+<div class="host"><div class="box percent"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box padded"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box padded border-box"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box minimum"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box right"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box auto-height"><span class="part a"></span> <span class="part b"></span></div></div>
+<div class="host"><div class="box percent-height"><div class="child"><div class="content"></div></div></div></div>
+<div class="host"><div class="box function"><span class="part a"></span> <span class="part b"></span></div></div>

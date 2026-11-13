@@ -1,0 +1,22 @@
+<!doctype html>
+<title>Positioned intrinsic sizing reference</title>
+<style>
+    body { margin: 0; }
+    .host { position: relative; width: 100px; height: 100px; margin: 0 0 5px 40px; background: #ccc; }
+    .bar { position: absolute; width: 50px; height: 20px; background: #080; }
+    .left { left: 20px; }
+    .padded { width: 65px; height: 28px; }
+    .right { left: -5px; width: 90px; height: 10px; }
+    .top { top: 10px; }
+    .child { height: 40px; background: #c00; }
+    .function { width: 75px; }
+</style>
+<div class="host"><div class="bar left"></div></div>
+<div class="host"><div class="bar left padded"></div></div>
+<div class="host"><div class="bar left padded"></div></div>
+<div class="host"><div class="bar left"></div></div>
+<div class="host"><div class="bar right"></div></div>
+<div class="host"><div class="bar top"></div></div>
+<div class="host"><div class="bar top"></div></div>
+<div class="host"><div class="bar top child"></div></div>
+<div class="host"><div class="bar left function"></div></div>

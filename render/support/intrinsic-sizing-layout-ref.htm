@@ -1,0 +1,24 @@
+<!doctype html>
+<title>Intrinsic sizing layout reference</title>
+<style>
+    body { margin: 0; }
+    .host { width: 60px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .host.wide { width: 120px; }
+    .bar { background: #080; }
+    .w50 { width: 50px; height: 20px; }
+    .w60 { width: 60px; height: 20px; }
+    .w90 { width: 90px; height: 10px; }
+    .border { width: 78px; height: 20px; box-sizing: border-box; padding: 0 10px; border-left: 4px solid black; border-right: 4px solid black; margin-left: 5px; }
+</style>
+<div class="host"><div class="bar w50"></div></div>
+<div class="host"><div class="bar w90"></div></div>
+<div class="host"><div class="bar w60"></div></div>
+<div class="host wide"><div class="bar w50"></div></div>
+<div class="host wide"><div class="bar w90"></div></div>
+<div class="host wide"><div class="bar w50"></div></div>
+<div class="host"><div class="bar w50"></div></div>
+<div class="host"><div class="bar border"></div></div>
+<div class="host"><img src="../green16.png" width="16" height="16"></div>
+<div class="host"><div class="bar w50"></div></div>
+<div class="host"><div class="bar w90"></div></div>
+<div class="host wide"><div class="bar w90"></div></div>

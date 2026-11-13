@@ -1,0 +1,37 @@
+<!doctype html>
+<title>Intrinsic contributions to flex and grid containers</title>
+<link rel="match" href="support/intrinsic-sizing-nested-layout-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 60px; height: 40px; margin-bottom: 5px; background: #ccc; }
+    .outer { font-size: 0; line-height: 0; background: #080; }
+    .flex { display: flex; }
+    .grid { display: grid; grid-template-columns: max-content; }
+    .auto-track { grid-template-columns: auto; }
+    .min { width: min-content; }
+    .max { width: max-content; }
+    .fit { width: fit-content; }
+    .function { width: fit-content(70px); }
+    .minimum { width: 1px; min-width: max-content; }
+    .maximum { width: 150px; max-width: min-content; }
+    .basis70 { width: min-content; min-width: 0; flex: 0 0 70px; }
+    .basis20 { width: max-content; min-width: 0; flex: 0 0 20px; }
+    .auto-minimum { width: max-content; flex: 0 0 20px; }
+    .part { display: inline-block; height: 10px; }
+    .a { width: 40px; }
+    .b { width: 50px; }
+</style>
+<div class="host"><div class="outer flex max"><div class="min"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex min"><div class="max"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="minimum"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="maximum"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="fit"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="function"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer grid max"><div class="min"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer grid max"><div class="max"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer grid min"><div class="max"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer grid auto-track max"><div class="minimum"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer grid auto-track max"><div class="maximum"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="basis70"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="basis20"><span class="part a"></span> <span class="part b"></span></div></div></div>
+<div class="host"><div class="outer flex max"><div class="auto-minimum"><span class="part a"></span> <span class="part b"></span></div></div></div>

@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Intrinsic spanning-table sizing reference</title>
+<style>
+    body { margin: 0; }
+    .host { width: 100px; height: 60px; margin-bottom: 5px; background: #ccc; }
+    .bar { width: 80px; height: 40px; background: #080; }
+    .max { width: 140px; height: 20px; }
+    .fit { width: 100px; }
+    .function { width: 110px; }
+    .min-function { width: 120px; height: 30px; }
+    .max-function { width: 90px; }
+</style>
+<div class="host"><div class="bar"></div></div>
+<div class="host"><div class="bar max"></div></div>
+<div class="host"><div class="bar fit"></div></div>
+<div class="host"><div class="bar max"></div></div>
+<div class="host"><div class="bar"></div></div>
+<div class="host"><div class="bar function"></div></div>
+<div class="host"><div class="bar min-function"></div></div>
+<div class="host"><div class="bar max-function"></div></div>
