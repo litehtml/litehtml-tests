@@ -1,0 +1,21 @@
+<style>
+body { margin: 8px; }
+.box { position: absolute; display: flex; flex-direction: column; justify-content: space-around; box-sizing: border-box; background: blue; }
+.item { flex-grow: 0; flex-basis: 50%; box-sizing: content-box; background: red; }
+.original { left: 8px; top: 8px; width: 300px; height: 500px; padding: 100px; }
+.small { width: 100px; height: 120px; padding: 10px; border: 10px solid black; }
+.reverse { left: 328px; top: 8px; flex-direction: column-reverse; }
+.content { left: 448px; top: 8px; box-sizing: content-box; width: 60px; height: 80px; }
+.row { left: 568px; top: 8px; flex-direction: row; align-items: center; }
+.row .item { flex-basis: auto; width: 60px; height: 50%; }
+.item-edges { left: 328px; top: 148px; }
+.item-edges .item { box-sizing: border-box; border: 5px solid green; padding: 5px; }
+.indefinite { left: 448px; top: 148px; height: auto; }
+.fixed-content { width: 20px; height: 20px; background: green; }
+</style>
+<div class="box original"><div class="item">test</div></div>
+<div class="box small reverse"><div class="item"></div></div>
+<div class="box small content"><div class="item"></div></div>
+<div class="box small row"><div class="item"></div></div>
+<div class="box small item-edges"><div class="item"></div></div>
+<div class="box small indefinite"><div class="item"><div class="fixed-content"></div></div></div>
