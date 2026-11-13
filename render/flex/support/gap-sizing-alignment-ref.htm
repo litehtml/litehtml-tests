@@ -1,0 +1,71 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for flex gap sizing and alignment</title>
+<style>
+    body { margin: 0; width: 800px; height: 600px; }
+    .box { position: absolute; width: 100px; height: 20px; background: #ddd; }
+    .item { position: absolute; width: 20px; height: 20px; }
+    .a { background: #d33; }
+    .b { background: #3a6; }
+    .c { background: #36c; }
+    #grow { left: 10px; top: 10px; }
+    #grow .item { width: 40px; }
+    #grow .b { left: 60px; }
+    #shrink { left: 130px; top: 10px; }
+    #shrink .item { width: 40px; }
+    #shrink .b { left: 60px; }
+    #justify { left: 250px; top: 10px; width: 160px; }
+    #justify .b { left: 70px; }
+    #justify .c { left: 140px; }
+    #auto-margin { left: 430px; top: 10px; width: 160px; }
+    #auto-margin .b { left: 140px; }
+    .wrapped { height: 100px; }
+    .wrapped .item { width: 40px; }
+    #cross { left: 10px; top: 70px; }
+    #cross .b { left: 60px; }
+    #cross .c { top: 80px; }
+    #stretch { left: 130px; top: 70px; }
+    #stretch .item { height: 45px; }
+    #stretch .b { left: 60px; }
+    #stretch .c { top: 55px; }
+    #auto-height { left: 250px; top: 70px; height: 50px; }
+    #auto-height .b { left: 60px; }
+    #auto-height .c { top: 30px; }
+    #column-auto { left: 370px; top: 70px; height: 50px; }
+    #column-auto .b { top: 30px; }
+    #zero-height { left: 490px; top: 70px; height: 0; }
+    #zero-height .a { top: -25px; }
+    #zero-height .b { top: 5px; }
+    #overflow { left: 610px; top: 70px; }
+    #overflow .b { left: 100px; }
+    #auto-justify { left: 10px; top: 220px; width: 160px; }
+    #auto-justify .b { left: 100px; }
+    #auto-justify .c { left: 140px; }
+    .vertical { width: 20px; height: 100px; }
+    #column-grow { left: 190px; top: 220px; }
+    #column-grow .item { height: 40px; }
+    #column-grow .b { top: 60px; }
+    #column-shrink { left: 250px; top: 220px; }
+    #column-shrink .item { height: 40px; }
+    #column-shrink .b { top: 60px; }
+    #column-margin { left: 310px; top: 220px; height: 160px; }
+    #column-margin .b { top: 140px; }
+    #split-margin { left: 370px; top: 220px; width: 160px; }
+    #split-margin .b { left: 70px; }
+    #split-margin .c { left: 140px; }
+</style>
+<div class="box" id="grow"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="shrink"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="justify"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="auto-margin"><div class="item a"></div><div class="item b"></div></div>
+<div class="box wrapped" id="cross"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box wrapped" id="stretch"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box wrapped" id="auto-height"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="column-auto"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="zero-height"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="overflow"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="auto-justify"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box vertical" id="column-grow"><div class="item a"></div><div class="item b"></div></div>
+<div class="box vertical" id="column-shrink"><div class="item a"></div><div class="item b"></div></div>
+<div class="box vertical" id="column-margin"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="split-margin"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>

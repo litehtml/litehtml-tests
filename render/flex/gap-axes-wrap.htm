@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Flex gaps in both axes and reversed flows</title>
+<style>
+    body { margin: 0; width: 800px; height: 600px; }
+    .box {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        align-content: flex-start;
+        width: 100px;
+        height: 70px;
+        gap: 10px 20px;
+        background: #ddd;
+    }
+    .box > .item { flex: 0 0 40px; width: 40px; height: 20px; }
+    .a { background: #d33; }
+    .b { background: #3a6; }
+    .c { background: #36c; }
+    .column { height: 100px; flex-direction: column; }
+    .column > .item { width: 20px; height: 40px; }
+    #row { left: 10px; top: 10px; }
+    #row-reverse { left: 130px; top: 10px; flex-direction: row-reverse; gap: normal; row-gap: 10px; column-gap: 20px; }
+    #row-wrap-reverse { left: 250px; top: 10px; flex-wrap: wrap-reverse; }
+    #normal { left: 370px; top: 10px; flex-wrap: nowrap; gap: normal; }
+    #zero { left: 490px; top: 10px; flex-wrap: nowrap; gap: 0; }
+    #single { left: 610px; top: 10px; }
+    #column { left: 10px; top: 100px; }
+    #column-reverse { left: 130px; top: 100px; flex-direction: column-reverse; }
+    #column-wrap-reverse { left: 250px; top: 100px; flex-wrap: wrap-reverse; }
+    #hidden { left: 370px; top: 100px; height: 100px; }
+    #hidden .hidden { display: none; }
+    #positioned { left: 490px; top: 100px; height: 100px; }
+    #positioned .absolute { position: absolute; left: 0; top: 80px; width: 10px; height: 10px; background: #000; }
+    #positioned .fixed { position: fixed; left: 750px; top: 580px; width: 10px; height: 10px; background: #f0f; }
+    #empty { left: 610px; top: 100px; height: 100px; align-content: stretch; }
+    #order { left: 10px; top: 230px; }
+    #order .c { order: -1; }
+    #order .b { order: 1; }
+    #positioned-center { left: 130px; top: 230px; justify-content: center; align-items: center; }
+    #positioned-center .absolute { position: absolute; width: 10px; height: 10px; background: #000; }
+    #positioned-inline { left: 250px; top: 230px; }
+    #positioned-inline .absolute { position: absolute; left: 0; top: 50px; width: 10px; height: 10px; background: #000; }
+    #positioned-reverse { left: 370px; top: 230px; flex-direction: row-reverse; flex-wrap: wrap-reverse; }
+    #positioned-reverse .absolute { position: absolute; width: 10px; height: 10px; background: #000; }
+    #positioned-self { left: 490px; top: 230px; justify-content: flex-end; }
+    #positioned-self .absolute { position: absolute; align-self: flex-end; width: 10px; height: 10px; background: #000; }
+    #positioned-fixed { left: 610px; top: 230px; justify-content: center; align-items: center; }
+    #positioned-fixed .fixed { position: fixed; width: 10px; height: 10px; background: #000; }
+    #positioned-column { left: 10px; top: 340px; height: 100px; flex-direction: column; justify-content: center; align-items: flex-end; }
+    #positioned-column .absolute { position: absolute; width: 10px; height: 10px; background: #000; }
+    #empty-between { left: 130px; top: 340px; height: 100px; align-content: space-between; }
+    #positioned-stretch { left: 250px; top: 340px; height: 100px; flex-wrap: wrap-reverse; align-items: stretch; justify-content: center; }
+    #positioned-stretch .absolute { position: absolute; width: 10px; height: 10px; background: #000; }
+    #positioned-baseline { left: 370px; top: 340px; height: 100px; flex-wrap: wrap-reverse; align-items: baseline; justify-content: center; }
+    #positioned-baseline .absolute { position: absolute; width: 10px; height: 10px; background: #000; }
+</style>
+<div class="box" id="row"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="row-reverse"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="row-wrap-reverse"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="normal"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="zero"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="single"><div class="item a"></div></div>
+<div class="box column" id="column"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box column" id="column-reverse"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box column" id="column-wrap-reverse"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="hidden"><div class="item a"></div><div class="item hidden"></div><div class="item b"></div></div>
+<div class="box" id="positioned"><div class="item a"></div><div class="absolute"></div><div class="fixed"></div><div class="item b"></div></div>
+<div class="box" id="empty"></div>
+<div class="box" id="order"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="positioned-center"><div class="item a"></div><div class="absolute"></div><div class="item b"></div></div>
+<div class="box" id="positioned-inline"><div class="item a"></div><span class="absolute"></span><div class="item b"></div></div>
+<div class="box" id="positioned-reverse"><div class="absolute"></div></div>
+<div class="box" id="positioned-self"><div class="absolute"></div></div>
+<div class="box" id="positioned-fixed"><div class="fixed"></div></div>
+<div class="box" id="positioned-column"><div class="absolute"></div></div>
+<div class="box" id="empty-between"></div>
+<div class="box" id="positioned-stretch"><div class="absolute"></div></div>
+<div class="box" id="positioned-baseline"><div class="absolute"></div></div>

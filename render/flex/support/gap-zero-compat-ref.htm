@@ -1,0 +1,33 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for zero flex gap compatibility</title>
+<style>
+    body { margin: 0; width: 800px; height: 600px; }
+    .box {
+        position: absolute;
+        display: flex;
+        justify-content: space-around;
+        width: 160px;
+        height: 20px;
+        background: #ddd;
+    }
+    .item { flex: none; width: 20px; height: 20px; }
+    .a { background: #d33; }
+    .b { background: #3a6; }
+    .absolute { position: absolute; left: 0; top: 24px; width: 20px; height: 20px; background: #36c; }
+    #length { left: 10px; top: 10px; }
+    #percent { left: 10px; top: 60px; }
+    #calculated { left: 10px; top: 110px; }
+    .positioner { position: absolute; width: 50px; height: 50px; font-size: 0; line-height: 0; background: #eee; }
+    .inline { display: inline-flex; flex-wrap: wrap; align-items: flex-start; background: #ddd; }
+    .inline .item { width: 40px; }
+    #inline-length { left: 220px; top: 10px; }
+    #inline-percent { left: 220px; top: 80px; }
+    #inline-calculated { left: 220px; top: 150px; }
+</style>
+<div class="box" id="length"><div class="item a"></div><div class="absolute"></div><div class="item b"></div></div>
+<div class="box" id="percent"><div class="item a"></div><div class="absolute"></div><div class="item b"></div></div>
+<div class="box" id="calculated"><div class="item a"></div><div class="absolute"></div><div class="item b"></div></div>
+<div class="positioner" id="inline-length"><div class="inline"><div class="item a"></div><div class="item b"></div></div></div>
+<div class="positioner" id="inline-percent"><div class="inline"><div class="item a"></div><div class="item b"></div></div></div>
+<div class="positioner" id="inline-calculated"><div class="inline"><div class="item a"></div><div class="item b"></div></div></div>

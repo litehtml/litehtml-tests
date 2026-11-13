@@ -1,0 +1,73 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for flex percentage and intrinsic gaps</title>
+<style>
+    body { margin: 0; width: 800px; height: 600px; }
+    .box, .inline { position: absolute; background: #ddd; }
+    .item { position: absolute; width: 40px; height: 20px; }
+    .a { background: #d33; }
+    .b { background: #3a6; }
+    .c { background: #36c; }
+    .d { background: #da3; }
+    .e { background: #a3a; }
+    #fixed { left: 10px; top: 10px; width: 200px; height: 100px; }
+    #fixed .b { left: 50px; }
+    #fixed .c { left: 100px; }
+    #fixed .d { left: 150px; }
+    #fixed .e { top: 30px; }
+    #border { left: 230px; top: 10px; box-sizing: border-box; width: 230px; height: 130px; border: 5px solid #444; padding: 10px; }
+    #border .item { left: 10px; top: 10px; }
+    #border .b { left: 60px; }
+    #border .c { left: 110px; }
+    #border .d { left: 160px; }
+    #border .e { top: 40px; }
+    #auto-row { left: 10px; top: 160px; width: 100px; height: 40px; }
+    #auto-row .b { left: 60px; }
+    #auto-row .c { top: 20px; }
+    #auto-calc { left: 130px; top: 160px; width: 100px; height: 50px; }
+    #auto-calc .b { left: 60px; }
+    #auto-calc .c { top: 30px; }
+    .column { width: 100px; }
+    .column .item { width: 20px; }
+    #column-definite { left: 250px; top: 160px; height: 100px; }
+    #column-definite .b { top: 30px; }
+    #column-auto { left: 370px; top: 160px; height: 50px; }
+    #column-auto .b { top: 30px; }
+    #column-min { left: 490px; top: 160px; height: 100px; }
+    #column-min .b { top: 20px; }
+    #relative { left: 610px; top: 160px; width: 120px; height: 20px; }
+    #relative .item { width: 20px; }
+    #relative .b { left: 30px; }
+    #inline-percent { left: 10px; top: 300px; width: 80px; height: 20px; }
+    #inline-percent .b { left: 48px; }
+    #inline-calc { left: 130px; top: 300px; width: 90px; height: 20px; }
+    #inline-calc .b { left: 59px; }
+    #inline-wrap { left: 250px; top: 300px; width: 50px; height: 50px; }
+    #inline-wrap .b { top: 30px; }
+    #variable { left: 370px; top: 300px; width: 160px; height: 20px; }
+    #variable .b { left: 56px; }
+    #functions { left: 550px; top: 300px; width: 85px; height: 80px; }
+    #functions .b { left: 45px; }
+    #functions .c { top: 28px; }
+    #inline-absolute { left: 10px; top: 400px; width: 90px; height: 20px; }
+    #inline-absolute .b { left: 50px; }
+    #inline-absolute .absolute { position: absolute; left: 0; top: 40px; width: 110px; height: 10px; background: #000; }
+    #inline-row-percent { left: 150px; top: 400px; width: 80px; height: 20px; }
+    #inline-row-percent .b { left: 40px; }
+    #inline-row-percent .absolute { position: absolute; left: 0; top: 40px; width: 20px; height: 10px; background: #000; }
+</style>
+<div class="box" id="fixed"><div class="item a"></div><div class="item b"></div><div class="item c"></div><div class="item d"></div><div class="item e"></div></div>
+<div class="box" id="border"><div class="item a"></div><div class="item b"></div><div class="item c"></div><div class="item d"></div><div class="item e"></div></div>
+<div class="box" id="auto-row"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box" id="auto-calc"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="box column" id="column-definite"><div class="item a"></div><div class="item b"></div></div>
+<div class="box column" id="column-auto"><div class="item a"></div><div class="item b"></div></div>
+<div class="box column" id="column-min"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="relative"><div class="item a"></div><div class="item b"></div></div>
+<div class="inline" id="inline-percent"><div class="item a"></div><div class="item b"></div></div>
+<div class="inline" id="inline-calc"><div class="item a"></div><div class="item b"></div></div>
+<div class="inline" id="inline-wrap"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="variable"><div class="item a"></div><div class="item b"></div></div>
+<div class="box" id="functions"><div class="item a"></div><div class="item b"></div><div class="item c"></div></div>
+<div class="inline" id="inline-absolute"><div class="item a"></div><div class="absolute"></div><div class="item b"></div></div>
+<div class="inline" id="inline-row-percent"><div class="item a"></div><div class="absolute"></div><div class="item b"></div></div>
