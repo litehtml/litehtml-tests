@@ -1,0 +1,36 @@
+<!doctype html>
+<title>Automatic flex minima respect max-width around a block-displayed table</title>
+<link rel="match" href="support/table-flex-max-width-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { display: flex; width: 600px; gap: 24px; margin-bottom: 10px; }
+    .narrow { width: 520px; }
+    .content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .row { display: flex; flex: 1; }
+    .orange { display: flex; flex-direction: column; flex: 1; max-width: 100%; background: orange; }
+    .scroll { overflow: auto; padding: 16px; }
+    .tomato { flex: 0 0 160px; height: 80px; background: tomato; }
+    table { display: block; width: max-content; max-width: 100%; overflow: auto; scrollbar-width: none; border-spacing: 0; }
+    td { padding: 0; vertical-align: top; font-size: 0; line-height: 20px; }
+    .part { display: inline-block; vertical-align: top; width: 180px; height: 20px; background: green; }
+    .control { display: flex; width: 300px; height: 20px; margin-bottom: 10px; background: tomato; }
+    .item { flex: 1; max-width: 200px; background: orange; }
+    .wide { width: 300px; height: 20px; }
+    .percent { max-width: 50%; }
+    .explicit { min-width: 240px; }
+</style>
+<div class="host">
+    <div class="content"><div class="row"><div class="orange"><div class="scroll"><article>
+        <table><tbody><tr><td><span class="part"></span> <span class="part"></span></td><td><span class="part"></span></td></tr></tbody></table>
+    </article></div></div></div></div>
+    <div class="tomato"></div>
+</div>
+<div class="host narrow">
+    <div class="content"><div class="row"><div class="orange"><div class="scroll"><article>
+        <table><tbody><tr><td><span class="part"></span> <span class="part"></span></td><td><span class="part"></span></td></tr></tbody></table>
+    </article></div></div></div></div>
+    <div class="tomato"></div>
+</div>
+<div class="control"><div class="item"><div class="wide"></div></div></div>
+<div class="control"><div class="item percent"><div class="wide"></div></div></div>
+<div class="control"><div class="item explicit"><div class="wide"></div></div></div>

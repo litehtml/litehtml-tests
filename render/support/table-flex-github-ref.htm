@@ -1,0 +1,32 @@
+<!doctype html>
+<title>GitHub table reference with explicitly bounded content boxes</title>
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 14px sans-serif; line-height: 1.5; overflow-wrap: break-word; }
+    .layout { position: relative; width: 1000px; }
+    .content-box { width: 720px; padding: 16px; }
+    .orange { border: 1px solid; background: orange; }
+    .markdown { overflow: auto; padding: 32px; }
+    article { max-width: 1012px; margin: 0 auto; }
+    markdown-accessiblity-table { display: block; }
+    table { display: block; width: max-content; max-width: 100%; overflow: auto; scrollbar-width: none; border-collapse: collapse; }
+    td { padding: 6px 13px; border: 1px solid black; }
+    code { font: 85% monospace; padding: 2px 5px; white-space: break-spaces; }
+    .sidebar { position: absolute; top: 0; left: 744px; width: 256px; padding: 16px; }
+    .about { background: tomato; }
+    h2 { margin: 0 0 16px; font-size: 16px; }
+    p { margin: 0; }
+</style>
+<div class="layout">
+    <div class="content-box"><div class="orange"><div class="markdown"><article><markdown-accessiblity-table>
+        <table><tbody><tr>
+            <td><code>LITEHTML_BUILD_CONTAINER_CAIRO</code></td>
+            <td><code>litehtml_container_cairo</code>: Cairo reference container, without text drawing</td>
+            <td>Cairo</td>
+        </tr></tbody></table>
+    </markdown-accessiblity-table></article></div></div></div>
+    <div class="sidebar"><div class="about">
+        <h2>About</h2>
+        <p>Fast and lightweight HTML/CSS rendering engine</p>
+    </div></div>
+</div>

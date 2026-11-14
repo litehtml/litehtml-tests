@@ -1,0 +1,22 @@
+<!doctype html>
+<title>Border-box padding is counted once in intrinsic widths of flex siblings</title>
+<link rel="match" href="support/intrinsic-sizing-border-box-ref.htm">
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .row { display: flex; width: 600px; height: 20px; margin-bottom: 10px; background: blue; }
+    .main { flex: 1 1 0; min-width: 1px; }
+    .wrap { padding-right: 8px; background: yellow; }
+    .flex { display: flex; }
+    .column { display: flex; flex-direction: column; }
+    .box { height: 20px; padding: 0 16px; border-left: 4px solid black; background: green; }
+    .width { width: 200px; }
+    .min-width { min-width: 200px; }
+    .max-width { max-width: 200px; }
+    .wide { width: 300px; height: 20px; }
+</style>
+<div class="row"><div class="main"></div><div class="wrap"><div class="box width"></div></div></div>
+<div class="row"><div class="main"></div><div class="wrap column"><div class="box width"></div></div></div>
+<div class="row"><div class="main"></div><div class="wrap flex"><div class="box width"></div></div></div>
+<div class="row"><div class="main"></div><div class="wrap"><div class="box min-width"></div></div></div>
+<div class="row"><div class="main"></div><div class="wrap"><div class="box max-width"><div class="wide"></div></div></div></div>

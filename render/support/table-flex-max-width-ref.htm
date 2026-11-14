@@ -1,0 +1,25 @@
+<!doctype html>
+<title>Bounded orange flex boxes, wrapping table contents, and 24px sidebar gaps</title>
+<style>
+    body { margin: 0; }
+    .host { height: 80px; margin-bottom: 10px; position: relative; }
+    .orange { width: 416px; height: 80px; background: orange; }
+    .table { position: relative; top: 16px; left: 16px; width: 384px; height: 40px; overflow: hidden; }
+    .part { position: absolute; width: 180px; height: 20px; background: green; }
+    .second { top: 20px; }
+    .third { left: 204px; }
+    .tomato { position: absolute; top: 0; left: 440px; width: 160px; height: 80px; background: tomato; }
+    .narrow .orange { width: 336px; }
+    .narrow .table { width: 304px; }
+    .narrow .third { left: 180px; }
+    .narrow .tomato { left: 360px; }
+    .control { width: 300px; height: 20px; margin-bottom: 10px; background: tomato; }
+    .item { width: 200px; height: 20px; background: orange; }
+    .percent { width: 150px; }
+    .explicit { width: 240px; }
+</style>
+<div class="host"><div class="orange"><div class="table"><div class="part"></div><div class="part second"></div><div class="part third"></div></div></div><div class="tomato"></div></div>
+<div class="host narrow"><div class="orange"><div class="table"><div class="part"></div><div class="part second"></div><div class="part third"></div></div></div><div class="tomato"></div></div>
+<div class="control"><div class="item"></div></div>
+<div class="control"><div class="item percent"></div></div>
+<div class="control"><div class="item explicit"></div></div>

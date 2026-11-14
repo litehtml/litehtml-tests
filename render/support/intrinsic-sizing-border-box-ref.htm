@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Flex siblings sized as if border-box padding is counted once</title>
+<style>
+    body { margin: 0; }
+    .row { position: relative; width: 600px; height: 20px; margin-bottom: 10px; background: blue; }
+    .wrap { position: absolute; top: 0; left: 392px; width: 208px; height: 20px; background: yellow; }
+    .box { width: 200px; height: 20px; border-left: 4px solid black; box-sizing: border-box; background: green; }
+</style>
+<div class="row"><div class="wrap"><div class="box"></div></div></div>
+<div class="row"><div class="wrap"><div class="box"></div></div></div>
+<div class="row"><div class="wrap"><div class="box"></div></div></div>
+<div class="row"><div class="wrap"><div class="box"></div></div></div>
+<div class="row"><div class="wrap"><div class="box"></div></div></div>
