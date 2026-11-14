@@ -1,60 +1,69 @@
-# Tests for litehml
+# Tests for litehtml
 
 This repository contains tests for [litehtml](https://github.com/litehtml/litehtml).
+Rendering tests depend on the environment. The currently supported Linux
+distributions are Ubuntu 24.04 and Fedora 40.
 
-Rendering tests depend on running environment. Currently tested and supported Linux distro: Ubuntu 24.04, Fedora 40.
-The best way to run tests is using docker image. We've prepared Dockerfile to create the docker image, or use the
-script ```run_render_tests.sh```. This script creates the docker image, build tests and run them.
+## Requirements
 
-## Running tests in the docker container
+Building the tests requires CMake 3.20 or newer, C99 and C++17 compilers,
+pkg-config, and development packages for GTK3, GdkPixbuf, fontconfig, Cairo,
+Pango and PangoCairo. `LITEHTML_PATH` must point to a litehtml source checkout
+that provides the `litehtml_render2png` library target.
 
-To run tests in the docker container run the script ```run_render_tests.sh```:
-
-```shell
-./run_render_tests.sh /path/to/litehtml] 4
-```
-
-Arguments:
-
-1. Real path to the litehtml cloned repository
-2. Number of threads to use for ```make``` and ```ctest``` commands
-
-Script will create the docker image and run building and testing inside container.
-
-## Running test locally
-
-### Pre-requirements
-
-To build tests locally the following libraries are required: gdk-3.0 cairo pango pangocairo fontconfig
-If you are using Ubuntu runs command to install required packages:
+For Ubuntu, install the build dependencies with:
 
 ```shell
-apt-get install -yq --no-install-recommends --no-install-suggests libcairo2-dev libpango1.0-dev libgtk-3-dev
+sudo apt-get install -y --no-install-recommends --no-install-suggests 
+    build-essential cmake clang-tidy pkg-config libcairo2-dev libpango1.0-dev libgtk-3-dev
 ```
 
-### Build tests
+GoogleTest is fetched during configuration by default. To use installed
+GoogleTest headers and libraries instead, configure with `-DEXTERNAL_GTEST=ON`.
 
-To build tests locally run commands:
+## Running tests locally
+
+From the root of this repository, run:
 
 ```shell
-mkdir build
-cd build
-cmake -DLITEHTML_PATH=/path/to/litehtml ../
-make
-ctest
+cmake -S . -B build -DLITEHTML_PATH=/absolute/path/to/litehtml
+cmake --build build -j4
+ctest --test-dir build --output-on-failure -j4
 ```
-Replace ```/path/to/litehtml``` with real path to the cloned
 
-### Build and run tests from the litehtml repository
+The renderer library is always built for the tests. To also build the
+`render2png` executable, configure with `-DLITEHTML_BUILD_RENDER2PNG=ON`.
+The executable is disabled by default and runs as
+`build/render2png path/to/page.html output.png`.
 
-It is possible to run tests from [litehtml](https://github.com/litehtml/litehtml). Commands:
+## Running tests in Docker
+
+The provided script builds and runs the tests in a container:
 
 ```shell
-mkdir build
-cd build
-cmake -DLITEHTML_BUILD_TESTING=ON ../
-make
-ctest --test-dir litehtml-tests-build
+./run_render_tests.sh /absolute/path/to/litehtml 4
 ```
 
-**Note**: litehtml uses only predefined ```litehtml-tests``` commit
+The arguments are the path to the litehtml checkout and the number of threads
+to use for building and testing. The script reuses the `litehtml-build:latest`
+image if it already exists. Rebuild that image after updating the Dockerfile:
+
+```shell
+docker build -t litehtml-build:latest .
+```
+
+The `manage-tests` tool also reuses this image.
+
+## Running tests from the litehtml repository
+
+From a litehtml checkout with a compatible test-suite pin:
+
+```shell
+cmake -S . -B build-tests -DLITEHTML_BUILD_TESTING=ON
+cmake --build build-tests
+ctest --test-dir build-tests/litehtml-tests-build --output-on-failure
+```
+
+This workflow fetches a pinned commit of this repository, so it does not use
+local or newly published changes until the pin is updated. Build this checkout
+directly as described above to test local changes.

@@ -14,7 +14,8 @@ cmake -S ../manage-tests -B .
 make
 ```
 
-Only `gtkmm-4.0` (plus a C++17 toolchain) is required to build the tool itself.
+Building the tool itself requires CMake 3.20 or newer, `pkg-config`,
+`gtkmm-4.0` and a C++17 toolchain.
 At runtime it additionally needs:
 
 - Docker (to build and run `render2png`)
@@ -71,7 +72,10 @@ Each side can be switched independently: left shows the golden image or the
   `litehtml-build:latest` image exists, starts a persistent container that
   mounts the litehtml checkout, the tests folder and a build/cache directory,
   builds `render2png` (`cmake` + `make`), then invokes it per test via
-  `docker exec`.
+  `docker exec`. The litehtml checkout must provide the `litehtml_render2png`
+  library target. If the image already exists, rebuild it after updating the
+  Dockerfile with `docker build -t litehtml-build:latest .` from the test-suite
+  root.
 - **Chrome** images are rendered with `../check-with-chrome/scripts/` using a
   generated fontconfig that matches the repository's `fonts/`. The Chrome
   viewport width is taken from the actual `render2png` output width (which
