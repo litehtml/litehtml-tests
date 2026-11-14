@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Absolute flex child uses its auto-height containing block, including padding</title>
+<link rel="match" href="support/abspos-auto-height-standards-ref.htm">
+<style>
+    body { margin: 0; font-size: 16px; line-height: 20px; }
+    .outer { position: relative; width: 200px; }
+    .flex { display: flex; }
+    .orange { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: orange; }
+    .marker { width: 200px; height: 10px; background: green; }
+    .padded { margin-top: 20px; padding: 10px; width: 180px; }
+</style>
+<div class="outer"><div class="flex"><div class="orange"></div></div>XXX</div>
+<div class="marker"></div>
+<div class="outer padded"><div class="flex"><div class="orange"></div></div>XXX</div>
+<div class="marker"></div>

@@ -1,0 +1,10 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for spacing two in-flow items without an absolute child</title>
+<style>
+    body { margin: 0; }
+    .row { display: table; width: 100%; background: #ffcc00; }
+    .cell { display: table-cell; width: 50%; padding: 20px; text-align: center; }
+    .item { display: inline-block; background: #3366cc; }
+</style>
+<div class="row"><div class="cell"><div class="item">filler</div></div><div class="cell"><div class="item">filler</div></div></div>

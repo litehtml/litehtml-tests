@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for two in-flow colored blocks</title>
+<style>
+    .row { height: 30px; }
+    .row p { float: left; width: 300px; height: 30px; margin: 0; }
+    .green { background: green; }
+    .blue { background: blue; }
+</style>
+<p>'float' have no effect on a flex item.</p>
+<p>The test passes if there is a green square, a blue square and no red square.</p>
+<div class="row"><p class="green">&nbsp;</p><p class="blue">&nbsp;</p></div>

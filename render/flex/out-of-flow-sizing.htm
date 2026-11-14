@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Out-of-flow flex children do not affect lines or intrinsic size at any gap</title>
+<link rel="match" href="support/out-of-flow-sizing-ref.htm">
+<style>
+    body { margin: 0; }
+    .slot { position: absolute; width: 200px; font-size: 0; line-height: 0; }
+    .flex { position: relative; display: flex; width: 100px; justify-content: space-between; background: #ddd; }
+    .item { flex: none; width: 20px; height: 20px; background: green; }
+    .absolute { position: absolute; left: 0; top: 30px; width: 150px; height: 60px; background: blue; }
+    .marker { width: 100px; height: 10px; background: orange; }
+    #omitted { left: 10px; top: 10px; }
+    #zero { left: 240px; top: 10px; }
+    #zero .flex { gap: 0; }
+    #percent { left: 470px; top: 10px; }
+    #percent .flex { gap: 0%; }
+    #calculated { left: 10px; top: 120px; }
+    #calculated .flex { gap: calc(0px + 0%); }
+    #gapped { left: 240px; top: 120px; }
+    #gapped .flex { gap: 10px; }
+    #column { left: 470px; top: 120px; }
+    #column .flex { flex-direction: column; }
+    #column .absolute { top: 50px; }
+    #inline { left: 10px; top: 240px; }
+    #inline .flex { display: inline-flex; width: auto; }
+    #inline .item:last-child { position: relative; }
+    #wrap { left: 240px; top: 240px; }
+    #wrap .flex { flex-wrap: wrap; width: 40px; }
+    #empty { left: 470px; top: 240px; }
+    #fixed { left: 10px; top: 350px; }
+    .fixed { position: fixed; right: 10px; top: 350px; width: 20px; height: 100px; background: blue; }
+</style>
+<div class="slot" id="omitted"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="zero"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="percent"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="calculated"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="gapped"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="column"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="inline"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="wrap"><div class="flex"><div class="item"></div><div class="absolute"></div><div class="item"></div></div><div class="marker"></div></div>
+<div class="slot" id="empty"><div class="flex"><div class="absolute"></div></div><div class="marker"></div></div>
+<div class="slot" id="fixed"><div class="flex"><div class="fixed"></div></div><div class="marker"></div></div>

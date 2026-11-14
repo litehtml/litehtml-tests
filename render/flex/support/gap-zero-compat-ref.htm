@@ -1,12 +1,10 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Reference for zero flex gap compatibility</title>
+<title>Reference for zero gaps with out-of-flow children excluded</title>
 <style>
     body { margin: 0; width: 800px; height: 600px; }
     .box {
         position: absolute;
-        display: flex;
-        justify-content: space-around;
         width: 160px;
         height: 20px;
         background: #ddd;
@@ -14,6 +12,8 @@
     .item { flex: none; width: 20px; height: 20px; }
     .a { background: #d33; }
     .b { background: #3a6; }
+    .box > .a { position: absolute; left: 30px; top: 0; }
+    .box > .b { position: absolute; left: 110px; top: 0; }
     .absolute { position: absolute; left: 0; top: 24px; width: 20px; height: 20px; background: #36c; }
     #length { left: 10px; top: 10px; }
     #percent { left: 10px; top: 60px; }

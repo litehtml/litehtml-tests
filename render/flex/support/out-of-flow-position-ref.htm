@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for absolute and fixed flex child positioning</title>
+<style>
+    body { margin: 0; }
+    .box { position: absolute; width: 100px; height: 60px; background: orange; }
+    .child { position: absolute; left: 0; top: 0; width: 20px; height: 20px; background: green; }
+    #start { left: 10px; top: 10px; }
+    #center { left: 130px; top: 10px; }
+    #center-gap { left: 250px; top: 10px; }
+    #center .child, #center-gap .child { left: 40px; top: 20px; }
+    .in-flow { position: absolute; left: 10px; top: 25px; width: 80px; height: 10px; background: blue; }
+    #insets { left: 370px; top: 10px; }
+    #insets .child { left: 10px; top: 10px; width: 80px; height: 40px; }
+    #percentage { left: 490px; top: 10px; }
+    #percentage .child, #ancestor .child { width: 100px; height: 60px; }
+    #ancestor { left: 10px; top: 100px; }
+    #fixed { left: 130px; top: 100px; }
+    #fixed .child { position: fixed; left: 750px; top: 0; width: 20px; height: 100%; }
+</style>
+<div class="box" id="start"><div class="child"></div></div>
+<div class="box" id="center"><div class="in-flow"></div><div class="child"></div></div>
+<div class="box" id="center-gap"><div class="child"></div></div>
+<div class="box" id="insets"><div class="child"></div></div>
+<div class="box" id="percentage"><div class="child"></div></div>
+<div class="box" id="ancestor"><div class="child"></div></div>
+<div class="box" id="fixed"><div class="child"></div></div>

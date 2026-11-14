@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Reference for out-of-flow flex sizing</title>
+<style>
+    body { margin: 0; }
+    .slot { position: absolute; width: 200px; }
+    .box { position: relative; width: 100px; height: 20px; background: #ddd; }
+    .item { position: absolute; width: 20px; height: 20px; background: green; }
+    .second { left: 80px; }
+    .blue { position: absolute; left: 0; top: 30px; width: 150px; height: 60px; background: blue; }
+    .marker { width: 100px; height: 10px; background: orange; }
+    #omitted { left: 10px; top: 10px; }
+    #zero { left: 240px; top: 10px; }
+    #percent { left: 470px; top: 10px; }
+    #calculated { left: 10px; top: 120px; }
+    #gapped { left: 240px; top: 120px; }
+    #column { left: 470px; top: 120px; }
+    #column .box { height: 40px; }
+    #column .second { left: 0; top: 20px; }
+    #column .blue { top: 50px; }
+    #inline { left: 10px; top: 240px; }
+    #wrap { left: 240px; top: 240px; }
+    #inline .box, #wrap .box { width: 40px; }
+    #inline .second, #wrap .second { left: 20px; }
+    #empty { left: 470px; top: 240px; }
+    #empty .box { height: 0; }
+    #fixed { left: 10px; top: 350px; }
+    .fixed { position: fixed; right: 10px; top: 350px; width: 20px; height: 100px; background: blue; }
+</style>
+<div class="slot" id="omitted"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="zero"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="percent"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="calculated"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="gapped"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="column"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="inline"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="wrap"><div class="box"><div class="item"></div><div class="blue"></div><div class="item second"></div></div><div class="marker"></div></div>
+<div class="slot" id="empty"><div class="box"><div class="blue"></div></div><div class="marker"></div></div>
+<div class="slot" id="fixed"><div class="fixed"></div><div class="marker"></div></div>
