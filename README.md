@@ -67,3 +67,13 @@ ctest --test-dir build-tests/litehtml-tests-build --output-on-failure
 This workflow fetches a pinned commit of this repository, so it does not use
 local or newly published changes until the pin is updated. Build this checkout
 directly as described above to test local changes.
+
+## Positioned percentage-padding regressions
+
+`render/positioned-percentage-padding-*.htm` and
+`render/fixed-percentage-padding.htm` cover containing-block padding bases,
+static offsets, exact-width layout, and replaced images. Their `.cfg` files
+fix the viewport at 800x600. The sibling golden images are rendered from
+independent pixel-sized reference pages in `render/support/`, verified to
+match the subject pages in Chrome. The runner compares the golden PNGs;
+it does not evaluate the HTML `rel=match` links.
