@@ -1,0 +1,21 @@
+<!doctype html>
+<title>Percentage padding uses the containing padding box through positioned sizing</title>
+<link rel="match" href="support/positioned-percentage-padding-sizing-ref.htm">
+<style>
+    body { margin: 0; }
+    .row { position: relative; width: 360px; height: 60px; padding: 20px; border: 4px solid black; margin-bottom: 8px; background: orange; }
+    .parent { width: 100px; }
+    .subject { position: absolute; left: 0; top: 0; padding: 2.5% 5% 7.5% 10%; height: 20px; background: tomato; }
+    .marker { width: 100%; height: 20px; background: green; }
+    .explicit { width: 100px; min-width: 30%; }
+    .percentage { width: 50%; }
+    .insets { left: 20px; right: 30px; }
+    .borderbox { box-sizing: border-box; width: 200px; height: auto; bottom: 20px; }
+    .shrink { max-width: 70px; }
+    .shrink .marker { width: 90px; height: 20px; }
+</style>
+<div class="row"><div class="parent"><div class="subject explicit"><div class="marker"></div></div></div></div>
+<div class="row"><div class="parent"><div class="subject percentage"><div class="marker"></div></div></div></div>
+<div class="row"><div class="parent"><div class="subject insets"><div class="marker"></div></div></div></div>
+<div class="row"><div class="parent"><div class="subject borderbox"><div class="marker"></div></div></div></div>
+<div class="row"><div class="parent"><div class="subject shrink"><div class="marker"></div></div></div></div>

@@ -1,0 +1,11 @@
+<!doctype html>
+<title>Fixed percentage padding uses viewport width for blocks and images</title>
+<link rel="match" href="support/fixed-percentage-padding-ref.htm">
+<style>
+    body { margin: 0; }
+    .parent { width: 100px; height: 100px; background: orange; }
+    .fixed { position: fixed; left: 20px; top: 20px; width: 100px; height: 40px; padding: 5%; background: tomato; }
+    .marker { width: 100%; height: 100%; background: green; }
+    img { position: fixed; right: 20px; bottom: 20px; width: 60px; height: 40px; padding: 2.5%; background: tomato; }
+</style>
+<div class="parent"><div class="fixed"><div class="marker"></div></div><img src="css21/support/swatch-green.png"></div>

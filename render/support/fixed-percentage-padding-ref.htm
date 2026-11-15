@@ -1,0 +1,11 @@
+<!doctype html>
+<title>Fixed padding reference at an 800 by 600 viewport</title>
+<style>
+    body { margin: 0; }
+    .parent { width: 100px; height: 100px; background: orange; }
+    .fixed { position: absolute; left: 20px; top: 20px; width: 180px; height: 120px; background: tomato; }
+    .marker { position: absolute; left: 40px; top: 40px; width: 100px; height: 40px; background: green; }
+    .image { position: absolute; left: 680px; top: 500px; width: 100px; height: 80px; background: tomato; }
+    img { position: absolute; left: 20px; top: 20px; width: 60px; height: 40px; }
+</style>
+<div class="parent"></div><div class="fixed"><div class="marker"></div></div><div class="image"><img src="../css21/support/swatch-green.png"></div>

@@ -1,0 +1,23 @@
+<!doctype html>
+<title>Positioned sizing with independently resolved pixel padding</title>
+<style>
+    body { margin: 0; }
+    .row { position: relative; width: 360px; height: 60px; padding: 20px; border: 4px solid black; margin-bottom: 8px; background: orange; }
+    .subject { position: absolute; left: 0; top: 0; height: 60px; background: tomato; }
+    .marker { position: absolute; left: 40px; top: 10px; height: 20px; background: green; }
+    .explicit { width: 180px; }
+    .explicit .marker { width: 120px; }
+    .percentage { width: 260px; }
+    .percentage .marker { width: 200px; }
+    .insets { left: 20px; width: 350px; }
+    .insets .marker { width: 290px; }
+    .borderbox { width: 200px; height: 80px; }
+    .borderbox .marker { width: 140px; }
+    .shrink { width: 130px; }
+    .shrink .marker { width: 90px; }
+</style>
+<div class="row"><div class="subject explicit"><div class="marker"></div></div></div>
+<div class="row"><div class="subject percentage"><div class="marker"></div></div></div>
+<div class="row"><div class="subject insets"><div class="marker"></div></div></div>
+<div class="row"><div class="subject borderbox"><div class="marker"></div></div></div>
+<div class="row"><div class="subject shrink"><div class="marker"></div></div></div>

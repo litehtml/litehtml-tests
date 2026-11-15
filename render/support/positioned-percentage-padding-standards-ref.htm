@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Static offsets and descendant percentage bases reference</title>
+<style>
+    body { margin: 0; }
+    .outer { position: relative; width: 400px; height: 300px; background: orange; }
+    .parent { width: 100px; height: 20px; margin-left: 30px; background: lightblue; }
+    .absolute { position: absolute; left: 30px; top: 20px; width: 140px; height: 180px; background: tomato; }
+    .content { position: absolute; left: 40px; top: 40px; width: 60px; height: 100px; background: green; }
+    .child { width: 60px; height: 26px; background: blue; }
+    .control { width: 100px; height: 40px; margin-top: 20px; background: green; }
+</style>
+<div class="outer"><div class="parent"></div><div class="absolute"><div class="content"><div class="child"></div></div></div></div>
+<div class="control"></div>
