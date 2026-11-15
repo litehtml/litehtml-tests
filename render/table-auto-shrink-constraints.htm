@@ -1,0 +1,23 @@
+<!doctype html>
+<title>Pixel cell preferences shrink to maximum, automatic and explicit table widths</title>
+<link rel="match" href="support/table-auto-shrink-constraints-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 600px; margin-bottom: 20px; background: #eee; }
+    table { width: 900px; max-width: 600px; border-spacing: 0; }
+    td { padding: 0; height: 20px; width: 400px; background: #00f; }
+    .a { width: 400px; background: #f00; }
+    .auto { width: auto; max-width: none; }
+    .explicit { width: 600px; max-width: none; }
+    .unconstrained { max-width: none; }
+    .wide { width: 700px; }
+    .wide table { max-width: 100%; }
+    .zero .a { width: 0; }
+    .zero td { width: 800px; }
+</style>
+<div class="host"><table><tr><td class="a"><div style="height:20px"></div></td><td></td></tr></table></div>
+<div class="host"><table class="auto"><tr><td class="a"><div style="height:20px"></div></td><td></td></tr></table></div>
+<div class="host"><table class="explicit"><tr><td class="a"><div style="height:20px"></div></td><td></td></tr></table></div>
+<div class="host"><table class="unconstrained"><tr><td class="a"><div style="height:20px"></div></td><td></td></tr></table></div>
+<div class="host wide"><table><tr><td class="a"><div style="height:20px"></div></td><td></td></tr></table></div>
+<div class="host"><table class="zero"><tr><td class="a"><div style="height:20px"></div></td><td></td></tr></table></div>

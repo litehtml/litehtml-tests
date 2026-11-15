@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Reference for maximum, automatic, explicit and growing table widths</title>
+<style>
+    body { margin: 0; }
+    .host { width: 600px; margin-bottom: 20px; background: #eee; }
+    .row { position: relative; width: 600px; height: 20px; background: #f00; }
+    .row div { position: absolute; left: 300px; width: 300px; height: 20px; background: #00f; }
+    .unconstrained { width: 900px; }
+    .unconstrained div { left: 450px; width: 450px; }
+    .wide { width: 700px; }
+    .wide .row { width: 700px; }
+    .wide .row div { left: 350px; width: 350px; }
+    .zero { background: #00f; }
+</style>
+<div class="host"><div class="row"><div></div></div></div>
+<div class="host"><div class="row"><div></div></div></div>
+<div class="host"><div class="row"><div></div></div></div>
+<div class="host"><div class="row unconstrained"><div></div></div></div>
+<div class="host wide"><div class="row"><div></div></div></div>
+<div class="host"><div class="row zero"></div></div>

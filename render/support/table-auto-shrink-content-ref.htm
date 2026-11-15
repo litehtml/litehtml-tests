@@ -1,0 +1,38 @@
+<!doctype html>
+<title>Reference for real content floors and table spacing</title>
+<style>
+    body { margin: 0; }
+    .host { width: 600px; margin-bottom: 20px; background: #eee; }
+    .h { width: 600px; height: 20px; background: #888; }
+    .row { position: relative; width: 600px; height: 20px; background: #f00; }
+    .row div { position: absolute; top: 0; height: 20px; width: 37.5px; }
+    .b { background: #00f; }
+    .c { background: #0a0; }
+    .n2 { left: 300px; }
+    .n3 { left: 337.5px; }
+    .n4 { left: 375px; }
+    .n5 { left: 412.5px; }
+    .n6 { left: 450px; }
+    .n7 { left: 487.5px; }
+    .n8 { left: 525px; }
+    .n9 { left: 562.5px; }
+    .hard .h, .hard .row { width: 700px; }
+    .span .row div { width: calc(700px / 13); }
+    .span .n2 { left: calc(700px * 5 / 13); }
+    .span .n3 { left: calc(700px * 6 / 13); }
+    .span .n4 { left: calc(700px * 7 / 13); }
+    .span .n5 { left: calc(700px * 8 / 13); }
+    .span .n6 { left: calc(700px * 9 / 13); }
+    .span .n7 { left: calc(700px * 10 / 13); }
+    .span .n8 { left: calc(700px * 11 / 13); }
+    .span .n9 { left: calc(700px * 12 / 13); }
+    .spaced { background: #888; }
+    .spaced div { width: 288px; }
+    .spaced .a { left: 8px; background: #f00; }
+    .spaced .c { left: 304px; }
+</style>
+<div class="host"><div class="h"></div><div class="row"><div class="b n2"></div><div class="c n3"></div><div class="b n4"></div><div class="c n5"></div><div class="b n6"></div><div class="c n7"></div><div class="b n8"></div><div class="c n9"></div></div></div>
+<div class="host hard"><div class="h"></div><div class="row"></div></div>
+<div class="host hard span"><div class="h"></div><div class="row"><div class="b n2"></div><div class="c n3"></div><div class="b n4"></div><div class="c n5"></div><div class="b n6"></div><div class="c n7"></div><div class="b n8"></div><div class="c n9"></div></div></div>
+<div class="host"><div class="row spaced"><div class="a"></div><div class="c"></div></div></div>
+<div class="host"><div class="h"></div><div class="row"><div class="b n2"></div><div class="c n3"></div><div class="b n4"></div><div class="c n5"></div><div class="b n6"></div><div class="c n7"></div><div class="b n8"></div><div class="c n9"></div></div></div>

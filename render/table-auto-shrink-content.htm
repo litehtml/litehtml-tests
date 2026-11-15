@@ -1,0 +1,34 @@
+<!doctype html>
+<title>Automatic table shrink respects cell content, spans, padding and spacing</title>
+<link rel="match" href="support/table-auto-shrink-content-ref.htm">
+<style>
+    body { margin: 0; }
+    .host { width: 600px; margin-bottom: 20px; background: #eee; }
+    table { width: 900px; max-width: 100%; border-spacing: 0; }
+    td { padding: 0; height: 20px; width: 50px; }
+    .h { width: auto; background: #888; }
+    .a { width: 250px; background: #f00; }
+    .b { background: #00f; }
+    .c { background: #0a0; }
+    .fit { width: 300px; height: 20px; }
+    .hard { width: 700px; height: 20px; }
+    .spaced { border-spacing: 8px 0; background: #888; }
+    .spaced td { width: 400px; padding: 0 8px; }
+</style>
+<div class="host"><table>
+    <tr><td class="h" colspan="9"><div style="height:20px"></div></td></tr>
+    <tr><td class="a"><div class="fit"></div></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td></tr>
+</table></div>
+<div class="host"><table>
+    <tr><td class="h" colspan="9"><div style="height:20px"></div></td></tr>
+    <tr><td class="a"><div class="hard"></div></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td></tr>
+</table></div>
+<div class="host"><table>
+    <tr><td class="h" colspan="9"><div class="hard"></div></td></tr>
+    <tr><td class="a"><div style="height:20px"></div></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td></tr>
+</table></div>
+<div class="host"><table class="spaced"><tr><td class="a"><div style="height:20px"></div></td><td class="c"></td></tr></table></div>
+<div class="host"><table>
+    <tr><td class="h" colspan="9"><div style="height:20px"></div></td></tr>
+    <tr><td class="a" style="min-width:300px"><div style="height:20px"></div></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td></tr>
+</table></div>

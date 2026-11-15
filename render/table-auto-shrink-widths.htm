@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Automatic tables shrink pixel cell widths, with and without a spanning header</title>
+<link rel="match" href="support/table-auto-shrink-widths-ref.htm">
+<style>
+    body { margin: 8px; background: #fff; }
+    .page { width: 600px; background: #eee; margin-bottom: 20px; }
+    table { width: 900px; max-width: 100%; border-spacing: 0; }
+    td { padding: 0; height: 20px; width: 50px; }
+    .h { width: auto; background: #888; }
+    .a { width: 250px; background: #f00; }
+    .b { background: #00f; }
+    .c { background: #0a0; }
+</style>
+<div class="page"><table>
+    <tr><td class="h" colspan="9"><div style="height:20px"></div></td></tr>
+    <tr><td class="a"><div style="height:20px"></div></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td></tr>
+</table></div>
+<div class="page"><table>
+    <tr><td class="a"><div style="height:20px"></div></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td><td class="b"></td><td class="c"></td></tr>
+</table></div>

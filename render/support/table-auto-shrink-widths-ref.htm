@@ -1,0 +1,22 @@
+<!doctype html>
+<title>Reference for shrinking nine pixel-width columns</title>
+<style>
+    body { margin: 8px; background: #fff; }
+    .page { width: 600px; background: #eee; margin-bottom: 20px; }
+    .h { height: 20px; background: #888; }
+    .row { position: relative; height: 20px; background: #eee; }
+    .row div { position: absolute; top: 0; height: 20px; width: calc(600px / 13); }
+    .row .a { left: 0; width: calc(600px * 5 / 13); background: #f00; }
+    .b { background: #00f; }
+    .c { background: #0a0; }
+    .n2 { left: calc(600px * 5 / 13); }
+    .n3 { left: calc(600px * 6 / 13); }
+    .n4 { left: calc(600px * 7 / 13); }
+    .n5 { left: calc(600px * 8 / 13); }
+    .n6 { left: calc(600px * 9 / 13); }
+    .n7 { left: calc(600px * 10 / 13); }
+    .n8 { left: calc(600px * 11 / 13); }
+    .n9 { left: calc(600px * 12 / 13); }
+</style>
+<div class="page"><div class="h"></div><div class="row"><div class="a"></div><div class="b n2"></div><div class="c n3"></div><div class="b n4"></div><div class="c n5"></div><div class="b n6"></div><div class="c n7"></div><div class="b n8"></div><div class="c n9"></div></div></div>
+<div class="page"><div class="row"><div class="a"></div><div class="b n2"></div><div class="c n3"></div><div class="b n4"></div><div class="c n5"></div><div class="b n6"></div><div class="c n7"></div><div class="b n8"></div><div class="c n9"></div></div></div>
