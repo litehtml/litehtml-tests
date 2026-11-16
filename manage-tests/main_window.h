@@ -84,6 +84,8 @@ private:
     Gtk::ComboBoxText m_comboMode;
     Gtk::Button m_btnFolder;
     Gtk::Button m_btnCopy;
+    Gtk::Button m_btnCfg;
+    Gtk::Button m_btnSearch;
     Gtk::Button m_btnPrev;
     Gtk::Button m_btnNext;
     Gtk::Button m_btnApprove;
@@ -91,8 +93,9 @@ private:
     Gtk::Button m_btnIgnore;
     Gtk::Button m_btnSave;
     Gtk::Separator m_sep{Gtk::Orientation::VERTICAL};
-    Gtk::Label m_labelTitle;
     Gtk::Label m_labelFile;
+    Gtk::Separator m_status_sep{Gtk::Orientation::HORIZONTAL};
+    Gtk::Label m_status_label;
     Gtk::Box m_rootBox{Gtk::Orientation::VERTICAL, 0};
     Gtk::Paned m_paned{Gtk::Orientation::HORIZONTAL};
     Gtk::Frame m_frameLeft;
@@ -144,7 +147,7 @@ private:
     bool approve_enabled() const;
     bool disable_enabled() const;
     bool has_pending_changes() const;
-    void update_title();
+    void update_status();
     void show_error(const std::string& msg);
     void restart_renderers();
 
@@ -153,6 +156,8 @@ private:
     void on_left_source_changed();
     void on_right_source_changed();
     void on_btnFolder_clicked();
+    void on_btnCfg_clicked();
+    void on_btnSearch_clicked();
     void copy_test_path();
     void on_btnPrev_clicked();
     void on_btnNext_clicked();

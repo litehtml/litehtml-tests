@@ -58,6 +58,8 @@ Each side can be switched independently: left shows the golden image or the
 | Disable | Ctrl+D     | Mark test as disabled                                         |
 | Ignore  | Ctrl+Space | Remove any marks                                              |
 | Save    | Ctrl+S     | Apply all marks                                               |
+| Config  | —          | Edit the test's `.cfg` sidecar; the render2png/Chrome views re-render on save |
+| Search  | Ctrl+F     | Open a search dialog to find and jump to a test                |
 
 **Save** semantics:
 

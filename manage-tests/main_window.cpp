@@ -1,5 +1,7 @@
 #include "main_window.h"
 
+#include "config_dialog.h"
+#include "search_dialog.h"
 #include "util.h"
 
 #include <gdk/gdkkeysyms.h>
@@ -131,6 +133,7 @@ void MainWindow::drain_queue()
 
 void MainWindow::setup_ui()
 {
+    set_title("");
     set_titlebar(m_header);
     m_header.set_show_title_buttons(true);
 
@@ -152,6 +155,16 @@ void MainWindow::setup_ui()
     m_btnCopy.signal_clicked().connect([this] { copy_test_path(); });
     set_tool_button(m_btnCopy, "edit-copy-symbolic", "Copy");
     m_btnCopy.set_tooltip_text("Copy test path (Ctrl+C)");
+
+    m_header.pack_start(m_btnCfg);
+    m_btnCfg.signal_clicked().connect([this] { on_btnCfg_clicked(); });
+    set_tool_button(m_btnCfg, "accessories-text-editor-symbolic", "Config");
+    m_btnCfg.set_tooltip_text("Edit test config (.cfg)");
+
+    m_header.pack_start(m_btnSearch);
+    m_btnSearch.signal_clicked().connect([this] { on_btnSearch_clicked(); });
+    set_tool_button(m_btnSearch, "edit-find-symbolic", "Search");
+    m_btnSearch.set_tooltip_text("Search tests (Ctrl+F)");
 
     m_header.pack_start(m_btnPrev);
     m_btnPrev.signal_clicked().connect([this] { on_btnPrev_clicked(); });
@@ -185,9 +198,6 @@ void MainWindow::setup_ui()
     set_tool_button(m_btnSave, "document-save-symbolic", "Save");
     m_btnSave.set_tooltip_text("Apply all marks (Ctrl+S)");
 
-    m_header.set_title_widget(m_labelTitle);
-    m_labelTitle.set_hexpand(true);
-
     // Body
     set_child(m_rootBox);
     m_rootBox.append(m_labelFile);
@@ -199,6 +209,14 @@ void MainWindow::setup_ui()
 
     m_rootBox.append(m_paned);
     m_paned.set_vexpand(true);
+
+    m_rootBox.append(m_status_sep);
+    m_rootBox.append(m_status_label);
+    m_status_label.set_xalign(0.0f);
+    m_status_label.set_margin_start(8);
+    m_status_label.set_margin_end(8);
+    m_status_label.set_margin_top(4);
+    m_status_label.set_margin_bottom(4);
 
     // Left pane
     m_paned.set_start_child(m_frameLeft);
@@ -313,6 +331,9 @@ bool MainWindow::on_key_pressed(guint keyval, guint /*keycode*/, Gdk::ModifierTy
         case GDK_KEY_c:
             copy_test_path();
             return true;
+        case GDK_KEY_f:
+            on_btnSearch_clicked();
+            return true;
         default:
             return false;
     }
@@ -355,7 +376,7 @@ void MainWindow::worker_loop()
         std::string ce = m_chrome.init(m_repo, m_cache_dir);
         post_to_main([this, ce] {
             m_chrome_error = ce;
-            update_title();
+            update_status();
             request_renders();
         });
     }
@@ -374,7 +395,7 @@ void MainWindow::worker_loop()
             std::string de = m_docker.init(folder, m_litehtml_folder, m_repo, m_cache_dir);
             post_to_main([this, de] {
                 m_docker_error = de;
-                update_title();
+                update_status();
                 request_renders();
             });
             continue;
@@ -478,7 +499,7 @@ void MainWindow::scan_tests()
         m_tests.emplace_back(f);
     m_current = -1;
     show_next_test();
-    update_title();
+    update_status();
     update_buttons();
 }
 
@@ -663,7 +684,7 @@ bool MainWindow::has_pending_changes() const
     return false;
 }
 
-void MainWindow::update_title()
+void MainWindow::update_status()
 {
     std::stringstream ss;
     int ni = 0, na = 0, nd = 0;
@@ -687,7 +708,7 @@ void MainWindow::update_title()
         ss << "  [render2png " << (m_docker_error == "building" ? "building..." : "unavailable") << "]";
     else if (!m_chrome.ready())
         ss << "  [chrome unavailable]";
-    m_labelTitle.set_text(ss.str());
+    m_status_label.set_text(ss.str());
 }
 
 void MainWindow::show_error(const std::string& msg)
@@ -710,7 +731,7 @@ void MainWindow::restart_renderers()
     }
     m_need_init.store(true);
     m_job_cv.notify_all();
-    update_title();
+    update_status();
 }
 
 void MainWindow::on_mode_changed()
@@ -804,6 +825,43 @@ void MainWindow::on_btnFolder_clicked()
     });
 }
 
+void MainWindow::on_btnCfg_clicked()
+{
+    if (!index_is_valid(m_current))
+        return;
+    const std::string html = m_tests[m_current].html;
+    auto* dlg = new config_dialog(*this, html);
+    dlg->set_transient_for(*this);
+    dlg->signal_response().connect([this, dlg](int response) {
+        if (response == Gtk::ResponseType::APPLY && index_is_valid(m_current))
+        {
+            const test_entry& t = m_tests[m_current];
+            std::error_code ec;
+            fs::remove(render2png_cache_path(t), ec);
+            fs::remove(chrome_cache_path(t), ec);
+            invalidate_async();
+            request_renders();
+        }
+        delete dlg;
+    });
+    dlg->present();
+}
+
+void MainWindow::on_btnSearch_clicked()
+{
+    auto* dlg = new search_dialog(*this, m_tests, m_tests_folder, m_current);
+    dlg->set_transient_for(*this);
+    dlg->signal_test_selected().connect([this](int index) {
+        if (index_is_valid(index))
+        {
+            m_current = index;
+            load_current_test();
+        }
+    });
+    dlg->signal_response().connect([dlg](int) { delete dlg; });
+    dlg->present();
+}
+
 void MainWindow::copy_test_path()
 {
     if (!index_is_valid(m_current))
@@ -843,7 +901,7 @@ void MainWindow::on_btnApprove_clicked()
         fs::create_directories(fs::path(dst).parent_path());
         fs::copy_file(src, dst, fs::copy_options::overwrite_existing, ec);
     }
-    update_title();
+    update_status();
     update_buttons();
     show_next_test();
 }
@@ -853,7 +911,7 @@ void MainWindow::on_btnDisable_clicked()
     if (!index_is_valid(m_current))
         return;
     m_tests[m_current].action = test_action::disable;
-    update_title();
+    update_status();
     update_buttons();
     show_next_test();
 }
@@ -863,7 +921,7 @@ void MainWindow::on_btnIgnore_clicked()
     if (!index_is_valid(m_current))
         return;
     m_tests[m_current].action = test_action::ignore;
-    update_title();
+    update_status();
     update_buttons();
     show_next_test();
 }

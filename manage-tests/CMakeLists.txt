@@ -18,6 +18,10 @@ add_executable(manage-tests
         main_window.h
         test_model.cpp
         test_model.h
+        config_dialog.cpp
+        config_dialog.h
+        search_dialog.cpp
+        search_dialog.h
         docker_render.cpp
         docker_render.h
         chrome_render.cpp
