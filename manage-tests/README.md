@@ -81,9 +81,16 @@ Each side can be switched independently: left shows the golden image or the
 - **Chrome** images are rendered with `../render.py` (Playwright). render.py
   applies the same bestfit + `<file>.cfg` width logic as `render2png` (starting
   from its 800 px first pass) and generates a fontconfig from the repository's
-  `fonts/` so Chrome uses the same fonts. The screenshot is clipped to the
-  exact content bounds, so Chrome rendering no longer depends on the
-  `render2png` output or Docker.
+  `fonts/` so Chrome uses the same fonts. Chrome's default family is `serif`,
+  and its standard and monospace default sizes are 16 px; authored CSS still
+  takes precedence. Standalone `render.py` uses bundled fonts only when
+  `--repo` is supplied; otherwise it uses the system font configuration.
+  Form controls retain Chrome's default styling. The screenshot is clipped to
+  the exact element and visible text bounds, including body margins, so Chrome
+  rendering no longer depends on the `render2png` output or Docker.
+
+Run the Chrome capture regression tests from the test-suite root with
+`python3 -m unittest -v test_render` (requires Playwright and Google Chrome).
 
 Temp images (render2png output, Chrome output, approved stashes) are cached
 under `${TMPDIR:-/tmp}/litehtml-manage-tests/`.
