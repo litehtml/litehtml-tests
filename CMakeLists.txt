@@ -101,10 +101,6 @@ endif()
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-if (LITEHTML_BUILD_MANAGE_FAILED)
-	add_subdirectory(manage_failed manage_failed)
-endif()
-
 option(LITEHTML_BUILD_MANAGE_TESTS "Build the manage-tests GUI triage tool" OFF)
 
 if (LITEHTML_BUILD_MANAGE_TESTS)
