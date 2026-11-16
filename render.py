@@ -1,11 +1,12 @@
 import argparse
 import base64
+import json
 import os
 import sys
 import tempfile
 from pathlib import Path
 from urllib.parse import unquote, urlparse
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Error as PlaywrightError, sync_playwright
 
 
 # Mirrors litehtml's fonts.cpp: only top-level fonts/*.ttf are exposed, with
@@ -103,10 +104,12 @@ def parse_cfg(path: str) -> dict:
 # litehtml's document::render returns the widest rendered line (not the fully
 # unwrapped text width). A block box spans its containing width, so its border
 # box hides its line width; measuring max-content and clamping to the rendered
-# width recovers it: min(maxContent, rendered).
+# width recovers it: min(maxContent, rendered). The body itself is the root
+# block, so its max-content width is the document's widest line; measuring it
+# catches lines made of several inline blocks that no single descendant covers.
 BESTFIT_JS = """() => {
     const body = document.body;
-    const els = Array.from(document.querySelectorAll('body *'));
+    const els = Array.from(document.querySelectorAll('body, body *'));
     const saved = els.map(el => el.style.cssText);
     let best = 0;
     els.forEach((el, i) => {
@@ -140,37 +143,61 @@ def capture_page(source: str, output: str, width: int, scale: float, transparent
     launch_env = dict(os.environ)
     if fonts_conf:
         launch_env["FONTCONFIG_FILE"] = str(fonts_conf)
-    with sync_playwright() as p:
+    with tempfile.TemporaryDirectory(prefix="litehtml-chrome-") as profile, sync_playwright() as p:
+        font_family, font_size = "serif", 16
+        # Beyond-viewport screenshots can restore the common-script profile defaults.
+        preferences = Path(profile) / "Default" / "Preferences"
+        preferences.parent.mkdir()
+        preferences.write_text(json.dumps({
+            "webkit": {"webprefs": {
+                "fonts": {
+                    "standard": {"Zyyy": font_family},
+                    "serif": {"Zyyy": font_family},
+                },
+                "default_font_size": font_size,
+                "default_fixed_font_size": font_size,
+            }}
+        }), encoding="utf-8")
+
         # Use the system Google Chrome (remove channel="chrome" if it is not installed)
         try:
-            browser = p.chromium.launch(headless=True, channel="chrome", env=launch_env, args=[
-                "--disable-web-security",
-                "--disable-gpu",
-                "--hide-scrollbars",
-                "--force-device-scale-factor=1",
-                "--no-first-run",
-                "--no-default-browser-check",
-                "--disable-extensions",
-                "--disable-sync",
-                "--disable-default-apps",
-                "--disable-component-update",
-                "--disable-background-networking",
-                "--disable-features=Translate,MediaRouter",
-                "--font-render-hinting=none",
-                "--disable-lcd-text",
-                "--disable-font-subpixel-positioning",
-                "--allow-file-access-from-files",
-                "--mute-audio",
+            context = p.chromium.launch_persistent_context(
+                user_data_dir=profile, headless=True, channel="chrome", env=launch_env,
+                viewport={"width": width, "height": 600}, device_scale_factor=scale,
+                offline=True, args=[
+                    "--disable-web-security",
+                    "--disable-gpu",
+                    "--hide-scrollbars",
+                    "--force-device-scale-factor=1",
+                    "--no-first-run",
+                    "--no-default-browser-check",
+                    "--disable-extensions",
+                    "--disable-sync",
+                    "--disable-default-apps",
+                    "--disable-component-update",
+                    "--disable-background-networking",
+                    "--disable-features=Translate,MediaRouter",
+                    "--font-render-hinting=none",
+                    "--disable-lcd-text",
+                    "--disable-font-subpixel-positioning",
+                    "--allow-file-access-from-files",
+                    "--mute-audio",
                 ])
-        except Exception:
-            browser = p.chromium.launch(headless=True, env=launch_env)
-
-        context = browser.new_context(
-            viewport={"width": width, "height": 600},
-            device_scale_factor=scale,
-            offline=True
-        )
+        except PlaywrightError as error:
+            print(f"Google Chrome launch failed; trying bundled Chromium: {error}", file=sys.stderr)
+            context = p.chromium.launch_persistent_context(
+                user_data_dir=profile, headless=True, env=launch_env,
+                viewport={"width": width, "height": 600}, device_scale_factor=scale,
+                offline=True)
         page = context.new_page()
+        cdp = context.new_cdp_session(page)
+        # render2png uses serif at 12pt (16px at 96dpi), including monospace text.
+        cdp.send("Page.setFontFamilies", {"fontFamilies": {
+            "standard": font_family, "serif": font_family,
+        }})
+        cdp.send("Page.setFontSizes", {"fontSizes": {
+            "standard": font_size, "fixed": font_size,
+        }})
 
         # Determine what was passed in: a URL, a local file or an HTML string
         if source.startswith(("http://", "https://", "file://")):
@@ -231,6 +258,38 @@ def capture_page(source: str, output: str, width: int, scale: float, transparent
                 }
             });
 
+            // Direct body text has no element box. Measure its fragments rather
+            // than the body box, which can stretch to the viewport in quirks mode.
+            const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+            let node;
+            while ((node = walker.nextNode())) {
+                if (!node.textContent.trim()) {
+                    continue;
+                }
+                if (window.getComputedStyle(node.parentElement).visibility !== 'visible') {
+                    continue;
+                }
+                let visible = true;
+                for (let el = node.parentElement; el; el = el.parentElement) {
+                    const style = window.getComputedStyle(el);
+                    if (style.display === 'none' || parseFloat(style.opacity) === 0) {
+                        visible = false;
+                        break;
+                    }
+                }
+                if (!visible) {
+                    continue;
+                }
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                for (const rect of range.getClientRects()) {
+                    if (rect.width > 0 && rect.height > 0) {
+                        maxRight = Math.max(maxRight, rect.right + window.scrollX);
+                        maxBottom = Math.max(maxBottom, rect.bottom + window.scrollY);
+                    }
+                }
+            }
+
             // The body's border box spans the viewport, so its edge can't be
             // used directly. Add its right/bottom margins to the content extent
             // instead (left/top are already reflected in the child offsets).
@@ -250,7 +309,6 @@ def capture_page(source: str, output: str, width: int, scale: float, transparent
         # page.screenshot() clamps the clip to the viewport (and to the document
         # size when full_page is set), which cuts off anything outside it. CDP can
         # capture the requested box even when it is larger than both.
-        cdp = context.new_cdp_session(page)
         if transparent:
             cdp.send("Emulation.setDefaultBackgroundColorOverride",
                      {"color": {"r": 0, "g": 0, "b": 0, "a": 0}})
@@ -264,7 +322,7 @@ def capture_page(source: str, output: str, width: int, scale: float, transparent
         Path(output).parent.mkdir(parents=True, exist_ok=True)
         Path(output).write_bytes(base64.b64decode(result["data"]))
 
-        browser.close()
+        context.close()
         print(f"Done: {output} ({final_width}x{final_height}px, scale={scale}x)")
 
 def main():
