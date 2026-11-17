@@ -88,9 +88,25 @@ Each side can be switched independently: left shows the golden image or the
   Form controls retain Chrome's default styling. The screenshot is clipped to
   the exact element and visible text bounds, including body margins, so Chrome
   rendering no longer depends on the `render2png` output or Docker.
+  The tool keeps a single `render.py --serve` process (one Chrome instance)
+  running and sends it one JSON job per image over stdin/stdout, so Python and
+  Chrome are not restarted per test. The server's log is written to
+  `chrome-server.log` in the cache directory; it is restarted automatically if
+  it dies.
 
 Run the Chrome capture regression tests from the test-suite root with
 `python3 -m unittest -v test_render` (requires Playwright and Google Chrome).
+
+To render many pages from a script, use the server mode, e.g.:
+
+```shell
+echo '{"source": "render/a.htm", "output": "/tmp/a.png", "width": 800}' \
+    | python3 render.py --serve --repo .
+# -> {"ok": true, "width": 123, "height": 45}
+```
+
+Optional job keys are `transparent`, `wait` (ms) and `bestfit`; `--scale` is
+set once on the command line.
 
 Temp images (render2png output, Chrome output, approved stashes) are cached
 under `${TMPDIR:-/tmp}/litehtml-manage-tests/`.

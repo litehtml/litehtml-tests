@@ -104,6 +104,7 @@ MainWindow::~MainWindow()
     if (m_worker.joinable())
         m_worker.join();
     m_docker.shutdown();
+    m_chrome.shutdown();
 }
 
 void MainWindow::post_to_main(std::function<void()> fn)
