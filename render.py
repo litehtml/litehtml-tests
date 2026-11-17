@@ -1,5 +1,6 @@
 import argparse
 import base64
+import io
 import json
 import os
 import sys
@@ -76,7 +77,7 @@ def generate_fonts_conf(repo: Path, out: Path) -> Path:
     cache.mkdir(exist_ok=True)
     conf = out / "fonts.conf"
     conf.write_text(FONTS_CONF_TEMPLATE.format(fonts=link, cache=cache))
-    print(f"fonts: {count} files, config: {conf}")
+    print(f"fonts: {count} files, config: {conf}", file=sys.stderr)
     return conf
 
 
@@ -139,74 +140,158 @@ BESTFIT_JS = """() => {
 }"""
 
 
-def capture_page(source: str, output: str, width: int, scale: float, transparent: bool, wait_ms: int, bestfit: bool, fonts_conf=None):
+# Exact content bounds: element border boxes plus margins and visible text
+# fragments, plus the body's right/bottom margins.
+DIMENSIONS_JS = """() => {
+    const body = document.body;
+    const html = document.documentElement;
+
+    let maxRight = 0;
+    let maxBottom = 0;
+
+    document.querySelectorAll('body *').forEach(el => {
+        const style = window.getComputedStyle(el);
+        if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) {
+            return;
+        }
+        const rect = el.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+            // getBoundingClientRect() is the border box, so add the margins
+            // outside it (parseFloat("auto") is NaN, hence the fallback)
+            const marginRight = parseFloat(style.marginRight) || 0;
+            const marginBottom = parseFloat(style.marginBottom) || 0;
+            maxRight = Math.max(maxRight, rect.right + window.scrollX + marginRight);
+            maxBottom = Math.max(maxBottom, rect.bottom + window.scrollY + marginBottom);
+        }
+    });
+
+    // Direct body text has no element box. Measure its fragments rather
+    // than the body box, which can stretch to the viewport in quirks mode.
+    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+        if (!node.textContent.trim()) {
+            continue;
+        }
+        if (window.getComputedStyle(node.parentElement).visibility !== 'visible') {
+            continue;
+        }
+        let visible = true;
+        for (let el = node.parentElement; el; el = el.parentElement) {
+            const style = window.getComputedStyle(el);
+            if (style.display === 'none' || parseFloat(style.opacity) === 0) {
+                visible = false;
+                break;
+            }
+        }
+        if (!visible) {
+            continue;
+        }
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        for (const rect of range.getClientRects()) {
+            if (rect.width > 0 && rect.height > 0) {
+                maxRight = Math.max(maxRight, rect.right + window.scrollX);
+                maxBottom = Math.max(maxBottom, rect.bottom + window.scrollY);
+            }
+        }
+    }
+
+    // The body's border box spans the viewport, so its edge can't be
+    // used directly. Add its right/bottom margins to the content extent
+    // instead (left/top are already reflected in the child offsets).
+    const bodyStyle = window.getComputedStyle(body);
+    maxRight += parseFloat(bodyStyle.marginRight) || 0;
+    maxBottom += parseFloat(bodyStyle.marginBottom) || 0;
+
+    const finalWidth = Math.ceil(maxRight);
+    const finalHeight = Math.ceil(maxBottom);
+
+    return { width: finalWidth, height: finalHeight };
+}"""
+
+# render2png uses serif at 12pt (16px at 96dpi), including monospace text.
+FONT_FAMILY = "serif"
+FONT_SIZE = 16
+
+CHROME_ARGS = [
+    "--disable-web-security",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--force-device-scale-factor=1",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-sync",
+    "--disable-default-apps",
+    "--disable-component-update",
+    "--disable-background-networking",
+    "--disable-features=Translate,MediaRouter",
+    "--font-render-hinting=none",
+    "--disable-lcd-text",
+    "--disable-font-subpixel-positioning",
+    "--allow-file-access-from-files",
+    "--mute-audio",
+]
+
+
+def launch_browser(p, profile: str, width: int, scale: float, fonts_conf=None):
+    """Launch a persistent Chrome context (falling back to bundled Chromium)."""
     launch_env = dict(os.environ)
     if fonts_conf:
         launch_env["FONTCONFIG_FILE"] = str(fonts_conf)
-    with tempfile.TemporaryDirectory(prefix="litehtml-chrome-") as profile, sync_playwright() as p:
-        font_family, font_size = "serif", 16
-        # Beyond-viewport screenshots can restore the common-script profile defaults.
-        preferences = Path(profile) / "Default" / "Preferences"
-        preferences.parent.mkdir()
-        preferences.write_text(json.dumps({
-            "webkit": {"webprefs": {
-                "fonts": {
-                    "standard": {"Zyyy": font_family},
-                    "serif": {"Zyyy": font_family},
-                },
-                "default_font_size": font_size,
-                "default_fixed_font_size": font_size,
-            }}
-        }), encoding="utf-8")
 
-        # Use the system Google Chrome (remove channel="chrome" if it is not installed)
-        try:
-            context = p.chromium.launch_persistent_context(
-                user_data_dir=profile, headless=True, channel="chrome", env=launch_env,
-                viewport={"width": width, "height": 600}, device_scale_factor=scale,
-                offline=True, args=[
-                    "--disable-web-security",
-                    "--disable-gpu",
-                    "--hide-scrollbars",
-                    "--force-device-scale-factor=1",
-                    "--no-first-run",
-                    "--no-default-browser-check",
-                    "--disable-extensions",
-                    "--disable-sync",
-                    "--disable-default-apps",
-                    "--disable-component-update",
-                    "--disable-background-networking",
-                    "--disable-features=Translate,MediaRouter",
-                    "--font-render-hinting=none",
-                    "--disable-lcd-text",
-                    "--disable-font-subpixel-positioning",
-                    "--allow-file-access-from-files",
-                    "--mute-audio",
-                ])
-        except PlaywrightError as error:
-            print(f"Google Chrome launch failed; trying bundled Chromium: {error}", file=sys.stderr)
-            context = p.chromium.launch_persistent_context(
-                user_data_dir=profile, headless=True, env=launch_env,
-                viewport={"width": width, "height": 600}, device_scale_factor=scale,
-                offline=True)
-        page = context.new_page()
+    # Beyond-viewport screenshots can restore the common-script profile defaults.
+    preferences = Path(profile) / "Default" / "Preferences"
+    preferences.parent.mkdir(parents=True, exist_ok=True)
+    preferences.write_text(json.dumps({
+        "webkit": {"webprefs": {
+            "fonts": {
+                "standard": {"Zyyy": FONT_FAMILY},
+                "serif": {"Zyyy": FONT_FAMILY},
+            },
+            "default_font_size": FONT_SIZE,
+            "default_fixed_font_size": FONT_SIZE,
+        }}
+    }), encoding="utf-8")
+
+    # Use the system Google Chrome (remove channel="chrome" if it is not installed)
+    try:
+        return p.chromium.launch_persistent_context(
+            user_data_dir=profile, headless=True, channel="chrome", env=launch_env,
+            viewport={"width": width, "height": 600}, device_scale_factor=scale,
+            offline=True, args=CHROME_ARGS)
+    except PlaywrightError as error:
+        print(f"Google Chrome launch failed; trying bundled Chromium: {error}", file=sys.stderr)
+        return p.chromium.launch_persistent_context(
+            user_data_dir=profile, headless=True, env=launch_env,
+            viewport={"width": width, "height": 600}, device_scale_factor=scale,
+            offline=True)
+
+
+def render_one(context, source: str, output: str, width: int, scale: float, transparent: bool, wait_ms: int, bestfit: bool):
+    """Render `source` in a fresh page of `context` and save the PNG; return (width, height)."""
+    page = context.new_page()
+    try:
+        page.set_viewport_size({"width": width, "height": 600})
         cdp = context.new_cdp_session(page)
-        # render2png uses serif at 12pt (16px at 96dpi), including monospace text.
         cdp.send("Page.setFontFamilies", {"fontFamilies": {
-            "standard": font_family, "serif": font_family,
+            "standard": FONT_FAMILY, "serif": FONT_FAMILY,
         }})
         cdp.send("Page.setFontSizes", {"fontSizes": {
-            "standard": font_size, "fixed": font_size,
+            "standard": FONT_SIZE, "fixed": FONT_SIZE,
         }})
 
-        # Determine what was passed in: a URL, a local file or an HTML string
+        # Determine what was passed in: a URL, a local file or an HTML string.
+        # "load" already waits for images, stylesheets and frames; "networkidle"
+        # would add a fixed 500 ms idle timer to every page.
         if source.startswith(("http://", "https://", "file://")):
-            page.goto(source, wait_until="networkidle")
+            page.goto(source, wait_until="load")
         elif os.path.exists(source):
             file_url = Path(source).resolve().as_uri()
-            page.goto(file_url, wait_until="networkidle")
+            page.goto(file_url, wait_until="load")
         else:
-            page.set_content(source, wait_until="networkidle")
+            page.set_content(source, wait_until="load")
 
         # Extra pause for font or JS chart rendering, if requested
         if wait_ms > 0:
@@ -234,75 +319,7 @@ def capture_page(source: str, output: str, width: int, scale: float, transparent
             if render_width != page.viewport_size["width"]:
                 page.set_viewport_size({"width": render_width, "height": page.viewport_size["height"]})
 
-        # Compute the exact content bounds for width and height
-        dimensions = page.evaluate("""() => {
-            const body = document.body;
-            const html = document.documentElement;
-
-            let maxRight = 0;
-            let maxBottom = 0;
-
-            document.querySelectorAll('body *').forEach(el => {
-                const style = window.getComputedStyle(el);
-                if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) {
-                    return;
-                }
-                const rect = el.getBoundingClientRect();
-                if (rect.width > 0 && rect.height > 0) {
-                    // getBoundingClientRect() is the border box, so add the margins
-                    // outside it (parseFloat("auto") is NaN, hence the fallback)
-                    const marginRight = parseFloat(style.marginRight) || 0;
-                    const marginBottom = parseFloat(style.marginBottom) || 0;
-                    maxRight = Math.max(maxRight, rect.right + window.scrollX + marginRight);
-                    maxBottom = Math.max(maxBottom, rect.bottom + window.scrollY + marginBottom);
-                }
-            });
-
-            // Direct body text has no element box. Measure its fragments rather
-            // than the body box, which can stretch to the viewport in quirks mode.
-            const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
-            let node;
-            while ((node = walker.nextNode())) {
-                if (!node.textContent.trim()) {
-                    continue;
-                }
-                if (window.getComputedStyle(node.parentElement).visibility !== 'visible') {
-                    continue;
-                }
-                let visible = true;
-                for (let el = node.parentElement; el; el = el.parentElement) {
-                    const style = window.getComputedStyle(el);
-                    if (style.display === 'none' || parseFloat(style.opacity) === 0) {
-                        visible = false;
-                        break;
-                    }
-                }
-                if (!visible) {
-                    continue;
-                }
-                const range = document.createRange();
-                range.selectNodeContents(node);
-                for (const rect of range.getClientRects()) {
-                    if (rect.width > 0 && rect.height > 0) {
-                        maxRight = Math.max(maxRight, rect.right + window.scrollX);
-                        maxBottom = Math.max(maxBottom, rect.bottom + window.scrollY);
-                    }
-                }
-            }
-
-            // The body's border box spans the viewport, so its edge can't be
-            // used directly. Add its right/bottom margins to the content extent
-            // instead (left/top are already reflected in the child offsets).
-            const bodyStyle = window.getComputedStyle(body);
-            maxRight += parseFloat(bodyStyle.marginRight) || 0;
-            maxBottom += parseFloat(bodyStyle.marginBottom) || 0;
-
-            const finalWidth = Math.ceil(maxRight);
-            const finalHeight = Math.ceil(maxBottom);
-
-            return { width: finalWidth, height: finalHeight };
-        }""")
-
+        dimensions = page.evaluate(DIMENSIONS_JS)
         final_width = max(dimensions["width"], 1)
         final_height = max(dimensions["height"], 1)
 
@@ -321,9 +338,93 @@ def capture_page(source: str, output: str, width: int, scale: float, transparent
         })
         Path(output).parent.mkdir(parents=True, exist_ok=True)
         Path(output).write_bytes(base64.b64decode(result["data"]))
+        return final_width, final_height
+    finally:
+        page.close()
 
-        context.close()
+
+def capture_page(source: str, output: str, width: int, scale: float, transparent: bool, wait_ms: int, bestfit: bool, fonts_conf=None):
+    with tempfile.TemporaryDirectory(prefix="litehtml-chrome-") as profile, sync_playwright() as p:
+        context = launch_browser(p, profile, width, scale, fonts_conf)
+        try:
+            final_width, final_height = render_one(context, source, output, width, scale, transparent, wait_ms, bestfit)
+        finally:
+            context.close()
         print(f"Done: {output} ({final_width}x{final_height}px, scale={scale}x)")
+
+
+def _browser_alive(context) -> bool:
+    try:
+        context.new_page().close()
+        return True
+    except Exception:
+        return False
+
+
+def serve(width: int, scale: float, fonts_conf=None):
+    """Keep one Chrome running and render jobs read as JSON lines from stdin.
+
+    Request:  {"source": ..., "output": ..., "width": 800, "transparent": false,
+               "wait": 0, "bestfit": true}
+    Response: {"ok": true, "width": W, "height": H} or {"ok": false, "error": "..."}
+    One response line is written to stdout per request line; everything else
+    goes to stderr. The server exits on EOF.
+    """
+    # Reserve the real stdout for protocol replies; anything else printed
+    # (by us, Playwright or child processes) is redirected to stderr.
+    proto = os.fdopen(os.dup(sys.stdout.fileno()), "w", encoding="utf-8")
+    sys.stdout.flush()
+    os.dup2(sys.stderr.fileno(), sys.stdout.fileno())
+    # Paths are raw bytes on POSIX; keep non-UTF-8 names round-trippable.
+    requests = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8", errors="surrogateescape")
+
+    def reply(obj):
+        proto.write(json.dumps(obj) + "\n")
+        proto.flush()
+
+    with tempfile.TemporaryDirectory(prefix="litehtml-chrome-") as profile, sync_playwright() as p:
+        context = None
+        try:
+            while True:
+                line = requests.readline()
+                if not line:
+                    break
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    job = json.loads(line)
+                    args = (str(job["source"]), str(job["output"]), int(job.get("width", width)), scale,
+                            bool(job.get("transparent", False)), int(job.get("wait", 0)),
+                            bool(job.get("bestfit", True)))
+                except Exception as error:
+                    reply({"ok": False, "error": f"bad request: {error}"})
+                    continue
+                for attempt in range(2):
+                    try:
+                        if context is None:
+                            context = launch_browser(p, profile, width, scale, fonts_conf)
+                        w, h = render_one(context, *args)
+                        reply({"ok": True, "width": w, "height": h})
+                        break
+                    except Exception as error:
+                        # Relaunch once if the browser itself went away.
+                        if attempt == 0 and context is not None and not _browser_alive(context):
+                            try:
+                                context.close()
+                            except Exception:
+                                pass
+                            context = None
+                            continue
+                        reply({"ok": False, "error": str(error) or type(error).__name__})
+                        break
+        finally:
+            if context is not None:
+                try:
+                    context.close()
+                except Exception:
+                    pass
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -331,7 +432,15 @@ def main():
     )
     parser.add_argument(
         "source",
+        nargs="?",
         help="Site URL, path to a local .html file or a string with HTML code"
+    )
+    parser.add_argument(
+        "--serve",
+        action="store_true",
+        help="Keep Chrome running and render JSON-line jobs from stdin "
+             '({"source", "output", "width", "transparent", "wait", "bestfit"}); '
+             "one JSON reply per line on stdout"
     )
     parser.add_argument(
         "-o", "--output",
@@ -379,6 +488,8 @@ def main():
     )
 
     args = parser.parse_args()
+    if not args.serve and args.source is None:
+        parser.error("source is required unless --serve is given")
 
     fonts_conf = None
     if args.repo:
@@ -387,6 +498,10 @@ def main():
             parser.error(f"fonts directory not found: {repo / 'fonts'}")
         fonts_out = Path(args.fonts_out).resolve() if args.fonts_out else Path(tempfile.mkdtemp(prefix="litehtml-fonts-"))
         fonts_conf = generate_fonts_conf(repo, fonts_out)
+
+    if args.serve:
+        serve(width=args.width, scale=args.scale, fonts_conf=fonts_conf)
+        return
 
     capture_page(
         source=args.source,
