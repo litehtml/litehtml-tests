@@ -104,6 +104,7 @@ MainWindow::~MainWindow()
     if (m_worker.joinable())
         m_worker.join();
     m_docker.shutdown();
+    m_chrome.shutdown();
 }
 
 void MainWindow::post_to_main(std::function<void()> fn)
@@ -435,22 +436,15 @@ void MainWindow::worker_loop()
             refresh_images();
         });
 
-        // Step 2: chrome (uses render2png output width as the viewport width)
+        // Step 2: chrome (render.py applies its own bestfit + .cfg width, so it
+        // does not depend on render2png)
         std::string chrome_err;
-        if (job.need_chrome && m_chrome.ready() && m_docker.ready())
+        if (job.need_chrome && m_chrome.ready())
         {
             if (!fs::exists(job.chrome_out))
             {
-                int w = 0, h = 0;
-                if (read_png_size(job.r2png_out, w, h))
-                {
-                    fs::create_directories(fs::path(job.chrome_out).parent_path());
-                    chrome_err = m_chrome.render(job.html, w, h, job.chrome_out);
-                }
-                else
-                {
-                    chrome_err = "chrome: cannot read render2png dimensions";
-                }
+                fs::create_directories(fs::path(job.chrome_out).parent_path());
+                chrome_err = m_chrome.render(job.html, job.chrome_out);
                 if (!chrome_err.empty())
                     std::cerr << "[chrome error] " << job.html << "\n" << chrome_err << "\n";
             }
@@ -614,7 +608,7 @@ void MainWindow::request_renders()
         return;
     const test_entry& t = m_tests[m_current];
     bool need_chrome = (m_right == right_source::chrome) || (m_left == left_source::chrome);
-    bool need_r2png = (m_left == left_source::render2png) || need_chrome;
+    bool need_r2png = (m_left == left_source::render2png);
 
     std::string r2png_out = render2png_cache_path(t);
     std::string chrome_out = chrome_cache_path(t);
@@ -623,7 +617,7 @@ void MainWindow::request_renders()
     if (!r2png_missing && !chrome_missing)
         return;
 
-    if (!m_docker.ready())
+    if (r2png_missing && !m_docker.ready())
         return;
     if (chrome_missing && !m_chrome.ready())
         return;
@@ -706,7 +700,7 @@ void MainWindow::update_status()
     ss << "I: " << std::to_string(ni) << "  A: " << std::to_string(na) << "  D: " << std::to_string(nd);
     if (!m_docker.ready())
         ss << "  [render2png " << (m_docker_error == "building" ? "building..." : "unavailable") << "]";
-    else if (!m_chrome.ready())
+    if (!m_chrome.ready())
         ss << "  [chrome unavailable]";
     m_status_label.set_text(ss.str());
 }
