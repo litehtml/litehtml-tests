@@ -1,6 +1,7 @@
 #include <filesystem>
 #include <fontconfig/fontconfig.h>
 #include <cairo.h>
+#include <cstdlib>
 #include "fonts.h"
 
 #include <algorithm>
@@ -43,27 +44,46 @@ static const char* g_fc_config = R"(<?xml version="1.0"?>
 </fontconfig>
 )";
 
+static FcConfig* g_test_fonts_config = nullptr;
+
+void cleanup_fonts_for_testing()
+{
+	if(g_test_fonts_config)
+	{
+		// Release fontconfig's global "current config" reference first, then our own.
+		FcConfigSetCurrent(nullptr);
+		FcConfigDestroy(g_test_fonts_config);
+		g_test_fonts_config = nullptr;
+	}
+}
+
 cairo_font_options_t* prepare_fonts_for_testing()
 {
-	FcConfig* fc = FcConfigCreate();
-	if(FcConfigParseAndLoadFromMemory(fc, (FcChar8*) g_fc_config, FcTrue) != FcTrue)
+	if(!g_test_fonts_config)
 	{
-		printf("ERROR: FcConfigParseAndLoadFromMemory failed\n");
-	}
-
-	if(FcConfigSetCurrent(fc) != FcTrue)
-	{
-		printf("ERROR: FcConfigSetCurrent failed\n");
-	}
-
-	for(auto const& dir_entry : std::filesystem::directory_iterator{fs::path(__FILE__).parent_path() / "fonts"})
-	{
-		auto etx = dir_entry.path().extension().string();
-		std::transform(etx.begin(), etx.end(), etx.begin(), [](unsigned char ch) { return std::tolower(ch);});
-		if(dir_entry.is_regular_file() && etx == ".ttf")
+		FcConfig* fc = FcConfigCreate();
+		if(FcConfigParseAndLoadFromMemory(fc, (FcChar8*) g_fc_config, FcTrue) != FcTrue)
 		{
-			FcConfigAppFontAddFile(FcConfigGetCurrent(), (const FcChar8*) dir_entry.path().c_str());
+			printf("ERROR: FcConfigParseAndLoadFromMemory failed\n");
 		}
+
+		if(FcConfigSetCurrent(fc) != FcTrue)
+		{
+			printf("ERROR: FcConfigSetCurrent failed\n");
+		}
+
+		for(auto const& dir_entry : std::filesystem::directory_iterator{fs::path(__FILE__).parent_path() / "fonts"})
+		{
+			auto etx = dir_entry.path().extension().string();
+			std::transform(etx.begin(), etx.end(), etx.begin(), [](unsigned char ch) { return std::tolower(ch);});
+			if(dir_entry.is_regular_file() && etx == ".ttf")
+			{
+				FcConfigAppFontAddFile(FcConfigGetCurrent(), (const FcChar8*) dir_entry.path().c_str());
+			}
+		}
+
+		g_test_fonts_config = fc;
+		std::atexit(cleanup_fonts_for_testing);
 	}
 
 	auto font_options = cairo_font_options_create();
