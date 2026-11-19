@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Forced breaks and inline font heights in quirks mode</title>
+<link rel="stylesheet" href="support/inline-break-heights.css">
+</head>
+<body>
+<div class="row">
+<div class="box"><span class="foo">A<br><br>C</span></div>
+<div class="box"><span class="foo">A<br>B<br>C</span></div>
+<div class="box blue foo"><span>A<br><br>C</span></div>
+<div class="box blue foo"><span>A<br>B<br>C</span></div>
+<div class="box pink foo"><span class="foo">A<br><br>C</span></div>
+<div class="box pink foo"><span class="foo">A<br>B<br>C</span></div>
+<div class="box green bar"><span class="foo">A<br><br>C</span></div>
+<div class="box green bar"><span class="foo">A<br>B<br>C</span></div>
+</div>
+<div class="row edges">
+<div class="box bar"><span class="foo"><br>A</span></div>
+<div class="box bar"><span class="foo">A<br></span></div>
+<div class="box bar"><span class="foo"><br><br></span></div>
+<div class="box bar"><span class="large"><span class="foo">A<br><br>C</span></span></div>
+<div class="box bar blue"><span class="foo loose">A<br><br>C</span></div>
+<div class="box bar pink"><span class="foo tight">A<br><br>C</span></div>
+<div class="box bar green"><span class="foo">A<br class="large">B</span></div>
+<div class="box bar"><span class="large"></span><span class="foo">A</span></div>
+</div>
+<div class="row alignment">
+<div class="box"><span>A B<br></span>C</div>
+<div class="box blue"><span class="foo tight top">A<br><br>C</span></div>
+<div class="box pink"><span class="foo tight bottom">A<br><br>C</span></div>
+<div class="box green"><span class="foo tight top"><span>A<br><br>C</span></span></div>
+<div class="box blue" style="text-align: right"><span>A <br></span>C</div>
+<div class="box pink" style="text-align: right"><span>A <br></span></div>
+<div class="box green"><span>AAAAA <br></span>C</div>
+</div>
+<div class="extent"></div>
+</body>
+</html>

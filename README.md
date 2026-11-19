@@ -77,3 +77,20 @@ fix the viewport at 800x600. The sibling golden images are rendered from
 independent pixel-sized reference pages in `render/support/`, verified to
 match the subject pages in Chrome. The runner compares the golden PNGs;
 it does not evaluate the HTML `rel=match` links.
+
+## Inline break and line-height regressions
+
+`render/inline-break-heights-*.htm` covers consecutive, leading, and trailing
+breaks, nested inline fonts, explicit line-height, vertical alignment, and
+whitespace/alignment at forced breaks. The three pages exercise
+quirks, limited-quirks, and standards modes with the suite's Ahem font. In the
+first two modes all eight boxes in the first row have equal heights; in
+standards mode the larger parent font makes the last pair taller.
+
+Their golden images come from Chrome through `render.py --repo . -w 800`,
+using the sibling viewport configs, and are converted to RGBA for the runner's
+byte comparison. Existing references affected by the corrected standards-mode
+strut, per-inline half-leading, and resulting baselines were also checked
+against Chrome and refreshed with the test renderer. These retain the test
+renderer's font rasterization and whole-pixel font metrics; they do not
+rebaseline unrelated Chrome/litehtml differences.

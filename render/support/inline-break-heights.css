@@ -1,0 +1,18 @@
+html { background: white; }
+body { margin: 0; width: 800px; height: 560px; font: 20px/normal Ahem; }
+.row { position: absolute; top: 8px; left: 8px; font-size: 0; }
+.edges { top: 208px; }
+.box { display: inline-block; vertical-align: top; width: 40px; margin-right: 8px; font-size: 20px; background: lightgray; }
+.foo { font-size: 40px; }
+.bar { font-size: 60px; }
+.large { font-size: 80px; }
+.blue { background: lightblue; }
+.pink { background: pink; }
+.green { background: lightgreen; }
+.loose { line-height: 60px; }
+.tight { line-height: 20px; }
+.alignment { top: 480px; }
+.alignment .box { width: 100px; font-size: 20px; text-align: justify; }
+.top { vertical-align: top; }
+.bottom { vertical-align: bottom; }
+.extent { position: absolute; left: 799px; top: 559px; width: 1px; height: 1px; background: white; }
