@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Stacking context: position fixed traps positioned children</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .page {
+            height: 100px;
+        }
+
+        .fixed {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 80px;
+            height: 80px;
+            background: #0000ff;
+        }
+
+        .fixed .child {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            background: #008000;
+            z-index: 10;
+        }
+
+        .sibling {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            background: #ff0000;
+            z-index: 5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page"></div>
+    <div class="fixed">
+        <div class="child"></div>
+    </div>
+    <div class="sibling"></div>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Stacking context: flex item with z-index paints atomically</title>
+    <style>
+        body {
+            margin: 0;
+            width: 200px;
+        }
+
+        .flex {
+            display: flex;
+            width: 200px;
+            height: 100px;
+        }
+
+        .item1 {
+            width: 120px;
+            height: 100px;
+            background: #008000;
+            z-index: 1;
+        }
+
+        .item2 {
+            width: 120px;
+            height: 100px;
+            margin-left: -60px;
+            background: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex">
+        <div class="item1"></div>
+        <div class="item2"></div>
+    </div>
+</body>
+
+</html>
