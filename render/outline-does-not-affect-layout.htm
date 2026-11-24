@@ -1,0 +1,26 @@
+<!doctype html>
+<style>
+body {
+	margin: 40px;
+}
+
+div {
+	width: 120px;
+	height: 60px;
+	background: #def;
+	border: 6px solid #036;
+}
+
+#outlined {
+	outline: 20px solid red;
+}
+
+#next {
+	margin-top: 60px;
+}
+</style>
+
+<!-- The 20px outline must not contribute to the document size and must not move
+     the following box: the golden PNG keeps the layout-only dimensions. -->
+<div id="outlined"></div>
+<div id="next"></div>

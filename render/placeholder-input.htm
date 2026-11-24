@@ -1,0 +1,29 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+	font: 16px serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+input {
+	width: 240px;
+}
+</style>
+
+<!-- The UA stylesheet paints placeholders in darkgray while the value is empty. -->
+<div><input type="text" placeholder="text placeholder"></div>
+<div><input type="search" placeholder="search placeholder"></div>
+<div><input type="password" placeholder="password placeholder"></div>
+
+<!-- The placeholder attribute does not apply to number inputs. -->
+<div><input type="number" placeholder="number placeholder"></div>
+
+<!-- A non-empty value hides the placeholder. -->
+<div><input type="text" placeholder="hidden by value" value="typed value"></div>
+
+<!-- The placeholder inherits the control font. -->
+<div><input type="text" style="font-size: 20px" placeholder="inherited font size"></div>

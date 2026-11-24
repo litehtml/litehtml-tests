@@ -1,0 +1,25 @@
+<!doctype html>
+<style>
+body {
+	margin: 20px;
+	font: 12px serif;
+}
+
+div {
+	display: inline-block;
+	width: 80px;
+	height: 40px;
+	background: #ddd;
+	margin: 14px;
+}
+
+.thin    { outline: thin solid black; }
+.medium  { outline: medium solid black; }
+.thick   { outline: thick solid black; }
+.px      { outline: 8px solid #e33; }
+.rgba    { outline: 6px solid rgba(0, 0, 255, 0.5); }
+.current { color: green; outline-style: solid; outline-width: 5px; }
+</style>
+
+<!-- outline-width keywords and lengths, explicit colors, and the currentColor default. -->
+<div class="thin">thin</div><div class="medium">medium</div><div class="thick">thick</div><div class="px">8px</div><div class="rgba">rgba</div><div class="current">current</div>

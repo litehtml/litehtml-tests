@@ -1,0 +1,30 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+	font: 12px serif;
+}
+
+div {
+	display: inline-block;
+	width: 120px;
+	height: 80px;
+	background: #cfe;
+	border: 8px solid #036;
+	margin: 16px;
+	vertical-align: top;
+}
+
+.rounded {
+	border-radius: 24px;
+	outline: 6px solid red;
+}
+
+.asymmetric {
+	border-radius: 10px 30px 50px 20px;
+	outline: 6px solid red;
+}
+</style>
+
+<!-- An outline must follow the element's border radius. -->
+<div class="rounded"></div><div class="asymmetric"></div>

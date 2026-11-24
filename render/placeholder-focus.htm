@@ -1,0 +1,27 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+	font: 16px serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+input {
+	width: 240px;
+}
+
+#focused:focus {
+	outline: none;
+}
+
+input:focus::placeholder {
+	color: rgb(200, 0, 0);
+}
+</style>
+
+<!-- Focus-dependent ::placeholder rules apply while the control is focused. -->
+<div><input id="focused" type="text" placeholder="focused placeholder"></div>
+<div><input type="text" placeholder="unfocused placeholder"></div>

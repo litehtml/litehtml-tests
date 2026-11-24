@@ -1,0 +1,27 @@
+<!doctype html>
+<style>
+body {
+	margin: 20px;
+	font: 16px serif;
+}
+
+button {
+	font-size: 16px;
+	margin: 0 8px 8px 0;
+}
+
+#wide {
+	width: 220px;
+}
+</style>
+
+<!-- The content model of <button> is phrasing content. Child elements must be laid out
+	and drawn inside the button box instead of being flattened into the label text. -->
+<button type=submit id=b1><img src="blue16.png" alt="Send"><span>Send <strong>now</strong></span></button>
+
+<button type=submit id=b2><span>Send <strong>now</strong></span></button>
+
+<button type=button id=b3><span><strong>Nested</strong> <em>inline</em> <code>content</code></span></button>
+
+<!-- Inline content is centered, like the label of a text-only button. -->
+<button type=button id=wide>Centered content</button>

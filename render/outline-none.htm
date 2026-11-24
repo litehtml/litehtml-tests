@@ -1,0 +1,27 @@
+<!doctype html>
+<style>
+body {
+	margin: 20px;
+	font: 12px serif;
+}
+
+div {
+	width: 100px;
+	height: 40px;
+	background: #ddd;
+	margin: 14px;
+}
+
+.none-style  { outline-style: none; outline-width: 10px; outline-color: red; }
+.none-shorthand { outline: none; outline-width: 10px; outline-color: red; }
+.zero-width  { outline: 10px solid red; outline-width: 0; }
+.transparent { outline: 10px solid transparent; }
+.no-style    { outline: 10px red; }
+</style>
+
+<!-- None of these boxes may show a red outline. -->
+<div class="none-style">none</div>
+<div class="none-shorthand">none shorthand</div>
+<div class="zero-width">zero</div>
+<div class="transparent">transparent</div>
+<div class="no-style">no style</div>

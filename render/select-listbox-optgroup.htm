@@ -1,0 +1,23 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+}
+
+select {
+	font: 16px serif;
+}
+</style>
+
+<!-- optgroup labels occupy rows; their options are indented, disabled groups and options are gray. -->
+<select id="groups" multiple size="6">
+	<option>top</option>
+	<optgroup label="Group A">
+		<option selected>a1</option>
+		<option>a2</option>
+	</optgroup>
+	<optgroup label="Group B" disabled>
+		<option>b1</option>
+	</optgroup>
+	<option disabled>last</option>
+</select>

@@ -1,0 +1,30 @@
+<!doctype html>
+<style>
+body {
+	margin: 20px;
+	font: 12px serif;
+}
+
+div {
+	display: inline-block;
+	width: 80px;
+	height: 40px;
+	background: #ddd;
+	margin: 14px;
+}
+
+.a { outline: 5px dashed red; }
+.b { outline: red 5px dashed; }
+.c { outline: dashed red 5px; }
+.d { outline: green; outline-style: dotted; outline-width: 6px; }
+.e { outline: 8px solid blue; outline-style: none; }
+.f { color: purple; outline: 5px solid; }
+.g { outline: 5px solid notacolor; }
+.h { color: #c00; outline: auto; }
+.i { --ow: 4px; --oc: blue; outline: var(--ow) solid var(--oc); }
+</style>
+
+<!-- The shorthand accepts its values in any order. Later longhands override the
+     shorthand, and an invalid shorthand must be dropped entirely. `auto` is a
+     style, and a shorthand can be built from custom properties. -->
+<div class="a">a</div><div class="b">b</div><div class="c">c</div><div class="d">d</div><div class="e">e</div><div class="f">f</div><div class="g">g</div><br><div class="h">auto</div><div class="i">var</div>

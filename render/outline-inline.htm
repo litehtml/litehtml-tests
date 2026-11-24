@@ -1,0 +1,25 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+	font: 16px serif;
+}
+
+p {
+	margin: 24px 0;
+}
+
+#plain {
+	outline: 4px solid green;
+}
+
+#padded {
+	padding: 4px 8px;
+	border: 3px solid #036;
+	outline: 4px solid red;
+}
+</style>
+
+<!-- Outlines apply to inline boxes and are painted outside their border box. -->
+<p>Text before <span id="plain">outlined inline</span> text after.</p>
+<p>Text before <span id="padded">padded inline</span> text after.</p>

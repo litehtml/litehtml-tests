@@ -1,0 +1,45 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+	font: 16px serif;
+}
+
+div {
+	margin-bottom: 8px;
+}
+
+input,
+textarea {
+	width: 260px;
+}
+
+input::placeholder {
+	color: rgb(176, 0, 32);
+	font-size: 14px;
+}
+
+textarea::placeholder {
+	color: rgb(0, 102, 51);
+	font-style: italic;
+}
+
+.shown:placeholder-shown {
+	border: 2px solid rgb(0, 90, 200);
+	background-color: rgb(235, 245, 255);
+}
+
+.shown:not(:placeholder-shown) {
+	border: 2px solid rgb(200, 120, 0);
+	background-color: rgb(255, 245, 230);
+}
+</style>
+
+<!-- Author ::placeholder rules override the UA colour and font. -->
+<div><input type="text" placeholder="red placeholder"></div>
+<div><textarea placeholder="italic green textarea placeholder"></textarea></div>
+
+<!-- :placeholder-shown follows the placeholder visibility on inputs and textareas. -->
+<div><input class="shown" type="text" placeholder="placeholder is shown"></div>
+<div><input class="shown" type="text" placeholder="placeholder is hidden" value="filled value"></div>
+<div><textarea class="shown" placeholder="textarea placeholder is shown"></textarea></div>

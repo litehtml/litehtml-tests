@@ -1,0 +1,39 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+}
+
+div {
+	display: inline-block;
+	width: 80px;
+	height: 50px;
+	background: #def;
+	border: 5px solid #036;
+	margin: 20px;
+	vertical-align: top;
+}
+
+.zero {
+	outline: 5px solid red;
+}
+
+.positive {
+	outline: 5px solid red;
+	outline-offset: 8px;
+}
+
+.negative {
+	outline: 5px solid red;
+	outline-offset: -4px;
+}
+
+.rounded {
+	border-radius: 20px;
+	outline: 5px solid red;
+	outline-offset: 6px;
+}
+</style>
+
+<!-- outline-offset: zero, positive (outside), negative (inside), and with a rounded border. -->
+<div class="zero"></div><div class="positive"></div><div class="negative"></div><div class="rounded"></div>

@@ -1,0 +1,45 @@
+<!doctype html>
+<style>
+body {
+	margin: 30px;
+}
+
+select {
+	font: 16px serif;
+}
+
+.box {
+	margin-bottom: 12px;
+}
+</style>
+
+<!-- A multiple select defaults to four visible rows and draws options as a listbox. -->
+<div class="box">
+	<select id="multiple" multiple>
+		<option>one</option>
+		<option selected>two</option>
+		<option>three</option>
+		<option disabled>four</option>
+		<option selected>five</option>
+		<option>six</option>
+	</select>
+</div>
+
+<!-- size > 1 makes a single-selection listbox with the given number of rows. -->
+<div class="box">
+	<select id="sized" size="3">
+		<option>alpha</option>
+		<option selected>beta</option>
+		<option>gamma</option>
+	</select>
+</div>
+
+<!-- An explicit size wins over the multiple default. -->
+<div>
+	<select id="small" multiple size="2">
+		<option>red</option>
+		<option selected>green</option>
+		<option>blue</option>
+		<option>white</option>
+	</select>
+</div>

@@ -1,0 +1,32 @@
+<!doctype html>
+<style>
+body {
+	margin: 20px;
+	font: 16px serif;
+}
+
+button {
+	font-size: 16px;
+	margin: 0 6px 10px 0;
+}
+</style>
+
+<!-- Phrasing content inside <button> keeps its own formatting. -->
+<p>
+	<button><strong>bold</strong></button>
+	<button><em>italic</em></button>
+	<button><u>under</u> <s>strike</s></button>
+	<button><span style="color: #c00">red</span> text</button>
+	<button><code>monospace</code></button>
+	<button>x<sub>1</sub> and x<sup>2</sup></button>
+	<button>line<br>break</button>
+	<button><img src="blue16.png" alt="dot"> image</button>
+</p>
+
+<!-- Text-only buttons keep the replaced rendering and the default labels. -->
+<p>
+	<button>Plain text</button>
+	<button></button>
+	<button type=reset></button>
+	<button type=button></button>
+</p>
