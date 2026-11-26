@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Absolute child is clipped by its containing block, not by a nested static overflow:hidden box</title>
+  <style>
+   html, body { margin: 0; padding: 0; border: 0; }
+   .cb { position: relative; width: 100px; height: 100px; background: #ff9800; overflow: hidden; }
+   .nested { width: 60px; height: 60px; background: #1e88e5; overflow: hidden; }
+   .abs { position: absolute; left: 50px; top: 50px; width: 100px; height: 100px; background: #43a047; }
+  </style>
+ </head>
+ <body>
+  <div class="cb"><div class="nested"><div class="abs"></div></div></div>
+ </body>
+</html>

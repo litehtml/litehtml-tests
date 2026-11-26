@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Fixed child of an overflow:hidden box is not clipped</title>
+  <style>
+   html, body { margin: 0; padding: 0; border: 0; }
+   .overflow { position: relative; width: 100px; height: 100px; background: #ff9800; overflow: hidden; }
+   .fixed { position: fixed; left: 150px; top: 150px; width: 100px; height: 100px; background: #e53935; }
+  </style>
+ </head>
+ <body>
+  <div class="overflow"><div class="fixed"></div></div>
+ </body>
+</html>

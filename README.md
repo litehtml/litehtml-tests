@@ -94,3 +94,21 @@ strut, per-inline half-leading, and resulting baselines were also checked
 against Chrome and refreshed with the test renderer. These retain the test
 renderer's font rasterization and whole-pixel font metrics; they do not
 rebaseline unrelated Chrome/litehtml differences.
+
+## Overflow clipping of out-of-flow boxes
+
+`render/overflow-hidden-*` and the re-enabled `render/css21/abspos-overflow-*` tests cover the
+CSS 2.1 §11.1.1 clipping rules:
+
+- an absolutely positioned box is not clipped by the `overflow` of a **static** ancestor between it
+  and its containing block (`overflow-hidden-absolute-child`, `overflow-hidden-absolute-deep`,
+  `css21/abspos-overflow-001..009`, `012`);
+- it is clipped by the `overflow` of its positioned containing block
+  (`overflow-hidden-absolute-positioned-ancestor`);
+- a fixed box is not clipped by any ancestor (`overflow-hidden-fixed-child`);
+- in-flow boxes (including `position:relative`) stay clipped by every ancestor
+  (`overflow-hidden-relative-child`).
+
+The pages use only solid colour boxes, so their goldens are pixel-identical between `render2png` and
+Chrome; the geometry was cross-checked with `render.py -w 800 --no-bestfit`. The `*.cfg` files pin the
+viewport to 800x600 (`bestfit: false`) so the escaping boxes are visible.
