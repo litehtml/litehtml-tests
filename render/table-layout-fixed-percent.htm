@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table-layout: fixed - percentage columns</title>
+<style>
+html, body { margin: 0; padding: 0; }
+table { table-layout: fixed; width: 300px; border-collapse: collapse; }
+td { padding: 0; border: 0; font-size: 0; line-height: 0; }
+.fill { height: 20px; }
+.red { background: #d00; }
+.green { background: #0a0; }
+.blue { background: #00d; }
+.ref { height: 10px; margin-top: 10px; font-size: 0; }
+.ref div { display: inline-block; height: 10px; vertical-align: top; }
+</style>
+</head>
+<body>
+<table>
+<tr>
+<td style="width: 50%"><div class="fill red"></div></td>
+<td style="width: 25%"><div class="fill green"></div></td>
+<td><div class="fill blue"></div></td>
+</tr>
+</table>
+<div class="ref"><div class="red" style="width: 150px"></div><div class="green" style="width: 75px"></div><div class="blue" style="width: 75px"></div></div>
+</body>
+</html>

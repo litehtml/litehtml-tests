@@ -112,3 +112,33 @@ CSS 2.1 §11.1.1 clipping rules:
 The pages use only solid colour boxes, so their goldens are pixel-identical between `render2png` and
 Chrome; the geometry was cross-checked with `render.py -w 800 --no-bestfit`. The `*.cfg` files pin the
 viewport to 800x600 (`bestfit: false`) so the escaping boxes are visible.
+
+## Fixed table layout
+
+`render/table-layout-fixed-*.htm` and the re-enabled
+`render/css21/fixed-table-layout-*` tests (including `004`, `005`, `006`, `009`, `010`, `012`,
+`013`–`016`) cover the CSS 2.1 §17.5.2.1 fixed table-layout algorithm:
+
+- only first-row cells and `<col>` elements set column widths; later rows are ignored
+  (`table-layout-fixed-first-row.htm`);
+- a `<col>` width beats a first-row cell width, and `<colgroup>` widths are ignored
+  (`table-layout-fixed-col-vs-cell.htm`, `table-layout-fixed-colgroup.htm`);
+- a `colspan` cell's width is divided over the columns it spans
+  (`table-layout-fixed-colspan.htm`);
+- pixel column widths widen the table, percentage columns resolve against the table width, and
+  auto columns share the remaining space (`table-layout-fixed-overflow-table.htm`,
+  `table-layout-fixed-percent.htm`);
+- an auto-width table falls back to the automatic layout algorithm
+  (`table-layout-fixed-auto-width.htm`).
+
+The pages use solid colour boxes and `bestfit: false` configs pinning the viewport to 800x600, so
+their geometry is pixel-identical between `render2png` and Chrome (verified with `render.py`).
+
+The goldens for `css21/float-applies-to-005..007`, `css21/font-applies-to-014`,
+`css21/text-align-applies-to-014`, and `css21/text-indent-applies-to-013` were refreshed because their
+`table-layout: fixed; width: 100%` tables now fill their containing block as browsers do.
+
+A table cell's `height` is now a minimum row height (CSS 2.1 §17.5.3), so empty cells with a
+declared height get painted backgrounds/borders and rows no longer collapse. Goldens in the
+`css21/*-applies-to-*` family that relied on `td { height: … }` were refreshed for this corrected
+behavior; their box heights were cross-checked against Chrome.

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table-layout: fixed - auto table width falls back to content</title>
+<style>
+html, body { margin: 0; padding: 0; }
+table { table-layout: fixed; width: auto; border-collapse: collapse; }
+td { padding: 0; border: 0; font-size: 0; line-height: 0; }
+.box { width: 120px; height: 20px; background: #d00; }
+.ref { width: 120px; height: 10px; margin-top: 10px; background: #d00; }
+</style>
+</head>
+<body>
+<table>
+<tr><td><div class="box"></div></td></tr>
+</table>
+<div class="ref"></div>
+</body>
+</html>

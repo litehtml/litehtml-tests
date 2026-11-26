@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table-layout: fixed - col width overrides first-row cell width</title>
+<style>
+html, body { margin: 0; padding: 0; }
+table { table-layout: fixed; width: 200px; border-collapse: collapse; }
+td { padding: 0; border: 0; font-size: 0; line-height: 0; }
+.fill { height: 20px; }
+.red { background: #d00; }
+.blue { background: #00d; }
+.ref { height: 10px; margin-top: 10px; font-size: 0; }
+.ref div { display: inline-block; height: 10px; vertical-align: top; }
+</style>
+</head>
+<body>
+<table>
+<colgroup style="width: 300px"><col style="width: 50px"></colgroup>
+<colgroup><col></colgroup>
+<tr>
+<td style="width: 175px"><div class="fill red"></div></td>
+<td><div class="fill blue"></div></td>
+</tr>
+</table>
+<div class="ref"><div class="red" style="width: 50px"></div><div class="blue" style="width: 150px"></div></div>
+</body>
+</html>
