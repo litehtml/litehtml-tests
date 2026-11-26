@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>box-shadow none and invalid values</title>
+<style>
+    body { margin: 0; background: #f4f4f4; font: 14px serif; }
+    .box {
+        display: inline-block;
+        width: 120px;
+        height: 80px;
+        margin: 30px 35px;
+        background: #fff;
+        vertical-align: top;
+    }
+    /* none resets a previous shadow */
+    #a { box-shadow: 8px 8px 6px #000; box-shadow: none; }
+    /* invalid: only one offset length */
+    #b { box-shadow: 8px; }
+    /* invalid: unknown keyword */
+    #c { box-shadow: 4px 4px 6px sideways; }
+    /* invalid: negative blur, declaration keeps the earlier valid shadow */
+    #d { box-shadow: 3px 3px 4px #08c; box-shadow: 4px 4px -6px #c00; }
+    /* invalid longhand does not affect the others */
+    #e {
+        box-shadow-offset: 5px 5px;
+        box-shadow-blur: -2px;
+        box-shadow-color: #c00;
+    }
+    /* `none` on a longhand offset clears the shadow */
+    #f { box-shadow: 5px 5px 4px #000; box-shadow-offset: none; }
+    /* currentColor and transparent */
+    #g { color: #09c; box-shadow: 4px 4px 3px; }
+    #h { box-shadow: 4px 4px 3px transparent; }
+</style>
+</head>
+<body>
+<div class="box" id="a"></div>
+<div class="box" id="b"></div>
+<div class="box" id="c"></div>
+<div class="box" id="d"></div>
+<div class="box" id="e"></div>
+<div class="box" id="f"></div>
+<div class="box" id="g"></div>
+<div class="box" id="h"></div>
+</body>
+</html>

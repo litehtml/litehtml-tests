@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 0; font-family: serif; font-size: 16px; line-height: 20px; }
+:root {
+    --border-base: #d1d9e0;
+    --border-rest: var(--border-base);
+    --border-hover: var(--border-rest);
+    --button-border-width: 1px;
+}
+.button {
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+    margin: 10px;
+    border: var(--button-border-width) solid;
+    border-color: var(--border-rest);
+    color: #25292e;
+}
+.button:hover {
+    background-color: #eff2f5;
+    border-color: var(--border-hover);
+}
+</style>
+</head>
+<body>
+<div class="button" id="hovered">hovered</div>
+<div class="button" id="idle">idle</div>
+</body>
+</html>

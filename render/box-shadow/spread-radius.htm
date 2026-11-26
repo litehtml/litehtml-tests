@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>box-shadow spread and border radius</title>
+<style>
+    body { margin: 0; background: #fafafa; font: 14px serif; }
+    .box {
+        display: inline-block;
+        width: 110px;
+        height: 80px;
+        margin: 35px 40px;
+        background: #fff;
+        border-radius: 16px;
+        vertical-align: top;
+    }
+    #a { box-shadow: 0 4px 0 0 #888; }
+    #b { box-shadow: 0 0 0 8px #f80; }
+    #c { box-shadow: 6px 6px 10px 4px rgba(0, 0, 0, 0.45); border-radius: 40px; }
+    #d { box-shadow: -4px 8px 8px -4px #0a0; border-radius: 8px 32px; }
+    #e { box-shadow: 0 0 6px 10px rgba(0, 80, 200, 0.35); border-radius: 50%; }
+</style>
+</head>
+<body>
+<div class="box" id="a"></div>
+<div class="box" id="b"></div>
+<div class="box" id="c"></div>
+<div class="box" id="d"></div>
+<div class="box" id="e"></div>
+</body>
+</html>
