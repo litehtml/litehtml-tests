@@ -163,3 +163,47 @@ These are text-rendering tests, so their goldens come from `render2png`; box and
 cross-checked against Chrome with `render.py --no-bestfit -w 800 --repo .`. The goldens for
 `css21/basic-css-table-001.htm` and `css21/basic-html-table-001.htm` were refreshed because the table
 border no longer surrounds the caption.
+
+## Table height algorithm and cell baselines
+
+`render/css21/table-height-algorithm-001.htm`, `004`, `009`, `010`, `011`, `012`, `016`, `019`–`026`,
+`029`, `031`, `032` cover the CSS 2.1 §17.5.3 height and `vertical-align` rules for tables:
+
+- a table with `height: auto` is as tall as its rows plus cell spacing and borders, and a cell's
+  `height` is a minimum row height (`001`, `004`, `009`, `010`);
+- `sub`, `super`, `text-top`, `text-bottom` and `<length>`/`<percentage>` values of `vertical-align`
+  on a table cell behave as `baseline` (`019`–`024`);
+- cells with `vertical-align: baseline` share the row baseline, which is the largest distance from a
+  cell-box top to its baseline; the remaining cells are placed at the top, middle or bottom afterwards
+  (`011`, `012`, `016`, `029`);
+- a cell's baseline is the baseline of its first in-flow line box or table row, and an `inline-table`
+  uses the baseline of its first row (`025`, `031`, `032`);
+- a caption does not move the baseline of the table it belongs to (`031`, `032`);
+- a button's label defines the baseline of the control, so a button and a block next to it line up
+  (`026`).
+
+`render/table-baseline-nested-no-overlap.htm` checks that an empty anonymous context before a nested
+table does not supply the cell baseline, and that rows grow to contain baseline-shifted cells.
+Spanning cells use the aligned row heights and the spacing between rows; a cell's specified minimum
+height is not increased merely because its content shifts to the row baseline.
+
+Tables inherit the font properties of their ancestors in standards mode (§6.2), so `em` lengths inside
+a table resolve against the inherited font size. The HTML4-era reset of the table font
+(`font-size: medium`, `font-weight: normal`, `font-style: normal`) is applied in quirks mode only,
+matching Gecko.
+
+These pages mix Ahem box tests with text-rendering tests, so their goldens come from `render2png`;
+the box, row and baseline geometry was cross-checked against Chrome with headless Chrome using the
+`fonts/` directory and `serif`/`sans-serif` aliases (see `render.py`).
+
+The goldens for `render/acid1.htm`, `render/css21/c5526c-display-000.htm`,
+`render/css21/floats-wrap-bfc-005.htm` and `render/table-flex-github.htm` were refreshed because their
+tables now inherit the page font, and the goldens for `render/button-inline-content.htm`,
+`render/button-inline-formatting.htm` and `render/focus-checkbox-keyboard.htm` because form controls
+are baseline-aligned like in browsers. The goldens for
+`render/css21/table-anonymous-block-014.htm` and `render/css21/table-caption-optional-002.htm` were
+refreshed because the baseline of an `inline-table` is now the baseline of its first row.
+The `empty-cells-applies-to-002`, `003`, and `005` and `table-height-algorithm-012` and `025`
+goldens were refreshed for the corrected row heights; their visible content is unchanged.
+`table-height-algorithm-014` was refreshed for the adjusted distribution of a specified table height
+between rows when a cell spans them.

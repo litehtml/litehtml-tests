@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Nested table cell baselines and row height</title>
+<style>
+body { margin: 8px; font: 20px/20px sans-serif; }
+table, .inner, .lines { border-spacing: 0; }
+td { padding: 0; vertical-align: baseline; }
+.inner, .lines { display: table; }
+.inner > div { display: table-cell; vertical-align: baseline; }
+.lines > span { display: table-row; }
+.mark { font-size: 80%; color: green; }
+.next { background: #e0e0e0; }
+.padded { padding-top: 40px; }
+</style>
+<table>
+  <tr><td><div class="inner">
+    <div> <a><span class="lines"><span>array</span></span></a> </div>
+    <div><span class="lines"><span><span class="mark">(C++11)</span></span></span></div>
+  </div></td></tr>
+  <tr class="next"><td>vector</td></tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>first<br>second</td>
+    <td class="padded">aligned</td>
+  </tr>
+  <tr class="next"><td colspan="2">next row</td></tr>
+</table>
