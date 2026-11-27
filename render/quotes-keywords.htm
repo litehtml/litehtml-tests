@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS quotes: open-quote, close-quote, no-open-quote and no-close-quote</title>
+<style>
+    body {
+        font: 20px serif;
+        margin: 8px;
+    }
+
+    div {
+        border: 1px solid black;
+        margin: 4px;
+    }
+
+    /* no-open-quote increments and no-close-quote decrements the level without inserting a mark,
+       so the second pair is used: "[by]" must be generated. */
+    .levels::before {
+        content: "[" no-open-quote open-quote close-quote no-close-quote "]";
+    }
+
+    .levels {
+        quotes: "a" "z" "b" "y";
+    }
+
+    /* A close-quote at level 0 is ignored and inserts nothing. */
+    .guard::before {
+        content: "PASS" close-quote no-close-quote;
+    }
+
+    .guard {
+        quotes: "FAIL" "FAIL";
+    }
+
+    /* quotes: none suppresses the marks but still changes the nesting level. */
+    .none::before {
+        content: "none:" open-quote open-quote close-quote close-quote;
+    }
+
+    .none {
+        quotes: none;
+    }
+</style>
+</head>
+<body>
+    <div class="levels"></div>
+    <div class="guard"></div>
+    <div class="none"></div>
+</body>
+</html>

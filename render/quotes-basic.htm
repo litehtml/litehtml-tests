@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS quotes: quotation mark pairs and nesting levels</title>
+<style>
+    body {
+        font: 20px serif;
+        margin: 8px;
+    }
+
+    div {
+        border: 1px solid black;
+        margin: 4px;
+    }
+
+    /* Two pairs: "([])" must be generated. */
+    .pairs::before {
+        content: open-quote open-quote close-quote close-quote;
+    }
+
+    .pairs {
+        quotes: "(" ")" "[" "]";
+    }
+
+    /* Only one pair: the last pair is repeated for deeper levels. */
+    .repeat::before {
+        content: open-quote open-quote open-quote;
+    }
+
+    .repeat::after {
+        content: close-quote close-quote close-quote;
+    }
+
+    .repeat {
+        quotes: "A" "Z";
+    }
+
+    /* Quote keywords can be mixed with strings. */
+    .mixed::before {
+        content: "x" open-quote "y" close-quote "z";
+    }
+
+    .mixed {
+        quotes: "<" ">";
+    }
+</style>
+</head>
+<body>
+    <div class="pairs"></div>
+    <div class="repeat"></div>
+    <div class="mixed"></div>
+</body>
+</html>

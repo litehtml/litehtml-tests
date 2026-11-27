@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS quotes: the nesting level is independent of the element nesting</title>
+<style>
+    body {
+        font: 20px serif;
+        margin: 8px;
+    }
+
+    div {
+        border: 1px solid black;
+        margin: 4px;
+    }
+
+    /* Level 0 uses A/Z, level 1 uses B/Y. */
+    .open, .show, .close {
+        quotes: "A" "Z" "B" "Y";
+    }
+
+    .open::before {
+        content: open-quote;
+    }
+
+    .show::before {
+        content: open-quote;
+    }
+
+    .close::after {
+        content: close-quote;
+    }
+
+    /* Content in a display:none subtree is not generated, so it must not change the nesting level. */
+    .hidden {
+        display: none;
+    }
+
+    .hidden::before {
+        content: open-quote;
+    }
+</style>
+</head>
+<body>
+    <p><q>outer <q>inner</q> tail</q></p>
+
+    <div class="open">A</div>
+    <div class="show">B (the quote opened above is still open)</div>
+    <div class="close">Y</div>
+    <div class="hidden"></div>
+    <div class="show">B again</div>
+</body>
+</html>

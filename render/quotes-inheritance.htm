@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS quotes: inheritance, inherit, auto and invalid values</title>
+<style>
+    body {
+        font: 20px serif;
+        margin: 8px;
+    }
+
+    div {
+        border: 1px solid black;
+        margin: 4px;
+    }
+
+    .parent {
+        quotes: "<" ">";
+    }
+
+    .parent .leaf::before {
+        content: open-quote;
+    }
+
+    .parent .leaf::after {
+        content: close-quote;
+    }
+
+    /* `inherit` takes the parent's quotation marks. */
+    .inherit {
+        quotes: inherit;
+    }
+
+    /* An odd number of strings is invalid, so the initial value (auto) is used. */
+    .invalid {
+        quotes: "X";
+    }
+
+    .invalid::before {
+        content: open-quote;
+    }
+
+    .invalid::after {
+        content: close-quote;
+    }
+
+    .auto::before {
+        content: open-quote;
+    }
+
+    .auto::after {
+        content: close-quote;
+    }
+
+    .auto {
+        quotes: auto;
+    }
+</style>
+</head>
+<body>
+    <div class="parent">
+        <div class="leaf inherit">inherited angle brackets</div>
+    </div>
+    <div class="invalid">invalid value falls back to auto</div>
+    <div class="auto">explicit auto</div>
+</body>
+</html>
