@@ -142,3 +142,24 @@ A table cell's `height` is now a minimum row height (CSS 2.1 §17.5.3), so empty
 declared height get painted backgrounds/borders and rows no longer collapse. Goldens in the
 `css21/*-applies-to-*` family that relied on `td { height: … }` were refreshed for this corrected
 behavior; their box heights were cross-checked against Chrome.
+
+## Table captions
+
+`render/css21/caption-vs-table-box-001.htm`, `caption-vs-table-box-002.htm`,
+`table-caption-002.htm`, `table-caption-003.htm` and `table-caption-margins-001.htm` cover the
+CSS 2.1 §17.4 caption rules:
+
+- a caption is a block box inside the table wrapper, outside the table border/padding box, with its
+  own margin, border and padding (`caption-vs-table-box-001..002`, including `inline-table`);
+- caption margins do not collapse with the table's margins (`table-caption-margins-001`);
+- multiple captions and captions between rows are moved above the table in document order
+  (`table-caption-002`);
+- a caption between cells splits the anonymous rows, so the cells fall into separate rows
+  (`table-caption-003`);
+- a table without rows or columns still honours a specified width and height
+  (`table-caption-margins-001`).
+
+These are text-rendering tests, so their goldens come from `render2png`; box and line geometry was
+cross-checked against Chrome with `render.py --no-bestfit -w 800 --repo .`. The goldens for
+`css21/basic-css-table-001.htm` and `css21/basic-html-table-001.htm` were refreshed because the table
+border no longer surrounds the caption.
