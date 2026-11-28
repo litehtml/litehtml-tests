@@ -113,6 +113,25 @@ The pages use only solid colour boxes, so their goldens are pixel-identical betw
 Chrome; the geometry was cross-checked with `render.py -w 800 --no-bestfit`. The `*.cfg` files pin the
 viewport to 800x600 (`bestfit: false`) so the escaping boxes are visible.
 
+## Paint order of atomic inline-level boxes
+
+`render/css21/inline-table-zorder-001..005.htm` (including the re-enabled `002` and `005`) and
+`render/css21/inline-block-zorder-001..005.htm` cover the CSS 2.1 Appendix E §E.2 painting order:
+
+- step 4 paints the backgrounds and borders of the in-flow, non-positioned block-level descendants
+  before step 7 paints the inline-level content, so the inline-level box paints above a block
+  background that overlaps it through a negative margin (`001`, `004`);
+- within step 7 the inline-level boxes paint in tree order, so of two overlapping inline-level
+  siblings the later one paints on top (`003`, `004`);
+- step 7.2.1 treats an `inline-block` or `inline-table` — and, per CSS Display 3, an `inline-flex` or
+  `inline-grid` — as if it created a new stacking context, so everything inside it, including its
+  own block-level descendants, paints as one group in that inline pass instead of in the block pass
+  before the parent's other blocks (`002`, `005`).
+
+The pages only use solid colour boxes. The goldens of the two re-enabled tests were produced with
+`render2png` and are pixel-identical to the `inline-table-zorder-001` and `inline-table-zorder-004`
+goldens, which their `rel=reference` links point at.
+
 ## Fixed table layout
 
 `render/table-layout-fixed-*.htm` and the re-enabled
